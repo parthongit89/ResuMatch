@@ -415,3 +415,106 @@ h1, h2, h3, h4 {
     border-color: var(--primary);
     transform: translateY(-2px);
 }
+
+/* Buttons */
+.auth-submit-btn {
+    background: var(--accent-gradient);
+    color: #fff;
+    font-size: 12.5px;
+    padding: 11px 45px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+    transition: all var(--transition-normal);
+}
+
+.auth-submit-btn:hover {
+    background: var(--accent-gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+}
+
+.auth-submit-btn.hidden {
+    background-color: transparent;
+    border-color: #fff;
+    box-shadow: none;
+}
+
+.auth-submit-btn.hidden:hover {
+    background-color: #ffffff;
+    color: var(--primary);
+}
+
+/* Sliding Overlay Panel */
+.toggle-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all var(--transition-slow);
+    border-radius: 150px 0 0 100px;
+    z-index: 1000;
+}
+
+.auth-container.active .toggle-container {
+    transform: translateX(-100%);
+    border-radius: 0 150px 100px 0;
+}
+
+.toggle {
+    background: var(--auth-gradient);
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: all var(--transition-slow);
+}
+
+.auth-container.active .toggle {
+    transform: translateX(50%);
+}
+
+.toggle-panel {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 35px;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all var(--transition-slow);
+}
+
+.toggle-left { transform: translateX(-200%); }
+.auth-container.active .toggle-left { transform: translateX(0); }
+.toggle-right { right: 0; transform: translateX(0); }
+.auth-container.active .toggle-right { transform: translateX(200%); }
+
+/* Mobile switcher prompt (hidden on desktop) */
+.mobile-switch-prompt {
+    display: none;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--auth-subtext);
+}
+
+.mobile-switch-prompt a {
+    color: var(--primary-light);
+    font-weight: 600;
+    margin-left: 5px;
+    text-decoration: none;
+}
