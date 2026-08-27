@@ -1,5 +1,5 @@
 /* ==========================================================================
-   RESUMATCH — STANDALONE AUTH DEMO STYLESHEET
+   RESUMATCH — AUTH  STYLESHEET
    Sliding Dual Panel (Sign In / Sign Up) + Theme Switcher + Toast Notifications
    ========================================================================== */
 
@@ -35,4 +35,82 @@
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* DARK THEME (DEFAULT) */
+[data-theme="dark"] {
+    --bg-main: #0a0d14;
+    --bg-card: rgba(18, 24, 38, 0.95);
+    --bg-input: #151b2b;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-focus: #6366f1;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.6);
+
+    --auth-modal-bg: #111827;
+    --auth-input-bg: #1f2937;
+    --auth-text: #f3f4f6;
+    --auth-subtext: #9ca3af;
+}
+
+/* LIGHT THEME */
+[data-theme="light"] {
+    --bg-main: #f3f4f6;
+    --bg-card: rgba(255, 255, 255, 0.96);
+    --bg-input: #f1f5f9;
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-focus: #4f46e5;
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+
+    --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.12);
+
+    --auth-modal-bg: #ffffff;
+    --auth-input-bg: #f8fafc;
+    --auth-text: #1e293b;
+    --auth-subtext: #64748b;
+}
+
+/* --------------------------------------------------------------------------
+   2. GLOBAL BASE STYLES
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+.gradient-text {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
 }
