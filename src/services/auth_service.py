@@ -7,7 +7,7 @@ from src.utils.otp_generator import generate_otp
 from src.utils.email_sender import send_otp_email
 
 class AuthService:
-    """Service handling User Registration, Login, OTP Generation, Verification & Google OAuth"""
+    """Service handling User Registration, Login, OTP Generation, Verification, Google OAuth & Password Resets"""
 
     @staticmethod
     def register_user(full_name, email, password):
@@ -134,6 +134,55 @@ class AuthService:
         return True, "Google Authentication Successful", {
             "access_token": access_token,
             "user": user.to_dict()
+        }
+
+    @staticmethod
+    def forgot_password(email):
+        """Generates and sends a Password Reset OTP email via SendGrid"""
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return False, "No account found with this email address", None
+
+        otp_code = generate_otp(6)
+        OTPSession.create_otp(email=email, otp_code=otp_code, valid_minutes=10)
+        
+        email_sent, error = send_otp_email(email, otp_code)
+        
+        return True, "Password reset OTP sent to your email address", {
+            "email": email,
+            "otp_sent": email_sent
+        }
+
+    @staticmethod
+    def reset_password(email, otp_code, new_password):
+        """Validates Reset OTP code and updates user's password"""
+        user = User.query.filter_by(email=email).first()
+        if not user:
+            return False, "User account not found", None
+
+        otp_session = OTPSession.query.filter_by(
+            email=email,
+            otp_code=otp_code,
+            is_used=False
+        ).order_by(OTPSession.created_at.desc()).first()
+
+        if not otp_session:
+            return False, "Invalid or expired reset OTP code", None
+
+        if datetime.utcnow() > otp_session.expires_at:
+            return False, "Reset OTP code has expired. Please request a new one.", None
+
+        # Hash new password
+        password_bytes = new_password.encode('utf-8')
+        salt = bcrypt.gensalt(12)
+        user.password_hash = bcrypt.hashpw(password_bytes, salt).decode('utf-8')
+
+        # Mark OTP as used
+        otp_session.is_used = True
+        db.session.commit()
+
+        return True, "Password reset successfully! You can now sign in with your new password.", {
+            "email": email
         }
 
     @staticmethod

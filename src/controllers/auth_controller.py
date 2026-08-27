@@ -2,7 +2,10 @@ from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from marshmallow import ValidationError
 from src.utils.response_helpers import success_response, error_response
-from src.validators.auth_validator import SignUpSchema, SignInSchema, VerifyOTPSchema, ResendOTPSchema, GoogleLoginSchema
+from src.validators.auth_validator import (
+    SignUpSchema, SignInSchema, VerifyOTPSchema, ResendOTPSchema, 
+    GoogleLoginSchema, ForgotPasswordSchema, ResetPasswordSchema
+)
 from src.services.auth_service import AuthService
 
 signUpSchema = SignUpSchema()
@@ -10,6 +13,8 @@ signInSchema = SignInSchema()
 verifyOTPSchema = VerifyOTPSchema()
 resendOTPSchema = ResendOTPSchema()
 googleLoginSchema = GoogleLoginSchema()
+forgotPasswordSchema = ForgotPasswordSchema()
+resetPasswordSchema = ResetPasswordSchema()
 
 def register_controller():
     """POST /api/v1/auth/signup Controller"""
@@ -88,6 +93,38 @@ def google_login_controller():
         email=data['email'],
         full_name=data.get('full_name'),
         google_uid=data.get('google_uid')
+    )
+
+    if not success:
+        return error_response(message=message, status_code=400)
+
+    return success_response(data=result, message=message, status_code=200)
+
+def forgot_password_controller():
+    """POST /api/v1/auth/forgot-password Controller"""
+    try:
+        data = forgotPasswordSchema.load(request.get_json() or {})
+    except ValidationError as err:
+        return error_response(message="Validation error", errors=err.messages, status_code=422)
+
+    success, message, result = AuthService.forgot_password(email=data['email'])
+
+    if not success:
+        return error_response(message=message, status_code=404)
+
+    return success_response(data=result, message=message, status_code=200)
+
+def reset_password_controller():
+    """POST /api/v1/auth/reset-password Controller"""
+    try:
+        data = resetPasswordSchema.load(request.get_json() or {})
+    except ValidationError as err:
+        return error_response(message="Validation error", errors=err.messages, status_code=422)
+
+    success, message, result = AuthService.reset_password(
+        email=data['email'],
+        otp_code=data['otp_code'],
+        new_password=data['new_password']
     )
 
     if not success:

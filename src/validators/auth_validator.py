@@ -25,3 +25,13 @@ class GoogleLoginSchema(Schema):
     email = fields.Email(required=True)
     full_name = fields.Str(required=False)
     google_uid = fields.Str(required=False)
+
+class ForgotPasswordSchema(Schema):
+    """Validation schema for Forgot Password request"""
+    email = fields.Email(required=True)
+
+class ResetPasswordSchema(Schema):
+    """Validation schema for Reset Password request"""
+    email = fields.Email(required=True)
+    otp_code = fields.Str(required=True, validate=validate.Length(equal=6))
+    new_password = fields.Str(required=True, validate=validate.Length(min=6, max=100))
