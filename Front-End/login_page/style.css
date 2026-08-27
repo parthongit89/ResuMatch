@@ -314,3 +314,104 @@ h1, h2, h3, h4 {
     font-family: var(--font-body);
     transition: all var(--transition-fast);
 }
+
+
+.auth-input-box input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.toggle-pwd-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--auth-subtext);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    padding: 4px;
+}
+
+.toggle-pwd-btn:hover {
+    color: var(--primary-light);
+}
+
+/* Extra Form Controls */
+.auth-row-extra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 12px;
+    margin: 8px 0 12px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--auth-subtext);
+    cursor: pointer;
+}
+
+.auth-terms {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 6px 0 10px;
+    font-size: 11.5px;
+    text-align: left;
+    color: var(--auth-subtext);
+}
+
+.auth-terms label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: var(--primary-light);
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* Social Login Icons */
+.social-icons {
+    margin: 12px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons button.icons {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: var(--auth-text);
+    background: var(--auth-input-bg);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.social-icons button.icons:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
