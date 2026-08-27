@@ -38,5 +38,5 @@ projectmd/
 └── Typography_icons.md/ 
 
 
-others_files/
+plan_files/
 ├── 
