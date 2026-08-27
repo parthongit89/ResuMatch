@@ -114,3 +114,304 @@ h1, h2, h3, h4 {
     color: transparent;
     display: inline-block;
 }
+
+/* --------------------------------------------------------------------------
+   3.  DEMO LAYOUT
+   -------------------------------------------------------------------------- */
+.auth-fullscreen-view {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+}
+
+/* Top Navigation Bar */
+.auth-top-bar {
+    width: 768px;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.brand-icon-wrap {
+    width: 38px;
+    height: 38px;
+    background: var(--accent-gradient);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.35rem;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+}
+
+.brand-info {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.brand-name {
+    font-size: 1.35rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
+}
+
+.auth-pill-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-pill);
+    background: var(--match-green-soft);
+    color: var(--match-green);
+    border: 1px solid var(--match-green-border);
+    letter-spacing: 0.05em;
+}
+
+.theme-toggle-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-subtle);
+    transition: all var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+    background: var(--primary);
+    color: #ffffff;
+    transform: rotate(15deg);
+}
+
+[data-theme="dark"] .theme-icon-light { display: none; }
+[data-theme="dark"] .theme-icon-dark { display: block; }
+[data-theme="light"] .theme-icon-dark { display: none; }
+[data-theme="light"] .theme-icon-light { display: block; color: #f59e0b; }
+
+
+/* --------------------------------------------------------------------------
+   4. SLIDING DUAL-PANEL AUTH CONTAINER
+   -------------------------------------------------------------------------- */
+.auth-container {
+    background-color: var(--auth-modal-bg);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-hover);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 520px;
+    border: 1px solid var(--border-color);
+}
+
+.auth-container p {
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+    color: #ffffff;
+}
+
+.auth-container span {
+    font-size: 12px;
+    color: var(--auth-subtext);
+    margin: 8px 0;
+}
+
+.auth-container form {
+    background-color: var(--auth-modal-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+    text-align: center;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all var(--transition-slow);
+}
+
+.sign-in {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.auth-container.active .sign-in {
+    transform: translateX(100%);
+}
+
+.sign-up {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.auth-container.active .sign-up {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: authMove 0.6s;
+}
+
+@keyframes authMove {
+    0%, 49.99% { opacity: 0; z-index: 1; }
+    50%, 100% { opacity: 1; z-index: 5; }
+}
+
+/* Input Fields */
+.auth-input-box {
+    position: relative;
+    width: 100%;
+    margin: 7px 0;
+}
+
+.auth-input-box i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--auth-subtext);
+    font-size: 1.15rem;
+    pointer-events: none;
+}
+
+.auth-input-box input {
+    background-color: var(--auth-input-bg);
+    border: 1px solid var(--border-color);
+    padding: 11px 40px 11px 40px;
+    font-size: 13px;
+    border-radius: var(--radius-sm);
+    width: 100%;
+    outline: none;
+    color: var(--auth-text);
+    font-family: var(--font-body);
+    transition: all var(--transition-fast);
+}
+
+
+.auth-input-box input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.toggle-pwd-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--auth-subtext);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    padding: 4px;
+}
+
+.toggle-pwd-btn:hover {
+    color: var(--primary-light);
+}
+
+/* Extra Form Controls */
+.auth-row-extra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 12px;
+    margin: 8px 0 12px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--auth-subtext);
+    cursor: pointer;
+}
+
+.auth-terms {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 6px 0 10px;
+    font-size: 11.5px;
+    text-align: left;
+    color: var(--auth-subtext);
+}
+
+.auth-terms label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.forgot-link {
+    color: var(--primary-light);
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-link:hover {
+    text-decoration: underline;
+}
+
+/* Social Login Icons */
+.social-icons {
+    margin: 12px 0;
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons button.icons {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: var(--auth-text);
+    background: var(--auth-input-bg);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.social-icons button.icons:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
