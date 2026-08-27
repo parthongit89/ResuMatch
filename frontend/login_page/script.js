@@ -83,6 +83,17 @@ const AuthDemo = {
 
     init() {
         this.container = document.getElementById('authContainer');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+
+        if (loginBtn) {
+            loginBtn.addEventListener('click', () => this.showSignIn());
+        }
+
+        if (registerBtn) {
+            registerBtn.addEventListener('click', () => this.showSignUp());
+        }
+
         this.silentWarmUp();
     },
 
