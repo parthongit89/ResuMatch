@@ -44,3 +44,31 @@ const Toast = {
         }, duration);
     }
 };
+
+
+/* ==========================================================================
+   2. THEME MANAGER
+   ========================================================================== */
+const ThemeManager = {
+    storageKey: 'resumatch_auth_theme',
+
+    init() {
+        const saved = localStorage.getItem(this.storageKey) || 'dark';
+        this.setTheme(saved);
+
+        const toggleBtn = document.getElementById('authThemeToggleBtn');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme') || 'dark';
+                const next = current === 'dark' ? 'light' : 'dark';
+                this.setTheme(next);
+                Toast.show(`Switched to ${next} mode`, 'info', 1800);
+            });
+        }
+    },
+
+    setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem(this.storageKey, theme);
+    }
+};
