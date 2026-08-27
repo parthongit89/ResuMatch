@@ -1,10 +1,17 @@
 /* ==========================================================================
-   RESUMATCH — AUTH DEMO SCRIPT
-   Toast Notifications & Theme Switcher
+   RESUMATCH — AUTH DEMO & FLASK API INTEGRATION SCRIPT
    ========================================================================== */
 
 "use strict";
 
+// API Base URL (Local Flask Server / Production Render Backend)
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://127.0.0.1:5000/api/v1'
+    : 'https://resumatch-api.onrender.com/api/v1';
+
+/* ==========================================================================
+   1. TOAST NOTIFICATIONS
+   ========================================================================== */
 const Toast = {
     container: null,
 
@@ -68,7 +75,147 @@ const ThemeManager = {
     }
 };
 
-// Initialize Theme Manager on load
+/* ==========================================================================
+   3. AUTH DEMO & API HANDLERS
+   ========================================================================== */
+const AuthDemo = {
+    container: null,
+
+    init() {
+        this.container = document.getElementById('authContainer');
+        this.silentWarmUp();
+    },
+
+    // Solution 1: Silent Backend Warm-Up Ping on Landing/Auth Load
+    silentWarmUp() {
+        fetch(`${API_BASE_URL}/health`, { method: 'GET', mode: 'cors' })
+            .then(res => res.json())
+            .then(data => console.log('[ResuMatch API] Server status:', data.message))
+            .catch(() => console.log('[ResuMatch API] Waking up backend in background...'));
+    },
+
+    showSignUp() {
+        if (this.container) this.container.classList.add('active');
+    },
+
+    showSignIn() {
+        if (this.container) this.container.classList.remove('active');
+    },
+
+    togglePasswordVisibility(inputId, btn) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        const icon = btn.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            if (icon) icon.className = 'bx bx-hide';
+        } else {
+            input.type = 'password';
+            if (icon) icon.className = 'bx bx-show';
+        }
+    },
+
+    async handleSignUp(event) {
+        event.preventDefault();
+        const fullName = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+
+        Toast.show('Creating account & sending OTP...', 'info', 3000);
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/signup`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ full_name: fullName, email: email, password: password })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                Toast.show(data.message || 'Registration successful! Check your email for OTP.', 'success', 5000);
+                this.promptOTPVerification(email);
+            } else {
+                Toast.show(data.message || 'Registration failed', 'error', 4000);
+            }
+        } catch (err) {
+            Toast.show('Network error or server waking up. Please try again in a few seconds.', 'error', 4000);
+        }
+    },
+
+    async handleSignIn(event) {
+        event.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+
+        Toast.show('Signing in...', 'info', 2500);
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, password: password })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                Toast.show(data.message || 'Credentials verified! OTP sent to your email.', 'success', 4000);
+                this.promptOTPVerification(email);
+            } else {
+                Toast.show(data.message || 'Invalid credentials', 'error', 4000);
+            }
+        } catch (err) {
+            Toast.show('Network error or server waking up. Please try again.', 'error', 4000);
+        }
+    },
+
+    promptOTPVerification(email) {
+        const otpCode = prompt(`Enter the 6-digit OTP sent to ${email}:`);
+        if (otpCode && otpCode.length === 6) {
+            this.verifyOTP(email, otpCode);
+        }
+    },
+
+    async verifyOTP(email, otpCode) {
+        Toast.show('Verifying OTP...', 'info', 2000);
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, otp_code: otpCode })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                Toast.show('OTP Verified! Access granted.', 'success', 4000);
+                if (data.data && data.data.access_token) {
+                    localStorage.setItem('resumatch_token', data.data.access_token);
+                }
+            } else {
+                Toast.show(data.message || 'Invalid OTP code', 'error', 4000);
+            }
+        } catch (err) {
+            Toast.show('Failed to verify OTP. Please try again.', 'error', 4000);
+        }
+    },
+
+    socialAuth(provider) {
+        Toast.show(`${provider} authentication requested. Connecting...`, 'info', 2500);
+    },
+
+    forgotPassword() {
+        const email = prompt('Enter your email to receive password reset instructions:');
+        if (email) {
+            Toast.show(`Password reset instructions sent to ${email}`, 'info', 3500);
+        }
+    }
+};
+
+// Initialize Managers on DOM Load
 document.addEventListener('DOMContentLoaded', () => {
     ThemeManager.init();
+    AuthDemo.init();
 });
