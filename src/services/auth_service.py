@@ -108,3 +108,11 @@ class AuthService:
             return True, "New OTP code sent successfully", {"email": email}
         else:
             return False, f"Failed to send OTP email: {error}", None
+
+    @staticmethod
+    def get_user_profile(user_id):
+        """Fetches profile details of current authenticated user"""
+        user = User.query.get(user_id)
+        if not user:
+            return False, "User not found", None
+        return True, "User profile retrieved", user.to_dict()

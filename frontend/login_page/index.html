@@ -4,29 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resu_Match</title>
-    <meta name="description" content="Interactive sliding authentication page with register and sign-in flows, social login simlution, and theme toggling.">
+    <meta name="description" content="Interactive sliding authentication page with register and sign-in flows, social login simulation, and theme toggling.">
 
-    <!---Google fonts (Montserrat & Plus Jakarta sans)-->
+    <!-- Google fonts (Montserrat & Plus Jakarta Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Boxicons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     
-    <!-- Auth Demo Stylesheet -->
+    <!-- Auth Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-
-
-
-
 </head>
 <body>
+    <!-- Toast Notification Container -->
     <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
-    <!--login page-->
+    <!-- Main Auth Fullscreen View -->
     <main class="auth-fullscreen-view">
         <!-- Top Navigation / Controls Bar -->
         <header class="auth-top-bar">
@@ -36,7 +31,6 @@
                 </div>
                 <div class="brand-info">
                     <span class="brand-name">Resu<span class="gradient-text">Match</span></span>
-                    
                 </div>
             </div>
             <div class="auth-top-actions">
@@ -47,7 +41,7 @@
             </div>
         </header>
 
-         <!-- Sliding Auth Container -->
+        <!-- Sliding Auth Container -->
         <div class="auth-container" id="authContainer">
             <!-- SIGN UP FORM -->
             <div class="form-container sign-up">
@@ -156,13 +150,13 @@
                     <div class="toggle-panel toggle-left">
                         <h1>Welcome Back!</h1>
                         <p>Already have an account? Sign in with your credentials to access your dashboard.</p>
-                        <button type="button" class="auth-submit-btn hidden" id="loginBtn">Sign In</button>
+                        <button type="button" class="auth-submit-btn overlay-btn" id="loginBtn" onclick="AuthDemo.showSignIn()">Sign In</button>
                     </div>
                     <!-- Right overlay for switching to Sign Up -->
                     <div class="toggle-panel toggle-right">
                         <h1>Hello, Friend!</h1>
                         <p>New here? Enter your details and start your journey with us today.</p>
-                        <button type="button" class="auth-submit-btn hidden" id="registerBtn">Sign Up</button>
+                        <button type="button" class="auth-submit-btn overlay-btn" id="registerBtn" onclick="AuthDemo.showSignUp()">Sign Up</button>
                     </div>
                 </div>
             </div>
@@ -172,16 +166,36 @@
         <footer class="auth-page-footer">
             <div class="status-indicator-tag">
                 <span class="status-dot"></span>
-                <span>Stand-Alone Authentication Demo Active</span>
+                <span>SendGrid Email OTP & Neon Cloud DB Active</span>
             </div>
-            <p class="auth-footer-note">Client-side auth simulation with real-time feedback & dark mode.</p>
+            <p class="auth-footer-note">Decoupled Flask REST API with JWT Token Authentication.</p>
         </footer>
     </main>
 
-    <!--  Demo Script -->
+    <!-- OTP VERIFICATION MODAL -->
+    <div id="otpModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card">
+            <button class="modal-close-btn" onclick="AuthDemo.closeOTPModal()">&times;</button>
+            <div class="modal-icon-wrap">
+                <i class='bx bx-key'></i>
+            </div>
+            <h2>Email Verification</h2>
+            <p>We've sent a 6-digit OTP verification code to <b id="otpTargetEmail">user@example.com</b></p>
+            
+            <div class="otp-input-group">
+                <input type="text" id="otpCodeInput" maxlength="6" placeholder="123456" autocomplete="one-time-code" autofocus>
+            </div>
+
+            <button type="button" class="auth-submit-btn modal-submit-btn" onclick="AuthDemo.submitOTPModal()">Verify & Continue</button>
+
+            <div class="modal-footer-resend">
+                <span>Didn't receive code? </span>
+                <a href="javascript:void(0)" onclick="AuthDemo.resendOTPModal()">Resend OTP</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Script -->
     <script src="script.js"></script>
-
-
-
 </body>
 </html>

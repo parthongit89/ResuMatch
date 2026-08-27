@@ -80,6 +80,7 @@ const ThemeManager = {
    ========================================================================== */
 const AuthDemo = {
     container: null,
+    currentEmail: '',
 
     init() {
         this.container = document.getElementById('authContainer');
@@ -132,7 +133,7 @@ const AuthDemo = {
         const email = document.getElementById('regEmail').value.trim();
         const password = document.getElementById('regPassword').value;
 
-        Toast.show('Creating account & sending OTP...', 'info', 3000);
+        Toast.show('Creating account & sending OTP email...', 'info', 3000);
 
         try {
             const response = await fetch(`${API_BASE_URL}/auth/signup`, {
@@ -144,13 +145,13 @@ const AuthDemo = {
             const data = await response.json();
 
             if (data.success) {
-                Toast.show(data.message || 'Registration successful! Check your email for OTP.', 'success', 5000);
-                this.promptOTPVerification(email);
+                Toast.show(data.message || 'Registration successful! OTP sent to your email.', 'success', 5000);
+                this.openOTPModal(email);
             } else {
                 Toast.show(data.message || 'Registration failed', 'error', 4000);
             }
         } catch (err) {
-            Toast.show('Network error or server waking up. Please try again in a few seconds.', 'error', 4000);
+            Toast.show('Network error or server waking up. Please try again.', 'error', 4000);
         }
     },
 
@@ -172,55 +173,101 @@ const AuthDemo = {
 
             if (data.success) {
                 Toast.show(data.message || 'Credentials verified! OTP sent to your email.', 'success', 4000);
-                this.promptOTPVerification(email);
+                this.openOTPModal(email);
             } else {
-                Toast.show(data.message || 'Invalid credentials', 'error', 4000);
+                Toast.show(data.message || 'Invalid email or password', 'error', 4000);
             }
         } catch (err) {
             Toast.show('Network error or server waking up. Please try again.', 'error', 4000);
         }
     },
 
-    promptOTPVerification(email) {
-        const otpCode = prompt(`Enter the 6-digit OTP sent to ${email}:`);
-        if (otpCode && otpCode.length === 6) {
-            this.verifyOTP(email, otpCode);
+    /* --- OTP MODAL CONTROLS --- */
+    openOTPModal(email) {
+        this.currentEmail = email;
+        const targetEmailEl = document.getElementById('otpTargetEmail');
+        if (targetEmailEl) targetEmailEl.textContent = email;
+        const modal = document.getElementById('otpModal');
+        if (modal) {
+            modal.classList.add('open');
+            const otpInput = document.getElementById('otpCodeInput');
+            if (otpInput) {
+                otpInput.value = '';
+                otpInput.focus();
+            }
         }
     },
 
-    async verifyOTP(email, otpCode) {
-        Toast.show('Verifying OTP...', 'info', 2000);
+    closeOTPModal() {
+        const modal = document.getElementById('otpModal');
+        if (modal) modal.classList.remove('open');
+    },
+
+    async submitOTPModal() {
+        const otpInput = document.getElementById('otpCodeInput');
+        if (!otpInput) return;
+        const otpCode = otpInput.value.trim();
+
+        if (otpCode.length !== 6) {
+            Toast.show('Please enter a valid 6-digit OTP code', 'error', 3000);
+            return;
+        }
+
+        Toast.show('Verifying OTP code...', 'info', 2000);
 
         try {
             const response = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, otp_code: otpCode })
+                body: JSON.stringify({ email: this.currentEmail, otp_code: otpCode })
             });
 
             const data = await response.json();
 
             if (data.success) {
-                Toast.show('OTP Verified! Access granted.', 'success', 4000);
+                Toast.show('OTP Verified Successfully! Access Granted.', 'success', 4000);
                 if (data.data && data.data.access_token) {
                     localStorage.setItem('resumatch_token', data.data.access_token);
                 }
+                this.closeOTPModal();
             } else {
-                Toast.show(data.message || 'Invalid OTP code', 'error', 4000);
+                Toast.show(data.message || 'Invalid or expired OTP code', 'error', 4000);
             }
         } catch (err) {
             Toast.show('Failed to verify OTP. Please try again.', 'error', 4000);
         }
     },
 
+    async resendOTPModal() {
+        if (!this.currentEmail) return;
+        Toast.show('Resending OTP code...', 'info', 2500);
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/auth/resend-otp`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: this.currentEmail })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                Toast.show('New 6-digit OTP sent to your email!', 'success', 4000);
+            } else {
+                Toast.show(data.message || 'Failed to resend OTP', 'error', 4000);
+            }
+        } catch (err) {
+            Toast.show('Network error while resending OTP', 'error', 4000);
+        }
+    },
+
     socialAuth(provider) {
-        Toast.show(`${provider} authentication requested. Connecting...`, 'info', 2500);
+        Toast.show(`${provider} Authentication Selected. Integrating OAuth...`, 'info', 2500);
     },
 
     forgotPassword() {
-        const email = prompt('Enter your email to receive password reset instructions:');
+        const email = prompt('Enter your registered email address for password recovery:');
         if (email) {
-            Toast.show(`Password reset instructions sent to ${email}`, 'info', 3500);
+            Toast.show(`Password reset link sent to ${email}`, 'info', 3500);
         }
     }
 };

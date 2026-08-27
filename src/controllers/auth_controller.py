@@ -1,4 +1,5 @@
 from flask import request
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from marshmallow import ValidationError
 from src.utils.response_helpers import success_response, error_response
 from src.validators.auth_validator import SignUpSchema, SignInSchema, VerifyOTPSchema, ResendOTPSchema
@@ -72,6 +73,17 @@ def resend_otp_controller():
 
     if not success:
         return error_response(message=message, status_code=400)
+
+    return success_response(data=result, message=message, status_code=200)
+
+@jwt_required()
+def get_current_user_controller():
+    """GET /api/v1/auth/me Protected Controller"""
+    user_id = get_jwt_identity()
+    success, message, result = AuthService.get_user_profile(user_id)
+
+    if not success:
+        return error_response(message=message, status_code=404)
 
     return success_response(data=result, message=message, status_code=200)
 
