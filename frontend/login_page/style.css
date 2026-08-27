@@ -504,6 +504,8 @@ h1, h2, h3, h4 {
 .toggle-right { right: 0; transform: translateX(0); }
 .auth-container.active .toggle-right { transform: translateX(200%); }
 
+
+
 /* Mobile switcher prompt (hidden on desktop) */
 .mobile-switch-prompt {
     display: none;
@@ -517,4 +519,136 @@ h1, h2, h3, h4 {
     font-weight: 600;
     margin-left: 5px;
     text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. FOOTER STATUS
+   -------------------------------------------------------------------------- */
+.auth-page-footer {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.status-indicator-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-pill);
+    background: var(--match-green-soft);
+    border: 1px solid var(--match-green-border);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--match-green);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--match-green);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+
+.auth-footer-note {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   6. TOAST NOTIFICATION CONTAINER
+   -------------------------------------------------------------------------- */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 380px;
+}
+
+.toast-message {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-hover);
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    animation: toastSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.toast-message.success {
+    border-left: 4px solid var(--match-green);
+}
+
+.toast-message.error {
+    border-left: 4px solid var(--missing-red);
+}
+
+.toast-message.info {
+    border-left: 4px solid var(--primary-light);
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVE MEDIA QUERIES
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .auth-top-bar {
+        width: 100%;
+    }
+
+    .auth-container {
+        min-height: 480px;
+    }
+
+    .toggle-container {
+        display: none;
+    }
+
+    .form-container {
+        width: 100% !important;
+        position: relative;
+        display: none;
+    }
+
+    .sign-in {
+        display: block;
+    }
+
+    .auth-container.active .sign-in {
+        display: none;
+    }
+
+    .auth-container.active .sign-up {
+        display: block;
+        transform: none;
+        opacity: 1;
+    }
+
+    .mobile-switch-prompt {
+        display: block;
+    }
 }
