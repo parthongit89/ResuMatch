@@ -7,7 +7,7 @@ from src.utils.otp_generator import generate_otp
 from src.utils.email_sender import send_otp_email
 
 class AuthService:
-    """Service handling User Registration, Login, OTP Generation & Verification"""
+    """Service handling User Registration, Login, OTP Generation, Verification & Google OAuth"""
 
     @staticmethod
     def register_user(full_name, email, password):
@@ -108,6 +108,33 @@ class AuthService:
             return True, "New OTP code sent successfully", {"email": email}
         else:
             return False, f"Failed to send OTP email: {error}", None
+
+    @staticmethod
+    def google_login(email, full_name=None, google_uid=None):
+        """Authenticates or registers a user via Google OAuth and issues JWT access token"""
+        user = User.query.filter_by(email=email).first()
+
+        if not user:
+            # Create user automatically for Google OAuth
+            user = User(
+                full_name=full_name or email.split('@')[0],
+                email=email,
+                password_hash='OAUTH_GOOGLE_USER',
+                is_verified=True
+            )
+            db.session.add(user)
+        else:
+            user.is_verified = True
+
+        db.session.commit()
+
+        # Issue JWT Access Token
+        access_token = create_access_token(identity=user.id)
+
+        return True, "Google Authentication Successful", {
+            "access_token": access_token,
+            "user": user.to_dict()
+        }
 
     @staticmethod
     def get_user_profile(user_id):

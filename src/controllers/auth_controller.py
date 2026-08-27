@@ -2,13 +2,14 @@ from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from marshmallow import ValidationError
 from src.utils.response_helpers import success_response, error_response
-from src.validators.auth_validator import SignUpSchema, SignInSchema, VerifyOTPSchema, ResendOTPSchema
+from src.validators.auth_validator import SignUpSchema, SignInSchema, VerifyOTPSchema, ResendOTPSchema, GoogleLoginSchema
 from src.services.auth_service import AuthService
 
 signUpSchema = SignUpSchema()
 signInSchema = SignInSchema()
 verifyOTPSchema = VerifyOTPSchema()
 resendOTPSchema = ResendOTPSchema()
+googleLoginSchema = GoogleLoginSchema()
 
 def register_controller():
     """POST /api/v1/auth/signup Controller"""
@@ -70,6 +71,24 @@ def resend_otp_controller():
         return error_response(message="Validation error", errors=err.messages, status_code=422)
 
     success, message, result = AuthService.resend_otp(email=data['email'])
+
+    if not success:
+        return error_response(message=message, status_code=400)
+
+    return success_response(data=result, message=message, status_code=200)
+
+def google_login_controller():
+    """POST /api/v1/auth/google-login Controller"""
+    try:
+        data = googleLoginSchema.load(request.get_json() or {})
+    except ValidationError as err:
+        return error_response(message="Validation error", errors=err.messages, status_code=422)
+
+    success, message, result = AuthService.google_login(
+        email=data['email'],
+        full_name=data.get('full_name'),
+        google_uid=data.get('google_uid')
+    )
 
     if not success:
         return error_response(message=message, status_code=400)

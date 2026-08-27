@@ -19,3 +19,9 @@ class VerifyOTPSchema(Schema):
 class ResendOTPSchema(Schema):
     """Validation schema for Resend OTP request"""
     email = fields.Email(required=True)
+
+class GoogleLoginSchema(Schema):
+    """Validation schema for Google OAuth authentication"""
+    email = fields.Email(required=True)
+    full_name = fields.Str(required=False)
+    google_uid = fields.Str(required=False)

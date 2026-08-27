@@ -84,17 +84,6 @@ const AuthDemo = {
 
     init() {
         this.container = document.getElementById('authContainer');
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-
-        if (loginBtn) {
-            loginBtn.addEventListener('click', () => this.showSignIn());
-        }
-
-        if (registerBtn) {
-            registerBtn.addEventListener('click', () => this.showSignUp());
-        }
-
         this.silentWarmUp();
     },
 
@@ -261,7 +250,11 @@ const AuthDemo = {
     },
 
     socialAuth(provider) {
-        Toast.show(`${provider} Authentication Selected. Integrating OAuth...`, 'info', 2500);
+        if (provider === 'Google' && typeof window.firebaseGoogleAuth === 'function') {
+            window.firebaseGoogleAuth();
+        } else {
+            Toast.show(`${provider} OAuth Authentication requested.`, 'info', 2500);
+        }
     },
 
     forgotPassword() {

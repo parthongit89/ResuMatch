@@ -195,6 +195,58 @@
         </div>
     </div>
 
+    <!-- Firebase App & Auth SDK (Modular v10) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDY-7czOIOxsxMfYNsBmQVc_52uCpRKpbo",
+            authDomain: "resumatch-586b6.firebaseapp.com",
+            projectId: "resumatch-586b6",
+            storageBucket: "resumatch-586b6.firebasestorage.app",
+            messagingSenderId: "1030919394041",
+            appId: "1:1030919394041:web:49c3100d84114402464828"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.firebaseGoogleAuth = async function() {
+            try {
+                Toast.show("Connecting to Google Auth...", "info", 2500);
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+
+                Toast.show(`Google Verified: ${user.email}`, "info", 2000);
+
+                const response = await fetch(`${API_BASE_URL}/auth/google-login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: user.email,
+                        full_name: user.displayName,
+                        google_uid: user.uid
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    Toast.show(`Welcome, ${user.displayName}! Signed in via Google.`, "success", 4000);
+                    if (data.data && data.data.access_token) {
+                        localStorage.setItem('resumatch_token', data.data.access_token);
+                    }
+                } else {
+                    Toast.show(data.message || "Google login failed on backend", "error", 4000);
+                }
+            } catch (err) {
+                console.error("Google Auth Error:", err);
+                Toast.show("Google Sign-In cancelled or domain unauthorized", "error", 4000);
+            }
+        };
+    </script>
+
     <!-- Auth Script -->
     <script src="script.js"></script>
 </body>

@@ -11,12 +11,16 @@ from src.config.config import config_by_name
 from src.config.database import db
 from src.routes.auth_routes import auth_bp
 
+# Import models to ensure SQLAlchemy mappers are registered
+import src.models.user
+import src.models.resume
+
 def create_app(config_name=None):
     """Application Factory Function"""
     if config_name is None:
         config_name = os.getenv('FLASK_ENV', 'development')
 
-    # Frontend Static Directory Path
+    # Calculate Frontend Directory Path
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     frontend_dir = os.path.join(project_root, 'frontend', 'login_page')
 
