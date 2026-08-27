@@ -116,7 +116,7 @@ h1, h2, h3, h4 {
 }
 
 /* --------------------------------------------------------------------------
-   3. AUTH DEMO LAYOUT
+   3.  DEMO LAYOUT
    -------------------------------------------------------------------------- */
 .auth-fullscreen-view {
     width: 100%;
@@ -207,3 +207,44 @@ h1, h2, h3, h4 {
 [data-theme="dark"] .theme-icon-dark { display: block; }
 [data-theme="light"] .theme-icon-dark { display: none; }
 [data-theme="light"] .theme-icon-light { display: block; color: #f59e0b; }
+
+
+/* --------------------------------------------------------------------------
+   4. SLIDING DUAL-PANEL AUTH CONTAINER
+   -------------------------------------------------------------------------- */
+.auth-container {
+    background-color: var(--auth-modal-bg);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-hover);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 520px;
+    border: 1px solid var(--border-color);
+}
+
+.auth-container p {
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+    color: #ffffff;
+}
+
+.auth-container span {
+    font-size: 12px;
+    color: var(--auth-subtext);
+    margin: 8px 0;
+}
+
+.auth-container form {
+    background-color: var(--auth-modal-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+    text-align: center;
+}
