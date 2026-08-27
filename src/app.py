@@ -1,4 +1,9 @@
 import os
+import sys
+
+# Ensure root directory is in sys.path for module resolution
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
@@ -51,5 +56,5 @@ def create_app(config_name=None):
 if __name__ == '__main__':
     app = create_app()
     port = int(os.getenv('PORT', 5000))
-    print(f"🚀 ResuMatch Flask Server running on http://127.0.0.1:{port}")
-    app.run(host='0.0.0.0', port=port, debug=True)
+    print(f"[ResuMatch Server] Running on http://127.0.0.1:{port}")
+    app.run(host='0.0.0.0', port=port, debug=False)
