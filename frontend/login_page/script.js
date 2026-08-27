@@ -1,13 +1,9 @@
-
+/* ==========================================================================
+   RESUMATCH — AUTH DEMO SCRIPT
+   Toast Notifications & Theme Switcher
+   ========================================================================== */
 
 "use strict";
-
-
-
-
-
-
-
 
 const Toast = {
     container: null,
@@ -45,7 +41,6 @@ const Toast = {
     }
 };
 
-
 /* ==========================================================================
    2. THEME MANAGER
    ========================================================================== */
@@ -72,3 +67,8 @@ const ThemeManager = {
         localStorage.setItem(this.storageKey, theme);
     }
 };
+
+// Initialize Theme Manager on load
+document.addEventListener('DOMContentLoaded', () => {
+    ThemeManager.init();
+});
