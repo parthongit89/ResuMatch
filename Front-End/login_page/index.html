@@ -4,8 +4,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resu_Match</title>
+    <meta name="description" content="Interactive sliding authentication page with register and sign-in flows, social login simlution, and theme toggling.">
+
+    <!---Google fonts (Montserrat & Plus Jakarta sans)-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Auth Demo Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+
+
+
+
 </head>
 <body>
-    
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <!--login page-->
+    <main class="auth-fullscreen-view">
+        <!-- Top Navigation / Controls Bar -->
+        <header class="auth-top-bar">
+            <div class="auth-brand">
+                <div class="brand-icon-wrap">
+                    <i class='bx bx-check-shield auth-brand-icon'></i>
+                </div>
+                <div class="brand-info">
+                    <span class="brand-name">Resu<span class="gradient-text">Match</span></span>
+                    
+                </div>
+            </div>
+            <div class="auth-top-actions">
+                <button id="authThemeToggleBtn" class="theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+                    <i class='bx bx-moon theme-icon-dark'></i>
+                    <i class='bx bx-sun theme-icon-light'></i>
+                </button>
+            </div>
+        </header>
+
+         <!-- Sliding Auth Container -->
+        <div class="auth-container" id="authContainer">
+            <!-- SIGN UP FORM -->
+            <div class="form-container sign-up">
+                <form id="signUpForm" onsubmit="AuthDemo.handleSignUp(event)">
+                    <h1>Create Account</h1>
+                    <div class="social-icons">
+                        <button type="button" class="icons" title="Sign up with Google" onclick="AuthDemo.socialAuth('Google')">
+                            <i class='bx bxl-google'></i>
+                        </button>
+                        <button type="button" class="icons" title="Sign up with GitHub" onclick="AuthDemo.socialAuth('GitHub')">
+                            <i class='bx bxl-github'></i>
+                        </button>
+                        <button type="button" class="icons" title="Sign up with LinkedIn" onclick="AuthDemo.socialAuth('LinkedIn')">
+                            <i class='bx bxl-linkedin'></i>
+                        </button>
+                    </div>
+                    <span>or register with your personal email</span>
+                    
+                    <div class="auth-input-box">
+                        <i class='bx bx-user'></i>
+                        <input type="text" id="regName" placeholder="Full Name" required autocomplete="name">
+                    </div>
+                    
+                    <div class="auth-input-box">
+                        <i class='bx bx-envelope'></i>
+                        <input type="email" id="regEmail" placeholder="Email Address" required autocomplete="email">
+                    </div>
+                    
+                    <div class="auth-input-box">
+                        <i class='bx bx-lock-alt'></i>
+                        <input type="password" id="regPassword" placeholder="Create Password" required autocomplete="new-password">
+                        <button type="button" class="toggle-pwd-btn" onclick="AuthDemo.togglePasswordVisibility('regPassword', this)" title="Show/Hide password">
+                            <i class='bx bx-show'></i>
+                        </button>
+                    </div>
+
+                    <div class="auth-terms">
+                        <label>
+                            <input type="checkbox" id="termsCheck" required checked>
+                            <span>I agree to the Terms of Service & Privacy Policy</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="auth-submit-btn">Sign Up</button>
+
+                    <!-- Mobile Switcher Link -->
+                    <div class="mobile-switch-prompt">
+                        <span>Already have an account?</span>
+                        <a href="javascript:void(0)" onclick="AuthDemo.showSignIn()">Sign In here</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- SIGN IN FORM -->
+            <div class="form-container sign-in">
+                <form id="signInForm" onsubmit="AuthDemo.handleSignIn(event)">
+                    <h1>Sign In</h1>
+                    <div class="social-icons">
+                        <button type="button" class="icons" title="Sign in with Google" onclick="AuthDemo.socialAuth('Google')">
+                            <i class='bx bxl-google'></i>
+                        </button>
+                        <button type="button" class="icons" title="Sign in with GitHub" onclick="AuthDemo.socialAuth('GitHub')">
+                            <i class='bx bxl-github'></i>
+                        </button>
+                        <button type="button" class="icons" title="Sign in with LinkedIn" onclick="AuthDemo.socialAuth('LinkedIn')">
+                            <i class='bx bxl-linkedin'></i>
+                        </button>
+                    </div>
+                    <span>or use your registered email</span>
+
+                    <div class="auth-input-box">
+                        <i class='bx bx-envelope'></i>
+                        <input type="email" id="loginEmail" placeholder="Email Address" required autocomplete="username">
+                    </div>
+
+                    <div class="auth-input-box">
+                        <i class='bx bx-lock-alt'></i>
+                        <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+                        <button type="button" class="toggle-pwd-btn" onclick="AuthDemo.togglePasswordVisibility('loginPassword', this)" title="Show/Hide password">
+                            <i class='bx bx-show'></i>
+                        </button>
+                    </div>
+
+                    <div class="auth-row-extra">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMeCheck" checked>
+                            <span>Remember me</span>
+                        </label>
+                        <a href="javascript:void(0)" class="forgot-link" onclick="AuthDemo.forgotPassword()">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="auth-submit-btn">Sign In</button>
+
+                    <!-- Mobile Switcher Link -->
+                    <div class="mobile-switch-prompt">
+                        <span>Don't have an account?</span>
+                        <a href="javascript:void(0)" onclick="AuthDemo.showSignUp()">Sign Up here</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- SLIDING OVERLAY PANEL -->
+            <div class="toggle-container">
+                <div class="toggle">
+                    <!-- Left overlay for switching to Sign In -->
+                    <div class="toggle-panel toggle-left">
+                        <h1>Welcome Back!</h1>
+                        <p>Already have an account? Sign in with your credentials to access your dashboard.</p>
+                        <button type="button" class="auth-submit-btn hidden" id="loginBtn">Sign In</button>
+                    </div>
+                    <!-- Right overlay for switching to Sign Up -->
+                    <div class="toggle-panel toggle-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>New here? Enter your details and start your journey with us today.</p>
+                        <button type="button" class="auth-submit-btn hidden" id="registerBtn">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auth Footer Status -->
+        <footer class="auth-page-footer">
+            <div class="status-indicator-tag">
+                <span class="status-dot"></span>
+                <span>Stand-Alone Authentication Demo Active</span>
+            </div>
+            <p class="auth-footer-note">Client-side auth simulation with real-time feedback & dark mode.</p>
+        </footer>
+    </main>
+
+    <!-- Auth Demo Script -->
+    <script src="script.js"></script>
+
+
+
 </body>
 </html>
