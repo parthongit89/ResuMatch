@@ -1,67 +1,53 @@
 # ResuMatch - UI/UX Design System & Resume Templates
 
-## 1. UI Flow & Page Architecture
+## 1. UI Flow & Module Architecture
 
 ```
-[Landing Page]
+[Landing Page - Landing.html]
    │
-   ├── Hero Section ("Build ATS-Friendly Resumes in Minutes")
-   ├── Features Grid (Session-based, Instant PDF, Professional Templates)
-   ├── Template Carousel / Gallery
-   └── Footer & CTA ("Get Started")
+   ├── Verification Module
+   │     ├── Email Login Form (Triggers SendGrid OTP Email)
+   │     ├── Email Signup Form (Triggers SendGrid OTP Email)
+   │     ├── Google OAuth ("Login with google" via Firebase API)
+   │     └── OTP Verification Modal (6-Digit OTP, Expiration Timer)
    │
-[Auth Page / Modal]
+[Dashboard - home.html (Authenticated User Only)]
    │
-   ├── Login Form (Email, Password)
-   └── Signup Form (Full Name, Email, Password)
+   ├── Overview (User stats & recent resume drafts)
+   ├── Create New Resume -> Resume Gateway -> Session Builder
+   ├── Downloads (Previous resume downloads history)
+   ├── Notifications
+   ├── Subscription (Free tier / Pro tier status)
+   └── Logout
    │
-[Dashboard]
+[Session Module - 4-Step Builder (8 Inputs)]
    │
-   ├── Saved Resumes Grid
-   └── Button: "+ Create New Resume"
-   │
-[Multi-Step Session Builder]
-   │
-   ├── Stepper Progress Bar (Step 1 of 7)
-   ├── Session Input Form (Left Pane)
-   └── Live Preview Pane (Right Pane / Toggle on Mobile)
-   │
-[Template Selector & Export]
-   │
-   ├── Template Layout Grid (Modern, Executive, Tech ATS, Creative)
-   ├── Color Palette Selector (Navy, Emerald, Charcoal, Royal Blue)
-   └── Download PDF Button
+   ├── Session 1:
+   │     ├── Input 1: Targeted jobs / role / position
+   │     └── Input 2: Education (Course, College, Graduation Year)
+   ├── Session 2:
+   │     ├── Input 3: Technical Skills
+   │     └── Input 4: External Links (GitHub, LinkedIn, Portfolio)
+   ├── Session 3:
+   │     ├── Input 5: Experience & Internships
+   │     └── Input 6: Certification & Courses
+   ├── Session 4:
+   │     ├── Input 7: Additional Certification & Courses
+   │     └── Input 8: Target Companies
+   └── Submit Button -> Template Selection & Export
 ```
 
 ---
 
-## 2. Resume Template Layout Types
+## 2. Session Form Inputs Breakdown (`Session architecture.png`)
 
-### Template 1: Modern Minimalist
-- **Target Audience**: General job seekers, Software Engineers, Product Managers.
-- **Layout**: Single column, clean typography, left border accents on section headings.
-- **Features**: Highly readable, ATS-optimized.
-
-### Template 2: Executive Classic
-- **Target Audience**: Finance, Business Analytics, Management, Legal.
-- **Layout**: Centered header, subtle horizontal divider lines, traditional serif/sans-serif combination.
-- **Features**: Professional, formal, high text density capability.
-
-### Template 3: Creative Tech (Two-Column)
-- **Target Audience**: Designers, Developers, Data Scientists.
-- **Layout**: 30% Left Sidebar (Contact info, Skills, Languages) + 70% Right Column (Experience, Projects, Education).
-- **Features**: Visual contrast, efficient space usage.
-
----
-
-## 3. Session Form Fields & Validation Rules
-
-| Session Step | Input Components | Validation Rules |
-|---|---|---|
-| **Step 1: Personal Info** | Full Name, Professional Title, Email, Phone, City/Country, LinkedIn, GitHub, Portfolio | Email regex, required Name & Email |
-| **Step 2: Summary** | Rich Text / Plain Text summary box (150-300 words recommended) | Min 30 characters |
-| **Step 3: Work Experience** | Dynamic List: Job Title, Company, Location, Start Date, End Date, Is Current, Key Accomplishments (Bullet points) | Required Title & Company |
-| **Step 4: Education** | Dynamic List: Degree, Institution, Location, Graduation Year, Grade/GPA | Required Degree & Institution |
-| **Step 5: Projects** | Dynamic List: Project Title, Tech Stack, Live Link, GitHub Link, Description bullets | Required Title |
-| **Step 6: Skills** | Categorized Tag Inputs: Technical Skills, Frameworks, Tools, Soft Skills, Languages | Min 3 skills |
-| **Step 7: Template** | Visual Template Card Selector, Primary Color Picker, Font Selector | Required Template Selection |
+| Session Step | Input Field | Component & Description | Validation Rules |
+|---|---|---|---|
+| **Session 1** | **Input 1: Targeted jobs/role/position** | Text input / Tag selector for desired target job roles | Required (e.g. "Full Stack Developer", "Data Analyst") |
+| | **Input 2: Education** | Dynamic form list: Degree/Course, College/University, Passing Year, Grade/CGPA | Required at least 1 education entry |
+| **Session 2** | **Input 3: Technical Skills** | Tag input with categories (Languages, Frameworks, Developer Tools, Databases) | Minimum 3 skills required |
+| | **Input 4: External Links** | Input fields for GitHub URL, LinkedIn Profile URL, Portfolio Website URL | URL Regex format validation |
+| **Session 3** | **Input 5: Experience & Internships** | Dynamic list: Role, Company, Location, Start/End Date, Is Current, Accomplishments (Bullet points) | Required for non-fresher profiles |
+| | **Input 6: Certification & Courses** | Dynamic list: Certificate Title, Issuing Organization, Issue Date, Credential URL | Optional / Recommended |
+| **Session 4** | **Input 7: Additional Certifications** | Supplementary certifications, workshops, or specialized training courses | Optional |
+| | **Input 8: Target Companies** | Input tags for target companies/industries to tailor ATS keyword optimization | Optional |

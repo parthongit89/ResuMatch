@@ -7,50 +7,74 @@ Job seekers and students frequently face rejections due to poorly structured, no
 
 ---
 
-## 2. Team & Role Distribution
-- **Backend Developer**: Responsible for Flask API, Database models, Session state persistence, Authentication (JWT), and PDF generation service.
-- **Frontend Developer**: Responsible for UI/UX (Landing page, Auth modals/pages, Multi-step wizard, Live preview renderer, Template selector, PDF downloader).
+## 2. Architecture Modules Breakdown (As per `Modules/` Architecture Diagrams)
+
+### 2.1 Verification Module (`Verification_arc.png`)
+- **Landing Page (`Landing.html`)**: Entry point for all users.
+- **Authentication Options**:
+  1. Standard **Email/Password Signup & Login**.
+  2. **Google OAuth (`Login with google`)**: Powered by **Firebase API (Free Tier)**.
+- **OTP Verification Flow**:
+  - Email Signup & Login trigger an OTP code sent via **SendGrid API (Free Tier)** / **SMTP OTP Email**.
+  - `OTP user session` handles expiration and verification checks.
+  - If **Expired**: User is routed back to Login.
+  - If **Verified**: User is redirected to `home.html` (Dashboard).
+
+### 2.2 Features Module (`features.png`)
+- **Dashboard (`home.html`) - Authenticated Users Only**:
+  - **Overview**: Central hub displaying user stats and active drafts.
+  - **Create New Resume**: Triggers the `Resume Gateway` to start session building.
+  - **Downloads**: View and re-download previously generated resumes.
+  - **Notifications**: System alerts, tips, and update notifications.
+  - **Subscription**: Subscription tier and plan status.
+  - **Logout**: Clears JWT/Session and returns to Landing page.
+
+### 2.3 Session Module (`Session architecture.png`)
+The Resume Builder consists of **4 core sessions** incorporating **8 targeted inputs**:
+
+```mermaid
+flowchart TD
+    subgraph Session 1
+        I1[Input 1: Targeted jobs / role / position]
+        I2[Input 2: Education - Course, College, Year]
+    end
+
+    subgraph Session 2
+        I3[Input 3: Technical Skills]
+        I4[Input 4: External Links - GitHub, LinkedIn, Portfolio]
+    end
+
+    subgraph Session 3
+        I5[Input 5: Experience & Internships]
+        I6[Input 6: Certifications & Courses]
+    end
+
+    subgraph Session 4
+        I7[Input 7: Additional Certifications & Courses]
+        I8[Input 8: Target Companies]
+    end
+
+    Session 1 -- SI-1 --> Session 2
+    Session 2 -- SI-2 --> Session 3
+    Session 3 -- SI-3 --> Session 4
+    Session 4 -- SI-4 --> Submit[Submit & Select Template Layout]
+```
 
 ---
 
-## 3. Key User Journey & Workflow
-1. **Landing Page**: Highlighting features, template showcase, CTA buttons ("Get Started", "Login / Signup").
-2. **Authentication**: Sign up or log in via email/password or OAuth.
-3. **Dashboard**: View previous resume drafts or click **"Create New Resume"**.
-4. **Session-Based Form Builder**:
-   - **Session 1**: Personal Details & Contact Links (Name, Title, Email, Phone, Location, LinkedIn, GitHub, Portfolio).
-   - **Session 2**: Professional Summary / Objective statement.
-   - **Session 3**: Work Experience (Role, Company, Location, Start/End Date, Bullet Points).
-   - **Session 4**: Education & Certifications (Degree, Institution, Graduation Year, Score, Certificates).
-   - **Session 5**: Key Projects (Title, Tech Stack, Description, Project URLs).
-   - **Session 6**: Skills & Languages (Technical Skills, Tools, Soft Skills, Languages).
-   - **Session 7**: Final Review & Template Selection.
-5. **Preview & Export**: Real-time side-by-side template preview, customization options (fonts, colors), and one-click PDF download.
+## 3. Team & Role Distribution
+- **Backend Developer**: Responsible for Flask API, Database ORM (SQLAlchemy), OTP Email Verification (SendGrid/SMTP), Firebase Auth Integration, Session State Engine, and PDF Generation service.
+- **Frontend Developer**: Responsible for UI/UX (Landing page, Auth & OTP modals, Dashboard with Overview/Downloads/Notifications/Subscription/Logout, 4-Session Wizard, Live Preview Renderer, Template selector, PDF downloader).
 
 ---
 
-## 4. Feature Requirements Breakdown
-
-### 4.1 Authentication & User Management
-- User Registration (`POST /api/v1/auth/register`)
-- User Login (`POST /api/v1/auth/login`)
-- Current User Profile (`GET /api/v1/auth/me`)
-
-### 4.2 Resume Session & Draft Management
-- Create New Resume Draft (`POST /api/v1/resumes`)
-- Session Auto-save (`PUT /api/v1/resumes/<id>/session/<step>`)
-- Load Session Progress (`GET /api/v1/resumes/<id>/session`)
-- Fetch All Saved Resumes (`GET /api/v1/resumes`)
-
-### 4.3 Template Engine & Export
-- List Available Templates (`GET /api/v1/templates`)
-- Live Render API / Client-side Render Engine
-- Download PDF (`GET /api/v1/resumes/<id>/export/pdf`)
-
----
-
-## 5. Non-Functional Requirements
-- **Performance**: Session auto-save response time <200ms.
-- **Responsiveness**: Mobile & Desktop friendly wizard UI.
-- **Security**: Password hashing (Bcrypt/Argon2), JWT token validation, CORS control.
-- **Reliability**: Draft auto-save prevents data loss during session navigation.
+## 4. Key User Journey
+1. **Landing Page (`Landing.html`)**: Features showcase & CTAs.
+2. **Verification**: Signup/Login -> OTP sent via SendGrid/SMTP -> OTP Verification -> `home.html` (or Google OAuth via Firebase).
+3. **Dashboard**: Navigate Overview -> Click **"Create New Resume"** -> Enter `Resume Gateway`.
+4. **4-Session Form Builder**:
+   - **Session 1**: Targeted Roles + Education details.
+   - **Session 2**: Technical Skills + External Links.
+   - **Session 3**: Experience/Internships + Certifications.
+   - **Session 4**: Additional Certifications + Target Companies.
+5. **Submit & Export**: Select design template layout and download PDF.
