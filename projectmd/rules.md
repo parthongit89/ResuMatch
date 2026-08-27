@@ -8,13 +8,20 @@
   - `feat/frontend-landing`
   - `feat/frontend-wizard`
 - **Commit Message Format**:
-  - `feat: Add JWT authentication middleware`
+  - `feat: Add Flask JWT authentication middleware`
   - `fix: Resolve session step 3 auto-save bug`
   - `docs: Update Architecture.md with database schema`
 
 ---
 
-## 2. Unified API Response Protocol
+## 2. Credentials & Security Rules
+- **Credentials Provisioning**: Real secrets (Database connection strings, API keys, JWT secrets, SMTP credentials) will be supplied by the user during deployment/runtime setup.
+- **Never Commit Credentials**: Never commit `.env` files or hardcoded passwords to Git. All secret variables MUST be referenced via `os.getenv()` in `src/config/config.py`.
+- **Environment Template**: A complete `.env.example` file must be maintained with placeholder keys so any developer can easily plug in credentials.
+
+---
+
+## 3. Unified API Response Protocol
 All Flask REST API endpoints must return standardized JSON payloads:
 
 ### Success Response:
@@ -49,36 +56,12 @@ All Flask REST API endpoints must return standardized JSON payloads:
 
 ---
 
-## 3. Code Quality Standards
-- **Backend (Python / Flask)**:
-  - PEP8 compliance.
-  - Mandatory type hinting where applicable.
-  - Absolute imports relative to `src/`.
-  - All database queries isolated inside `repositories/`.
-  - Business logic strictly inside `services/`.
-- **Frontend (React / JS / TS)**:
-  - ESLint & Prettier rules.
-  - Modular component structure (`components/common`, `components/builder`, `components/templates`).
-  - Strict prop validation.
-
----
-
-## 4. Environment Variables Specification
-Create a `.env` file based on `.env.example`:
-
-```ini
-# Flask Config
-FLASK_ENV=development
-SECRET_KEY=super-secret-key-change-in-production
-PORT=5000
-
-# Database Config
-DATABASE_URL=sqlite:///resumatch.db
-
-# JWT Config
-JWT_SECRET_KEY=jwt-secret-key-resumatch
-JWT_EXPIRATION_HOURS=24
-
-# CORS Config
-FRONTEND_URL=http://localhost:3000
-```
+## 4. Flask Backend Coding & Library Standards
+- **Framework**: `Flask 3.x` app factory pattern (`create_app()`).
+- **ORM & DB**: `Flask-SQLAlchemy` with explicit models and `Flask-Migrate` for schema changes.
+- **Auth**: `Flask-JWT-Extended` with `@jwt_required()` decorators for protected routes.
+- **Validation**: Marshmallow schemas (`marshmallow`) for request body parsing and sanitization.
+- **CORS**: `Flask-CORS` configured with explicit allowed origins.
+- **Rate Limiting**: `Flask-Limiter` applied to public auth routes (`/api/v1/auth/login`, `/api/v1/auth/register`).
+- **PDF Export**: `WeasyPrint` HTML-to-PDF rendering inside `src/utils/pdf_generator.py`.
+- **PEP8 Compliance**: Standard Python formatting, explicit imports, typing hints.
