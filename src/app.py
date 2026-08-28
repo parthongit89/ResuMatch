@@ -10,6 +10,9 @@ from flask_jwt_extended import JWTManager
 from src.config.config import config_by_name
 from src.config.database import db
 from src.routes.auth_routes import auth_bp
+from src.routes.resume_routes import resume_bp
+from src.routes.ai_routes import ai_bp
+from src.routes.ats_routes import ats_bp
 
 # Import models to ensure SQLAlchemy mappers are registered
 import src.models.user
@@ -20,12 +23,14 @@ def create_app(config_name=None):
     if config_name is None:
         config_name = os.getenv('FLASK_ENV', 'development')
 
-    # Calculate Frontend Directory Path
+    # Calculate Frontend Directory Paths
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    frontend_dir = os.path.join(project_root, 'frontend', 'login_page')
+    login_dir = os.path.join(project_root, 'frontend', 'login_page')
+    builder_dir = os.path.join(project_root, 'frontend', 'Feature modules', '1.resume_builder')
+    ats_dir = os.path.join(project_root, 'frontend', 'Feature modules', '2.ats-matcher')
 
     # Initialize Flask with isolated static_url_path to avoid route collision
-    app = Flask(__name__, static_folder=frontend_dir, static_url_path='/static')
+    app = Flask(__name__, static_folder=login_dir, static_url_path='/static')
     app.config.from_object(config_by_name.get(config_name, config_by_name['development']))
 
     # Initialize Extensions
@@ -37,6 +42,9 @@ def create_app(config_name=None):
 
     # Register Blueprints
     app.register_blueprint(auth_bp, url_prefix='/api/v1')
+    app.register_blueprint(resume_bp, url_prefix='/api/v1')
+    app.register_blueprint(ai_bp, url_prefix='/api/v1')
+    app.register_blueprint(ats_bp, url_prefix='/api/v1')
 
     # Serve Login / Sign Up Page at Root URL, /login, /index.html, and /login.html
     @app.route('/')
@@ -44,14 +52,36 @@ def create_app(config_name=None):
     @app.route('/index.html')
     @app.route('/login.html')
     def serve_login_page():
-        return send_from_directory(frontend_dir, 'index.html')
+        return send_from_directory(login_dir, 'index.html')
 
-    # Serve Frontend Static Assets (style.css, script.js, images)
+    # Serve Resume Builder Feature Module (/builder)
+    @app.route('/builder')
+    @app.route('/builder/')
+    @app.route('/builder/index.html')
+    def serve_builder_index():
+        return send_from_directory(builder_dir, 'index.html')
+
+    @app.route('/builder/<path:filename>')
+    def serve_builder_assets(filename):
+        return send_from_directory(builder_dir, filename)
+
+    # Serve ATS Matcher Feature Module (/ats)
+    @app.route('/ats')
+    @app.route('/ats/')
+    @app.route('/ats/index.html')
+    def serve_ats_index():
+        return send_from_directory(ats_dir, 'index.html')
+
+    @app.route('/ats/<path:filename>')
+    def serve_ats_assets(filename):
+        return send_from_directory(ats_dir, filename)
+
+    # Serve Frontend Static Assets for Login Page
     @app.route('/<path:filename>')
     def serve_static_assets(filename):
-        target_path = os.path.join(frontend_dir, filename)
+        target_path = os.path.join(login_dir, filename)
         if os.path.exists(target_path):
-            return send_from_directory(frontend_dir, filename)
+            return send_from_directory(login_dir, filename)
         return jsonify({"success": False, "message": f"API Resource '{filename}' Not Found"}), 404
 
     # Global Error Handlers
