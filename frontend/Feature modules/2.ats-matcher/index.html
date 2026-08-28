@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ResuMatch — ATS Scanner & Matcher Module</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <header class="top-nav">
+        <div class="brand">
+            <i class='bx bx-scan'></i>
+            <span>Resu<span class="highlight">Match</span> ATS Scanner</span>
+        </div>
+        <button class="btn btn-outline" id="loadSampleJobBtn"><i class='bx bx-paste'></i> Insert Sample Job</button>
+    </header>
+
+    <main class="scanner-container">
+        <!-- LEFT: INPUTS -->
+        <section class="input-card">
+            <h2><i class='bx bx-file-find'></i> Target Job Description</h2>
+            <p class="subtitle">Paste the requirements, tech stack, and responsibilities of the role:</p>
+            <textarea id="jobInput" rows="10" placeholder="Paste job description here... (e.g. Seeking Senior React Developer with TypeScript, Docker, Redux, Jest, REST APIs...)"></textarea>
+
+            <h3 style="margin-top:16px;"><i class='bx bx-user-check'></i> Your Resume Keywords (or Skills)</h3>
+            <textarea id="resumeInput" rows="4" placeholder="Your skills/experience text... (e.g. React, TypeScript, Tailwind CSS, REST APIs, Git, Node.js)"></textarea>
+
+            <button class="btn btn-primary" id="scanBtn"><i class='bx bx-radar'></i> Run ATS Match Scan</button>
+        </section>
+
+        <!-- RIGHT: RADIAL SCORE & GAPS -->
+        <section class="results-card">
+            <div class="score-box">
+                <!-- SVG Radial Progress -->
+                <div class="radial-wrap">
+                    <svg viewBox="0 0 120 120" class="radial-svg">
+                        <circle class="bg-circle" cx="60" cy="60" r="50" />
+                        <circle class="progress-circle" id="scoreCircle" cx="60" cy="60" r="50" stroke-dasharray="314.15" stroke-dashoffset="62.8" />
+                    </svg>
+                    <div class="score-num" id="scoreVal">85%</div>
+                </div>
+                <div class="score-info">
+                    <h3 id="verdict">High ATS Fit</h3>
+                    <p id="verdictSub">Your skills match the core requirements for this position.</p>
+                </div>
+            </div>
+
+            <div class="breakdown">
+                <h4><i class='bx bx-check-circle text-match'></i> Matched Skills (<span id="matchCount">0</span>)</h4>
+                <div class="chip-container" id="matchedChips"></div>
+
+                <h4 style="margin-top:14px;"><i class='bx bx-x-circle text-miss'></i> Missing Critical Gaps (<span id="missCount">0</span>)</h4>
+                <div class="chip-container" id="missingChips"></div>
+
+                <h4 style="margin-top:14px;"><i class='bx bx-bulb text-warn'></i> Recommendations</h4>
+                <ul class="recs-list" id="recsList">
+                    <li>Add the missing tools to your resume to reach a 95%+ match score.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
