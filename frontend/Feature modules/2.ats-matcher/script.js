@@ -13,22 +13,46 @@ const ScannerModule = {
         'Jest', 'Testing', 'Web Vitals', 'Performance Optimization', 'Redux'
     ],
 
-    sampleJob: `Senior Frontend Developer (React & TypeScript)
-Requirements:
-- 3+ years experience with React.js, TypeScript, Next.js, and modern CSS.
-- Solid experience in REST APIs, Docker containerization, and Git.
-- Unit testing with Jest and Web Vitals performance optimization.`,
+        sampleJobs: [
+        `Senior Frontend Developer (React & TypeScript)
+    Requirements:
+    - 3+ years experience with React.js, TypeScript, Next.js, and modern CSS.
+    - Solid experience in REST APIs, Docker containerization, and Git.
+    - Unit testing with Jest and Web Vitals performance optimization.`,
+        `Backend Python Engineer
+    Requirements:
+    - Build production services with Python, FastAPI, and PostgreSQL.
+    - Design REST APIs, manage Docker deployments, and use Redis for caching.
+    - Work with AWS, Git, and automated Testing pipelines.`,
+        `Full Stack JavaScript Developer
+    Requirements:
+    - Develop responsive interfaces with React, JavaScript, HTML5, CSS3, and Redux.
+    - Create Node.js and Express services backed by MongoDB.
+    - Use GraphQL, Jest, Git, and CI/CD throughout the delivery process.`
+        ],
 
     sampleResume: `Alex Rivera - Senior Frontend Developer
 Skills: React.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, REST APIs, Git, Next.js`,
 
+    lastSampleIndex: -1,
+
+    getRandomSampleJob() {
+        let nextIndex = Math.floor(Math.random() * this.sampleJobs.length);
+        if (this.sampleJobs.length > 1 && nextIndex === this.lastSampleIndex) {
+            nextIndex = (nextIndex + 1) % this.sampleJobs.length;
+        }
+        this.lastSampleIndex = nextIndex;
+        return this.sampleJobs[nextIndex];
+    },
+
     init() {
-        document.getElementById('jobInput').value = this.sampleJob;
+        document.getElementById('jobInput').value = this.sampleJobs[0];
         document.getElementById('resumeInput').value = this.sampleResume;
 
         document.getElementById('scanBtn')?.addEventListener('click', () => this.runScan());
         document.getElementById('loadSampleJobBtn')?.addEventListener('click', () => {
-            document.getElementById('jobInput').value = this.sampleJob;
+            document.getElementById('jobInput').value = this.getRandomSampleJob();
+            this.runScan();
         });
 
         this.runScan();
