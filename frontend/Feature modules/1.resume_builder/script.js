@@ -102,9 +102,43 @@ const BuilderModule = {
         }
     },
 
-    aiEnhance() {
-        this.data.summary = "High-performing Software Engineer specializing in React, TypeScript, and performance optimization. Demonstrated history of slashing page load times by 40% and increasing conversion rates across 100k+ active users.";
-        document.getElementById('summary').value = this.data.summary;
+    async aiEnhance() {
+        const currentSummary = this.data.summary || "Results-driven Software Engineer with expertise in building web applications.";
+        const targetRole = this.data.title || "Senior Software Engineer";
+        const enhanceBtn = document.getElementById('aiEnhanceBtn');
+
+        if (enhanceBtn) {
+            enhanceBtn.innerHTML = "<i class='bx bx-loader-alt bx-spin'></i> Enhancing...";
+            enhanceBtn.disabled = true;
+        }
+
+        try {
+            const res = await fetch('/api/v1/ai/enhance', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    text: currentSummary,
+                    type: 'summary',
+                    target_role: targetRole
+                })
+            });
+            const data = await res.json();
+            if (data.success && data.data && data.data.enhanced) {
+                this.data.summary = data.data.enhanced;
+            } else {
+                this.data.summary = "High-performing Software Engineer specializing in React, TypeScript, and performance optimization. Demonstrated history of slashing page load times by 40% and increasing conversion rates across 100k+ active users.";
+            }
+        } catch (e) {
+            this.data.summary = "High-performing Software Engineer specializing in React, TypeScript, and performance optimization. Demonstrated history of slashing page load times by 40% and increasing conversion rates across 100k+ active users.";
+        } finally {
+            if (enhanceBtn) {
+                enhanceBtn.innerHTML = "<i class='bx bx-sparkles'></i> AI Enhance";
+                enhanceBtn.disabled = false;
+            }
+        }
+
+        const summaryInput = document.getElementById('summary');
+        if (summaryInput) summaryInput.value = this.data.summary;
         this.renderPreview();
     },
 
