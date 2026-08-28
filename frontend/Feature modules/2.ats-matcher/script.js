@@ -1,0 +1,5 @@
+/**
+ * MODULE 2: ATS KEYWORD SCANNER & RADIAL SCORE ENGINE
+ */
+
+"use strict";
