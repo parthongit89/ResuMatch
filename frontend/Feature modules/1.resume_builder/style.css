@@ -1,0 +1,17 @@
+/* 
+MODULE 1: RESUME BUILDER STYLESHEET (SPLIT SCREEN & A4 PRINT ENGINE)
+(MARKED FOR PARTH'S REVIEW)
+*/
+
+
+
+:root {
+    --bg-dark: #0a0e17;
+    --bg-card: #131b2e;
+    --bg-input: #1b2640;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.08);
+}
