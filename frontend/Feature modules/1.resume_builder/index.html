@@ -1,11 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ResuMatch — Resume Builder Module</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <header class="top-nav">
+        <div class="brand">
+            <i class='bx bx-file-blank'></i>
+            <span>Resu<span class="highlight">Match</span> Builder</span>
+        </div>
+        <div class="actions">
+            <button class="btn btn-sec" id="loadSampleBtn"><i class='bx bx-magic-wand'></i> Load Sample</button>
+            <button class="btn btn-sec" id="clearBtn"><i class='bx bx-trash'></i> Clear</button>
+            <button class="btn btn-pri" id="printPdfBtn"><i class='bx bxs-download'></i> Export Vector PDF</button>
+        </div>
+    </header>
+
+    <main class="split-container">
+        <!-- LEFT: INPUT CONTROLS -->
+        <section class="form-panel">
+            <h2>Resume Details</h2>
+            
+            <div class="section-box">
+                <h3><i class='bx bx-user'></i> Personal Information</h3>
+                <div class="row">
+                    <div class="field">
+                        <label>Full Name</label>
+                        <input type="text" id="name" placeholder="e.g. Alex Rivera">
+                    </div>
+                    <div class="field">
+                        <label>Target Title</label>
+                        <input type="text" id="title" placeholder="e.g. Senior Frontend Developer">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="alex@example.com">
+                    </div>
+                    <div class="field">
+                        <label>Phone</label>
+                        <input type="text" id="phone" placeholder="+1 (555) 349-2041">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="field">
+                        <label>Location</label>
+                        <input type="text" id="location" placeholder="San Francisco, CA">
+                    </div>
+                    <div class="field">
+                        <label>LinkedIn / GitHub</label>
+                        <input type="text" id="links" placeholder="linkedin.com/in/alex">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <div class="flex-head">
+                    <h3><i class='bx bx-align-left'></i> Summary</h3>
+                    <button class="btn-sm" id="aiEnhanceBtn"><i class='bx bx-sparkles'></i> AI Enhance</button>
+                </div>
+                <textarea id="summary" rows="4" placeholder="Brief professional summary..."></textarea>
+            </div>
+
+            <div class="section-box">
+                <h3><i class='bx bx-code-alt'></i> Skills & Technologies</h3>
+                <div class="field">
+                    <label>Languages & Frameworks</label>
+                    <input type="text" id="skillsLang" placeholder="React, TypeScript, JavaScript, HTML5, CSS3">
+                </div>
+                <div class="field">
+                    <label>Tools & Databases</label>
+                    <input type="text" id="skillsTools" placeholder="Docker, Git, PostgreSQL, Redis, Jest">
+                </div>
+            </div>
+
+            <div class="section-box">
+                <div class="flex-head">
+                    <h3><i class='bx bx-briefcase'></i> Work Experience</h3>
+                    <button class="btn-sm" id="addExpBtn"><i class='bx bx-plus'></i> Add Position</button>
+                </div>
+                <div id="expContainer"></div>
+            </div>
+        </section>
+
+        <!-- RIGHT: LIVE A4 PREVIEW -->
+        <section class="preview-panel">
+            <div class="a4-sheet" id="resumeSheet">
+                <div class="resume-head">
+                    <h1 id="pName">Alex Rivera</h1>
+                    <p class="p-title" id="pTitle">Senior Frontend Developer</p>
+                    <div class="p-contacts" id="pContacts">alex@example.com • +1 (555) 349-2041 • San Francisco, CA • linkedin.com/in/alex</div>
+                </div>
+
+                <div class="r-section">
+                    <h2>PROFESSIONAL SUMMARY</h2>
+                    <hr>
+                    <p id="pSummary">Results-driven Frontend Engineer with expertise in building scalable, accessible, and high-conversion web applications using React, TypeScript, and modern CSS architecture.</p>
+                </div>
+
+                <div class="r-section">
+                    <h2>TECHNICAL SKILLS</h2>
+                    <hr>
+                    <p><b>Languages & Frameworks:</b> <span id="pSkillsLang">React, TypeScript, JavaScript, HTML5, CSS3</span></p>
+                    <p><b>Tools & Databases:</b> <span id="pSkillsTools">Docker, Git, PostgreSQL, Redis, Jest</span></p>
+                </div>
+
+                <div class="r-section">
+                    <h2>EXPERIENCE</h2>
+                    <hr>
+                    <div id="pExperience"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
