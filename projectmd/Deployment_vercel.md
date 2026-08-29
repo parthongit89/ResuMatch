@@ -19,5 +19,5 @@ This guide details deploying the Frontend application to **Vercel**.
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist` or `.next`
 4. Set Environment Variables:
-   - `NEXT_PUBLIC_API_URL` / `REACT_APP_API_URL` = `https://resumatch-api.onrender.com`
+   - `NEXT_PUBLIC_API_URL` / `REACT_APP_API_URL` = `https://resumatch-api-jkau.onrender.com`
 5. Click **Deploy**.

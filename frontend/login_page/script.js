@@ -5,9 +5,11 @@
 "use strict";
 
 // API Base URL (Local Flask Server / Production Render Backend)
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://127.0.0.1:5000/api/v1'
-    : 'https://resumatch-api.onrender.com/api/v1';
+    : (window.location.hostname.endsWith('onrender.com') 
+        ? `${window.location.origin}/api/v1`
+        : 'https://resumatch-api-jkau.onrender.com/api/v1');
 
 /* ==========================================================================
    1. TOAST NOTIFICATIONS

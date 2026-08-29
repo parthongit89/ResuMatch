@@ -49,7 +49,7 @@ When a user opens the ResuMatch Landing Page (`resumatch.vercel.app`), the front
 ```javascript
 // Silent Background Ping on Landing Page Mount (No UI spinners/loaders required)
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('https://resumatch-api.onrender.com/api/v1/health', { method: 'GET', mode: 'cors' })
+  fetch('https://resumatch-api-jkau.onrender.com/api/v1/health', { method: 'GET', mode: 'cors' })
     .catch(() => {
       // Silently ignored - backend wakes up in background while user browses Landing Page
     });

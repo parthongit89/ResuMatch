@@ -20,7 +20,7 @@
     { "src": "/builder", "dest": "/frontend/homepage_sample/index.html" },
     { "src": "/ats", "dest": "/frontend/homepage_sample/index.html" },
     { "src": "/login", "dest": "/frontend/login_page/index.html" },
-    { "src": "/api/(.*)", "dest": "https://resumatch-api.onrender.com/api/$1" },
+    { "src": "/api/(.*)", "dest": "https://resumatch-api-jkau.onrender.com/api/$1" },
     { "src": "/(.*)", "dest": "/frontend/$1" }
   ]
 }
