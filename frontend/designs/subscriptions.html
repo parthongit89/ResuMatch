@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuMatch — Subscriptions</title>
+    <meta name="description" content="Upgrade your plan for unlimited AI enhancements, vector PDF exports, and real-time job matching.">
+    
+    <!-- Google Fonts (Google Sans Flex, Plus Jakarta Sans, Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons Icon Library -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .pricing-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 36px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--accent-yellow);
+            box-shadow: 0 0 24px rgba(255, 195, 0, 0.2);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-yellow);
+            color: #000814;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .price-tag {
+            font-size: 38px;
+            font-weight: 800;
+            color: #fff;
+            margin: 16px 0;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .price-tag span {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin: 24px 0 32px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li i {
+            color: var(--success-green);
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. FIXED LEFT SIDEBAR (72px, #000814) -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <a href="landing.html" class="sidebar-brand" title="ResuMatch Studio">
+                <i class='bx bx-check-shield'></i>
+            </a>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item" title="Dashboard">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="tooltip">Dashboard</span>
+                </a>
+                <a href="templates.html" class="nav-item" title="Resume Templates">
+                    <i class='bx bx-layer'></i>
+                    <span class="tooltip">Templates</span>
+                </a>
+                <a href="search_jobs.html" class="nav-item" title="Search Jobs">
+                    <i class='bx bx-task'></i>
+                    <span class="tooltip">Search Jobs</span>
+                </a>
+                <a href="history.html" class="nav-item" title="History">
+                    <i class='bx bx-history'></i>
+                    <span class="tooltip">History</span>
+                </a>
+                <a href="notifications.html" class="nav-item" title="Notifications">
+                    <i class='bx bx-bell'></i>
+                    <span class="tooltip">Notifications</span>
+                </a>
+                <a href="subscriptions.html" class="nav-item active" title="Subscriptions">
+                    <i class='bx bx-credit-card'></i>
+                    <span class="tooltip">Subscriptions</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="nav-item" title="Settings">
+                <i class='bx bx-cog'></i>
+                <span class="tooltip">Settings</span>
+            </a>
+            <a href="landing.html" class="nav-item logout-btn" title="Log Out">
+                <i class='bx bx-log-out'></i>
+                <span class="tooltip">Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- 2. FIXED TOP HEADER BAR (80px, #000814) -->
+    <header class="header">
+        <div class="header-title-area">
+            <div class="brand-text">Resu<span>Match</span></div>
+        </div>
+
+        <div class="header-search">
+            <i class='bx bx-search'></i>
+            <input type="text" id="searchInput" placeholder="Search for Resume / Plan">
+        </div>
+
+        <div class="header-actions">
+            <a href="templates.html" class="btn-create-resume">
+                <i class='bx bx-plus'></i>
+                <span>Create new resume</span>
+            </a>
+
+            <div class="user-profile">
+                <div class="avatar">J</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. MAIN WORKSPACE CONTENT -->
+    <main class="main-wrapper" data-node-id="552:3521">
+        <!-- Figma Node 552:3547 - Subscriptions Heading -->
+        <h1 class="page-title" data-node-id="552:3547">
+            <i class='bx bx-credit-card' style="color: var(--accent-yellow);"></i>
+            Subscriptions
+        </h1>
+
+        <!-- Pricing Cards Grid (Figma Nodes 552:3576, 552:3577, 552:3589) -->
+        <div class="cards-grid">
+            <!-- Free Tier -->
+            <div class="pricing-card" data-node-id="552:3576">
+                <div>
+                    <h3 style="font-size: 20px; font-weight: 700;">Free Tier</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Essential features for building your first resume.</p>
+                    <div class="price-tag">$0 <span>/ month</span></div>
+                    <ul class="feature-list">
+                        <li><i class='bx bx-check'></i> 1 Resume Draft</li>
+                        <li><i class='bx bx-check'></i> Basic Resume Templates</li>
+                        <li><i class='bx bx-check'></i> 3 ATS Keyword Scans</li>
+                        <li><i class='bx bx-check'></i> Standard PDF Download</li>
+                    </ul>
+                </div>
+                <button class="btn-card" style="width:100%; padding:12px; text-align:center; font-weight:600;" disabled>Current Plan</button>
+            </div>
+
+            <!-- Pro Tier (Featured) -->
+            <div class="pricing-card featured" data-node-id="552:3577">
+                <span class="plan-badge">Most Popular</span>
+                <div>
+                    <h3 style="font-size: 20px; font-weight: 700; color: var(--accent-yellow);">Pro Engineer</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">For active job seekers targeting top tech roles.</p>
+                    <div class="price-tag">$12 <span>/ month</span></div>
+                    <ul class="feature-list">
+                        <li><i class='bx bx-check'></i> Unlimited Resume Drafts</li>
+                        <li><i class='bx bx-check'></i> All 10+ Premium Templates</li>
+                        <li><i class='bx bx-check'></i> Unlimited AI Enhancements</li>
+                        <li><i class='bx bx-check'></i> Unlimited ATS Job Scanning</li>
+                        <li><i class='bx bx-check'></i> 1-Click Vector A4 PDF Export</li>
+                        <li><i class='bx bx-check'></i> Live Job Match Recommendations</li>
+                    </ul>
+                </div>
+                <button class="btn-create-resume" style="width:100%; justify-content:center; text-decoration:none;" onclick="alert('Upgrading to Pro Engineer Plan...')">Upgrade to Pro</button>
+            </div>
+
+            <!-- Enterprise Tier -->
+            <div class="pricing-card" data-node-id="552:3589">
+                <div>
+                    <h3 style="font-size: 20px; font-weight: 700;">Career Accelerator</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Comprehensive 1-on-1 resume review & hiring portal.</p>
+                    <div class="price-tag">$29 <span>/ month</span></div>
+                    <ul class="feature-list">
+                        <li><i class='bx bx-check'></i> Everything in Pro Engineer</li>
+                        <li><i class='bx bx-check'></i> Expert Recruiter Resume Review</li>
+                        <li><i class='bx bx-check'></i> Priority Candidate Spotlight</li>
+                        <li><i class='bx bx-check'></i> Dedicated Account Support</li>
+                    </ul>
+                </div>
+                <button class="btn-card primary" style="width:100%; padding:12px; text-align:center; font-weight:600; cursor:pointer;" onclick="alert('Upgrading to Career Accelerator Plan...')">Select Accelerator</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

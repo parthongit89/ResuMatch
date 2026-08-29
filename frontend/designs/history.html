@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuMatch — History</title>
+    <meta name="description" content="View resume edit history, version logs, and previous downloads.">
+    
+    <!-- Google Fonts (Google Sans Flex, Plus Jakarta Sans, Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300;400;500;600;700&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons Icon Library -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. FIXED LEFT SIDEBAR (72px, #000814) -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <a href="landing.html" class="sidebar-brand" title="ResuMatch Studio">
+                <i class='bx bx-check-shield'></i>
+            </a>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item" title="Dashboard">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="tooltip">Dashboard</span>
+                </a>
+                <a href="templates.html" class="nav-item" title="Resume Templates">
+                    <i class='bx bx-layer'></i>
+                    <span class="tooltip">Templates</span>
+                </a>
+                <a href="search_jobs.html" class="nav-item" title="Search Jobs">
+                    <i class='bx bx-task'></i>
+                    <span class="tooltip">Search Jobs</span>
+                </a>
+                <a href="history.html" class="nav-item active" title="History">
+                    <i class='bx bx-history'></i>
+                    <span class="tooltip">History</span>
+                </a>
+                <a href="notifications.html" class="nav-item" title="Notifications">
+                    <i class='bx bx-bell'></i>
+                    <span class="tooltip">Notifications</span>
+                </a>
+                <a href="subscriptions.html" class="nav-item" title="Subscriptions">
+                    <i class='bx bx-credit-card'></i>
+                    <span class="tooltip">Subscriptions</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="nav-item" title="Settings">
+                <i class='bx bx-cog'></i>
+                <span class="tooltip">Settings</span>
+            </a>
+            <a href="landing.html" class="nav-item logout-btn" title="Log Out">
+                <i class='bx bx-log-out'></i>
+                <span class="tooltip">Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- 2. FIXED TOP HEADER BAR (80px, #000814) -->
+    <header class="header">
+        <div class="header-title-area">
+            <div class="brand-text">Resu<span>Match</span></div>
+        </div>
+
+        <div class="header-search">
+            <i class='bx bx-search'></i>
+            <input type="text" id="searchInput" placeholder="Search for Resume">
+        </div>
+
+        <div class="header-actions">
+            <a href="templates.html" class="btn-create-resume">
+                <i class='bx bx-plus'></i>
+                <span>Create new resume</span>
+            </a>
+
+            <div class="user-profile">
+                <div class="avatar">J</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. MAIN WORKSPACE CONTENT -->
+    <main class="main-wrapper" data-node-id="548:3105">
+        <!-- Figma Node 548:3112 - History Heading -->
+        <h1 class="page-title" data-node-id="548:3112">
+            <i class='bx bx-history' style="color: var(--accent-yellow);"></i>
+            History
+        </h1>
+
+        <!-- History Log Cards Grid -->
+        <div class="cards-grid">
+            <!-- Item 1 (Figma Node 548:3113) -->
+            <div class="design-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                    <div>
+                        <h3 style="font-size: 18px; font-weight: 700;" data-node-id="548:3116">Resume 01</h3>
+                        <p style="font-size: 13px; color: var(--accent-yellow); margin-top:4px;" data-node-id="548:3117">Upgrade with skill’s section</p>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-muted);"><i class='bx bx-time'></i> Today, 2:15 PM</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius:8px; padding:12px; margin-bottom:16px; font-size:13px; color:var(--text-secondary);">
+                    Updated technical skills matrix (Added React.js, TypeScript, PostgreSQL) and improved ATS match score to 94%.
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-card primary" style="padding:8px 12px; background:var(--royal-indigo); color:#fff; border:none; border-radius:8px; font-size:13px; cursor:pointer;" onclick="alert('Downloading PDF version...')"><i class='bx bx-download'></i> Download Vector PDF</button>
+                    <button class="btn-card" style="padding:8px 12px; background:rgba(255,255,255,0.08); color:#fff; border:1px solid var(--border-subtle); border-radius:8px; font-size:13px; cursor:pointer;" onclick="alert('Restoring version...')"><i class='bx bx-undo'></i> Restore</button>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="design-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                    <div>
+                        <h3 style="font-size: 18px; font-weight: 700;">Resume 02</h3>
+                        <p style="font-size: 13px; color: var(--accent-yellow); margin-top:4px;">AI Summary Enhancement</p>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-muted);"><i class='bx bx-time'></i> Yesterday, 6:40 PM</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius:8px; padding:12px; margin-bottom:16px; font-size:13px; color:var(--text-secondary);">
+                    Applied AI Enhancement to professional summary and reformatted bullet points for Senior Full-Stack role.
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-card primary" style="padding:8px 12px; background:var(--royal-indigo); color:#fff; border:none; border-radius:8px; font-size:13px; cursor:pointer;" onclick="alert('Downloading PDF version...')"><i class='bx bx-download'></i> Download Vector PDF</button>
+                    <button class="btn-card" style="padding:8px 12px; background:rgba(255,255,255,0.08); color:#fff; border:1px solid var(--border-subtle); border-radius:8px; font-size:13px; cursor:pointer;" onclick="alert('Restoring version...')"><i class='bx bx-undo'></i> Restore</button>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="design-card">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                    <div>
+                        <h3 style="font-size: 18px; font-weight: 700;">Resume 03</h3>
+                        <p style="font-size: 13px; color: var(--accent-yellow); margin-top:4px;">Initial Creation & Export</p>
+                    </div>
+                    <span style="font-size: 12px; color: var(--text-muted);"><i class='bx bx-time'></i> 3 days ago</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius:8px; padding:12px; margin-bottom:16px; font-size:13px; color:var(--text-secondary);">
+                    Completed initial session wizard setup and exported baseline resume PDF.
+                </div>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn-card primary" style="padding:8px 12px; background:var(--royal-indigo); color:#fff; border:none; border-radius:8px; font-size:13px; cursor:pointer;" onclick="alert('Downloading PDF version...')"><i class='bx bx-download'></i> Download Vector PDF</button>
+                    <button class="btn-card" style="padding:8px 12px; background:rgba(255,255,255,0.08); color:#fff; border:1px solid var(--border-subtle); border-radius:8px; font-size:13px; cursor:pointer;" onclick="alert('Restoring version...')"><i class='bx bx-undo'></i> Restore</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

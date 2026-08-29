@@ -13,6 +13,7 @@ from src.routes.auth_routes import auth_bp
 from src.routes.resume_routes import resume_bp
 from src.routes.ai_routes import ai_bp
 from src.routes.ats_routes import ats_bp
+from src.routes.job_routes import job_bp
 
 # Import models to ensure SQLAlchemy mappers are registered
 import src.models.user
@@ -28,6 +29,7 @@ def create_app(config_name=None):
     login_dir = os.path.join(project_root, 'frontend', 'login_page')
     builder_dir = os.path.join(project_root, 'frontend', 'Feature modules', '1.resume_builder')
     ats_dir = os.path.join(project_root, 'frontend', 'Feature modules', '2.ats-matcher')
+    jobs_dir = os.path.join(project_root, 'frontend', 'Feature modules', '3.job_board')
 
     # Initialize Flask with isolated static_url_path to avoid route collision
     app = Flask(__name__, static_folder=login_dir, static_url_path='/static')
@@ -45,6 +47,7 @@ def create_app(config_name=None):
     app.register_blueprint(resume_bp, url_prefix='/api/v1')
     app.register_blueprint(ai_bp, url_prefix='/api/v1')
     app.register_blueprint(ats_bp, url_prefix='/api/v1')
+    app.register_blueprint(job_bp, url_prefix='/api/v1')
 
     # Serve Login / Sign Up Page at Root URL, /login, /index.html, and /login.html
     @app.route('/')
@@ -75,6 +78,17 @@ def create_app(config_name=None):
     @app.route('/ats/<path:filename>')
     def serve_ats_assets(filename):
         return send_from_directory(ats_dir, filename)
+
+    # Serve Job Board Feature Module (/jobs)
+    @app.route('/jobs')
+    @app.route('/jobs/')
+    @app.route('/jobs/index.html')
+    def serve_jobs_index():
+        return send_from_directory(jobs_dir, 'index.html')
+
+    @app.route('/jobs/<path:filename>')
+    def serve_jobs_assets(filename):
+        return send_from_directory(jobs_dir, filename)
 
     # Serve Frontend Static Assets for Login Page
     @app.route('/<path:filename>')
