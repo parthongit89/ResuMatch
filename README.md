@@ -1,17 +1,17 @@
-# 🚀 ResuMatch
+# ResuMatch
 
 > **1st Hackathon Collaboration Project**  
 > *Empowering job seekers to build polished, ATS-friendly, professional resumes effortlessly through a guided multi-step session builder.*
 
 ---
 
-## 🌐 Live Production Deployment
+## Live Production Deployment
 - **Live App URL**: [https://resumatch-api-jkau.onrender.com](https://resumatch-api-jkau.onrender.com)
-- **Status**: ✅ **100% COMPLETED & LIVE ON RENDER**
+- **Status**: **100% COMPLETED & LIVE ON RENDER**
 
 ---
 
-## 👥 Project Team & Contributors
+## Project Team & Contributors
 
 | Contributor | Project Role / Post | GitHub Profile | Responsibilities |
 |---|---|---|---|
@@ -20,7 +20,7 @@
 
 ---
 
-## 🎯 Problem Statement & Solution
+## Problem Statement & Solution
 
 ### The Problem:
 Most job seekers and students struggle with poorly structured, non-ATS compliant resumes that get rejected by automated applicant tracking systems. Manual resume formatting in conventional word processors is frustrating, time-consuming, and prone to layout breaking.
@@ -34,7 +34,7 @@ ResuMatch provides an intuitive, **session-based multi-step resume builder**:
 
 ---
 
-## 🏗️ Architecture & Module Workflow
+## Architecture & Module Workflow
 
 ```mermaid
 flowchart TD
@@ -67,7 +67,7 @@ flowchart TD
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Backend Stack (Python / Flask)
 - **Web Framework**: Python 3.10+, Flask 3.x (App Factory & Blueprints)
@@ -81,11 +81,11 @@ flowchart TD
 - **UI Framework**: HTML5, Tailwind CSS / Custom CSS
 - **State Management**: Client-side Session State Manager (7-Step Wizard Persistence)
 - **HTTP Client**: Axios / Fetch API with JWT Interceptors
-- **Hosting**: Vercel CDN
+- **Hosting**: Render / Vercel CDN
 
 ---
 
-## 📁 Repository Directory Structure
+## Repository Directory Structure
 
 ```
 ResuMatch/
@@ -128,7 +128,7 @@ ResuMatch/
 
 ---
 
-## 🚀 Local Development Setup
+## Local Development Setup
 
 1. **Clone the Repository**:
    ```bash
@@ -163,5 +163,5 @@ ResuMatch/
 
 ---
 
-## 📜 License & Acknowledgments
-Designed & Developed with ❤️ by **Parth Sonavane** ([@parthongit89](https://github.com/parthongit89)) & **Harshal** ([@Ghostofzenin08](https://github.com/Ghostofzenin08)) for the Hackathon.
+## License & Acknowledgments
+Designed & Developed by **Parth Sonavane** ([@parthongit89](https://github.com/parthongit89)) & **Harshal** ([@Ghostofzenin08](https://github.com/Ghostofzenin08)) for the Hackathon.
