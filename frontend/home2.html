@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuMatch — Sample Dashboard & Resume Studio</title>
+    <meta name="description" content="Sample Dashboard draft based on Figma design node 543:2844 featuring ATS resume management and design preview.">
+    
+    <!-- Google Fonts (Plus Jakarta Sans, Montserrat, Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons Icon Library -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Dashboard Stylesheet -->
+    <link rel="stylesheet" href="home2.css">
+</head>
+<body>
+
+    <!-- 1. FIXED LEFT SIDEBAR (72px, #000814) -->
+    <aside class="sidebar" data-node-id="543:2933">
+        <div class="sidebar-top">
+            <a href="#" class="sidebar-brand" title="ResuMatch Studio">
+                <i class='bx bx-check-shield'></i>
+            </a>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" title="Dashboard">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="tooltip">Dashboard</span>
+                </a>
+                <a href="Feature modules/1.resume_builder/index.html" class="nav-item" title="Resume Builder">
+                    <i class='bx bx-layer'></i>
+                    <span class="tooltip">Resume Builder</span>
+                </a>
+                <a href="Feature modules/2.ats-matcher/index.html" class="nav-item" title="ATS Scanner">
+                    <i class='bx bx-task'></i>
+                    <span class="tooltip">ATS Matcher</span>
+                </a>
+                <a href="#" class="nav-item" title="Export History">
+                    <i class='bx bx-history'></i>
+                    <span class="tooltip">Downloads</span>
+                </a>
+                <a href="#" class="nav-item" title="Notifications">
+                    <i class='bx bx-bell'></i>
+                    <span class="tooltip">Notifications</span>
+                </a>
+                <a href="#" class="nav-item" title="Tutorials & Demos">
+                    <i class='bx bx-play-circle'></i>
+                    <span class="tooltip">Tutorials</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="nav-item" title="Settings">
+                <i class='bx bx-cog'></i>
+                <span class="tooltip">Settings</span>
+            </a>
+            <a href="login_page/index.html" class="nav-item logout-btn" title="Log Out">
+                <i class='bx bx-log-out'></i>
+                <span class="tooltip">Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- 2. FIXED TOP HEADER BAR (80px, #000814) -->
+    <header class="header" data-node-id="543:2954">
+        <div class="header-title-area">
+            <div class="brand-text">Resu<span>Match</span></div>
+        </div>
+
+        <!-- Figma Node 543:2973 - Search Box -->
+        <div class="header-search" data-node-id="543:2973">
+            <i class='bx bx-search' data-node-id="543:2965"></i>
+            <input type="text" id="searchInput" placeholder="Search for resume..." data-node-id="543:2958">
+        </div>
+
+        <!-- Figma Node 543:2968 - Create New Resume Button -->
+        <div class="header-actions">
+            <button class="btn-create-resume" id="createResumeBtn" onclick="openPreviewModal()" data-node-id="543:2968">
+                <i class='bx bx-plus' data-node-id="543:2970"></i>
+                <span data-node-id="543:2969">Create new resume</span>
+            </button>
+
+            <div class="user-profile">
+                <div class="avatar">AR</div>
+                <div class="user-info">
+                    <span class="user-name">Alex Rivera</span>
+                    <span class="user-role">Pro Account</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. MAIN DASHBOARD CONTENT AREA -->
+    <main class="main-wrapper" data-node-id="543:2844">
+        <!-- Hero Welcome Banner -->
+        <section class="welcome-hero">
+            <div class="hero-text">
+                <h1>Welcome back, Alex <i class='bx bxs-hand' style="color: #FFC300;"></i></h1>
+                <p>Track your target job applications, optimize ATS keyword matching, and customize high-impact engineering resumes.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Resumes</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">94%</div>
+                    <div class="stat-label">Avg ATS Score</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Exports</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions-area">
+            <div class="section-heading">
+                <h2 class="section-title"><i class='bx bx-bolt-circle' style="color: #FFC300;"></i> Quick Actions</h2>
+            </div>
+            <div class="quick-actions-grid">
+                <a href="Feature modules/1.resume_builder/index.html" class="action-card">
+                    <div class="action-icon yellow">
+                        <i class='bx bx-edit-alt'></i>
+                    </div>
+                    <div class="action-info">
+                        <h3>Resume Session Builder</h3>
+                        <p>Guided 4-step wizard to build ATS-friendly resume sections with AI enhancements.</p>
+                    </div>
+                </a>
+
+                <a href="Feature modules/2.ats-matcher/index.html" class="action-card">
+                    <div class="action-icon blue">
+                        <i class='bx bx-radar'></i>
+                    </div>
+                    <div class="action-info">
+                        <h3>ATS Job Description Scanner</h3>
+                        <p>Upload target job posting and get instant keyword gap analysis and match score.</p>
+                    </div>
+                </a>
+
+                <div class="action-card" onclick="openPreviewModal()">
+                    <div class="action-icon green">
+                        <i class='bx bx-show'></i>
+                    </div>
+                    <div class="action-info">
+                        <h3>Inspect Resume Design</h3>
+                        <p>View complete live sample layout with AI summary and technical skill breakdown.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Resumes Showcase -->
+        <section class="resumes-area">
+            <div class="section-heading">
+                <h2 class="section-title"><i class='bx bx-folder-open' style="color: #2563EB;"></i> My Resumes</h2>
+            </div>
+            
+            <div class="resumes-grid" id="resumesGrid">
+                <!-- Card 1 -->
+                <div class="resume-card">
+                    <div class="card-preview-thumb">
+                        <div class="ats-score-badge"><i class='bx bx-check-shield'></i> 94% ATS</div>
+                        <div class="thumb-paper">
+                            <div class="mini-line dark"></div>
+                            <div class="mini-line blue"></div>
+                            <div class="mini-line w-90"></div>
+                            <div class="mini-line w-80"></div>
+                            <div class="mini-line w-50"></div>
+                            <div class="mini-line w-90"></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="card-title">Senior Full-Stack Engineer</div>
+                            <div class="card-meta">
+                                <span><i class='bx bx-time'></i> Updated 2h ago</span>
+                                <span>• 2 Pages</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-card primary" onclick="openPreviewModal()"><i class='bx bx-show'></i> Preview</button>
+                            <a href="Feature modules/1.resume_builder/index.html" class="btn-card"><i class='bx bx-pencil'></i> Edit</a>
+                            <button class="btn-icon-only" title="Delete Resume"><i class='bx bx-trash'></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="resume-card">
+                    <div class="card-preview-thumb">
+                        <div class="ats-score-badge"><i class='bx bx-check-shield'></i> 88% ATS</div>
+                        <div class="thumb-paper">
+                            <div class="mini-line dark"></div>
+                            <div class="mini-line w-80"></div>
+                            <div class="mini-line w-90"></div>
+                            <div class="mini-line w-50"></div>
+                            <div class="mini-line w-90"></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="card-title">Frontend Specialist (React / TS)</div>
+                            <div class="card-meta">
+                                <span><i class='bx bx-time'></i> Updated yesterday</span>
+                                <span>• 1 Page</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-card primary" onclick="openPreviewModal()"><i class='bx bx-show'></i> Preview</button>
+                            <a href="Feature modules/1.resume_builder/index.html" class="btn-card"><i class='bx bx-pencil'></i> Edit</a>
+                            <button class="btn-icon-only" title="Delete Resume"><i class='bx bx-trash'></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="resume-card">
+                    <div class="card-preview-thumb">
+                        <div class="ats-score-badge" style="background: rgba(37, 99, 235, 0.9);"><i class='bx bx-check-shield'></i> 82% ATS</div>
+                        <div class="thumb-paper">
+                            <div class="mini-line dark"></div>
+                            <div class="mini-line w-90"></div>
+                            <div class="mini-line w-50"></div>
+                            <div class="mini-line w-80"></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="card-title">Backend & Cloud Engineer</div>
+                            <div class="card-meta">
+                                <span><i class='bx bx-time'></i> Updated 3 days ago</span>
+                                <span>• 1 Page</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-card primary" onclick="openPreviewModal()"><i class='bx bx-show'></i> Preview</button>
+                            <a href="Feature modules/1.resume_builder/index.html" class="btn-card"><i class='bx bx-pencil'></i> Edit</a>
+                            <button class="btn-icon-only" title="Delete Resume"><i class='bx bx-trash'></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 4. SAMPLE INTERACTIVE RESUME PREVIEW MODAL -->
+    <div class="modal-overlay" id="previewModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2><i class='bx bx-file-blank' style="color: #FFC300;"></i> Resume Design Preview — Alex Rivera</h2>
+                <button class="modal-close-btn" onclick="closePreviewModal()"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="modal-body">
+                <!-- Realistic A4 Resume Document Sample -->
+                <div class="resume-document">
+                    <header class="resume-header">
+                        <h1>Alex Rivera</h1>
+                        <div class="title">Senior Full-Stack Engineer</div>
+                        <div class="resume-contact">
+                            <span><i class='bx bx-envelope'></i> alex.rivera@example.com</span>
+                            <span><i class='bx bx-phone'></i> +1 (555) 019-2834</span>
+                            <span><i class='bx bx-map-pin'></i> San Francisco, CA</span>
+                            <span><i class='bx bxl-linkedin'></i> linkedin.com/in/alexrivera</span>
+                            <span><i class='bx bxl-github'></i> github.com/alexrivera</span>
+                        </div>
+                    </header>
+
+                    <section class="resume-section">
+                        <div class="resume-section-title">
+                            <span>Professional Summary</span>
+                            <span class="badge-ai"><i class='bx bx-sparkles'></i> AI Enhanced</span>
+                        </div>
+                        <p class="resume-summary-text">
+                            Results-driven Senior Full-Stack Engineer with over 6 years of experience architecting high-scalability web applications, RESTful APIs, and microservices. Expert in TypeScript, React, Node.js, and Cloud Infrastructure (AWS/GCP). Proven track record of improving ATS keyword match rates by 40% and leading engineering teams to deliver robust products.
+                        </p>
+                    </section>
+
+                    <section class="resume-section">
+                        <div class="resume-section-title">Skills & Technologies</div>
+                        <div class="skills-tags">
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">React.js</span>
+                            <span class="skill-tag">Node.js / Express</span>
+                            <span class="skill-tag">Python (Flask / FastAPI)</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">Docker & Kubernetes</span>
+                            <span class="skill-tag">AWS (Lambda, S3)</span>
+                            <span class="skill-tag">TailwindCSS</span>
+                            <span class="skill-tag">GraphQL</span>
+                            <span class="skill-tag">CI/CD Pipelines</span>
+                        </div>
+                    </section>
+
+                    <section class="resume-section">
+                        <div class="resume-section-title">Work Experience</div>
+                        
+                        <div class="exp-item">
+                            <div class="exp-head">
+                                <div>
+                                    <span class="exp-role">Senior Full-Stack Engineer</span> — <span class="exp-company">TechFlow Solutions</span>
+                                </div>
+                                <div class="exp-date">2023 — Present</div>
+                            </div>
+                            <ul class="exp-bullets">
+                                <li>Spearheaded redesign of core SaaS analytics dashboard, improving page load speed by 45%.</li>
+                                <li>Architected microservices using Node.js and PostgreSQL handling 2M+ daily active requests.</li>
+                                <li>Mentored 5 junior developers and enforced strict code review and automated unit testing protocols.</li>
+                            </ul>
+                        </div>
+
+                        <div class="exp-item">
+                            <div class="exp-head">
+                                <div>
+                                    <span class="exp-role">Software Engineer</span> — <span class="exp-company">Nexus Cloud Systems</span>
+                                </div>
+                                <div class="exp-date">2020 — 2023</div>
+                            </div>
+                            <ul class="exp-bullets">
+                                <li>Developed real-time collaborative workspace tools using React, WebSockets, and Redis.</li>
+                                <li>Implemented OAuth2 and JWT authentication flows, enhancing platform security compliance.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="resume-section">
+                        <div class="resume-section-title">Education & Certifications</div>
+                        <div class="exp-item">
+                            <div class="exp-head">
+                                <div>
+                                    <span class="exp-role">B.S. in Computer Science</span> — <span class="exp-company">University of California, Berkeley</span>
+                                </div>
+                                <div class="exp-date">2016 — 2020</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactivity -->
+    <script>
+        function openPreviewModal() {
+            document.getElementById('previewModal').classList.add('active');
+        }
+
+        function closePreviewModal() {
+            document.getElementById('previewModal').classList.remove('active');
+        }
+
+        // Close modal when clicking on dark overlay background
+        document.getElementById('previewModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePreviewModal();
+            }
+        });
+
+        // Search filtering simulation
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.resume-card');
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                if (title.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
