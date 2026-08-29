@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuMatch — ATS Resume Builder & Career Engine</title>
+    <meta name="description" content="AI-assisted, 4-session ATS resume builder with real-time preview, keyword optimization, and recruiter-approved professional templates.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- App Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <!-- MAIN APP HEADER -->
+    <header class="app-header">
+        <div class="header-container">
+            <!-- Brand Section -->
+            <div class="brand-section" onclick="AppNav.switchView('overview')">
+                <div class="brand-logo-icon">
+                    <i class='bx bx-check-shield'></i>
+                </div>
+                <div class="brand-meta">
+                    <span class="brand-title">Resu<span class="gradient-text">Match</span></span>
+                    <span class="brand-tagline">ATS Career Platform</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="app-nav">
+                <button class="nav-link active" data-view="overview" onclick="AppNav.switchView('overview')">
+                    <i class='bx bx-grid-alt'></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-link" data-view="builder" onclick="AppNav.switchView('builder')">
+                    <i class='bx bx-edit-alt'></i>
+                    <span>Resume Builder</span>
+                </button>
+                <button class="nav-link" data-view="templates" onclick="AppNav.switchView('templates')">
+                    <i class='bx bx-layout'></i>
+                    <span>Templates</span>
+                </button>
+                <button class="nav-link" data-view="scanner" onclick="AppNav.switchView('scanner')">
+                    <i class='bx bx-scan'></i>
+                    <span>ATS Scanner</span>
+                </button>
+                <button class="nav-link" data-view="downloads" onclick="AppNav.switchView('downloads')">
+                    <i class='bx bx-download'></i>
+                    <span>My Resumes</span>
+                </button>
+            </nav>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <!-- Preset Sample Profile Loader -->
+                <div class="preset-dropdown-wrap">
+                    <button class="action-pill-btn" onclick="UI.togglePresetMenu(event)" title="Load sample profiles">
+                        <i class='bx bx-magic-wand'></i>
+                        <span>Sample Profiles</span>
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+                    <div id="presetMenu" class="preset-menu">
+                        <div class="preset-menu-header">Select Demo Profile</div>
+                        <div class="preset-item" onclick="ResumeState.loadSampleProfile('software_engineer')">
+                            <i class='bx bx-code-alt'></i>
+                            <div>
+                                <b>Full Stack Engineer</b>
+                                <div style="font-size:11px;color:var(--text-muted);">React, Node.js, Python, AWS</div>
+                            </div>
+                        </div>
+                        <div class="preset-item" onclick="ResumeState.loadSampleProfile('data_scientist')">
+                            <i class='bx bx-line-chart'></i>
+                            <div>
+                                <b>Data Scientist / ML</b>
+                                <div style="font-size:11px;color:var(--text-muted);">Python, PyTorch, SQL, BigQuery</div>
+                            </div>
+                        </div>
+                        <div class="preset-item" onclick="ResumeState.loadSampleProfile('product_manager')">
+                            <i class='bx bx-briefcase'></i>
+                            <div>
+                                <b>Product Manager</b>
+                                <div style="font-size:11px;color:var(--text-muted);">Agile, Roadmap, Analytics</div>
+                            </div>
+                        </div>
+                        <div class="preset-item" onclick="ResumeState.resetForm()" style="color:var(--missing-red);border-top:1px solid var(--border-subtle);margin-top:4px;">
+                            <i class='bx bx-trash' style="color:var(--missing-red);"></i>
+                            <div><b>Clear All Fields</b></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light / Dark Mode" onclick="ThemeManager.toggleTheme()">
+                    <i class='bx bx-moon theme-icon-dark'></i>
+                    <i class='bx bx-sun theme-icon-light'></i>
+                </button>
+
+                <!-- Status Live Tag -->
+                <div class="status-badge-live">
+                    <span class="live-pulse-dot"></span>
+                    <span>Direct Access Active</span>
+                </div>
+
+                <!-- Quick New Resume Button -->
+                <button class="action-pill-btn primary" onclick="AppNav.switchView('builder'); Wizard.goToStep(1);">
+                    <i class='bx bx-plus'></i>
+                    <span>New Resume</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- APP MAIN CONTENT AREA -->
+    <main class="app-main">
+        <!-- =================================================================
+             VIEW 1: DASHBOARD OVERVIEW (FEATURING HERO MAGNET & SCANNER MOCKUP)
+             ================================================================= -->
+        <section id="view-overview" class="view-section active-view">
+            <!-- Hero Magnet Section -->
+            <div class="hero-magnet-container">
+                <!-- Left Column -->
+                <div class="hero-left-col">
+                    <div class="hero-privacy-badge">
+                        <span class="badge-dot"></span>
+                        <span>100% Free & Privacy–First ATS Optimization</span>
+                    </div>
+
+                    <h1 class="hero-main-title">
+                        Turn Your Resume<br>into an<br><span class="gradient-text">Interview Magnet</span>
+                    </h1>
+
+                    <p class="hero-main-desc">
+                        75% of resumes get rejected by automated Applicant Tracking Systems before a human ever reads them. ResuMatch closes the gap with real-time vector ATS formatting, live skill gap scoring, and 1–click job compatibility analysis.
+                    </p>
+
+                    <div class="hero-action-buttons">
+                        <button class="btn-magnet-primary" onclick="AppNav.switchView('builder'); Wizard.goToStep(1);">
+                            <i class='bx bx-file-blank'></i>
+                            <span>Launch Free Resume Builder</span>
+                        </button>
+                        <button class="btn-magnet-secondary" onclick="AppNav.switchView('scanner'); ATSScanner.loadSampleJobDesc();">
+                            <i class='bx bx-scan'></i>
+                            <span>Check ATS Score</span>
+                        </button>
+                    </div>
+
+                    <!-- Bottom Stats Row -->
+                    <div class="hero-stats-row">
+                        <div class="stat-item">
+                            <h3>94%</h3>
+                            <p>ATS Pass Rate</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>3&times;</h3>
+                            <p>More Interviews</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>$0</h3>
+                            <p>Zero Paywalls</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Scanner Mockup Card -->
+                <div class="interactive-mock-card">
+                    <div class="mock-card-header">
+                        <div class="mock-file-info">
+                            <i class='bx bxs-file-pdf mock-pdf-icon'></i>
+                            <div class="mock-file-text">
+                                <h4>Alex_Rivera_FullStack_Resume.pdf</h4>
+                                <p>Scanned against: Senior Frontend Engineer (Google / Stripe)</p>
+                            </div>
+                        </div>
+                        <div class="mock-match-badge" id="heroMatchBadge">
+                            <span class="pct" id="heroMatchPct">92%</span>
+                            <span class="lbl">MATCH</span>
+                        </div>
+                    </div>
+
+                    <!-- Skeleton Content Lines -->
+                    <div class="mock-skeleton-lines">
+                        <div class="skel-line long"></div>
+                        <div class="skel-line short"></div>
+                    </div>
+
+                    <!-- Interactive Skill Tag Chips -->
+                    <div class="mock-skill-chips-grid">
+                        <span class="scan-chip match" title="Matched in resume"><i class='bx bx-check'></i> React.js</span>
+                        <span class="scan-chip match" title="Matched in resume"><i class='bx bx-check'></i> TypeScript</span>
+                        <span class="scan-chip match" title="Matched in resume"><i class='bx bx-check'></i> REST APIs</span>
+                        <span class="scan-chip missing" id="chipDocker" onclick="HeroDemo.toggleChip('Docker')" title="Click to simulate adding Docker"><i class='bx bx-x'></i> Docker</span>
+                        <span class="scan-chip match" title="Matched in resume"><i class='bx bx-check'></i> Tailwind CSS</span>
+                        <span class="scan-chip missing" id="chipGraphQL" onclick="HeroDemo.toggleChip('GraphQL')" title="Click to simulate adding GraphQL"><i class='bx bx-x'></i> GraphQL</span>
+                        <span class="scan-chip match" title="Matched in resume"><i class='bx bx-check'></i> Performance Optimization</span>
+                    </div>
+
+                    <!-- Skeleton Content Line -->
+                    <div class="mock-skeleton-lines" style="border:none;margin-bottom:12px;padding:0;">
+                        <div class="skel-line long"></div>
+                    </div>
+
+                    <!-- AI Recommendation Box -->
+                    <div class="mock-ai-box">
+                        <p id="heroAiRecText"><b>AI Recommendation:</b> Add <i>Docker</i> containerization experience to reach <b>98% fit</b>.</p>
+                        <button class="btn-demo-test" onclick="HeroDemo.testLiveDemo()">Test Live Demo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Metrics Grid -->
+            <div class="dashboard-metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon-box indigo">
+                        <i class='bx bx-file-blank'></i>
+                    </div>
+                    <div class="metric-details">
+                        <div class="metric-value" id="statDraftCount">3</div>
+                        <div class="metric-label">Active Resume Drafts</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-icon-box green">
+                        <i class='bx bx-check-double'></i>
+                    </div>
+                    <div class="metric-details">
+                        <div class="metric-value" id="statAtsScore">94%</div>
+                        <div class="metric-label">Average ATS Match Rate</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-icon-box amber">
+                        <i class='bx bx-target-lock'></i>
+                    </div>
+                    <div class="metric-details">
+                        <div class="metric-value" id="statTargetRoles">Full Stack Dev</div>
+                        <div class="metric-label">Target Role Alignment</div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-icon-box purple">
+                        <i class='bx bx-cloud-download'></i>
+                    </div>
+                    <div class="metric-details">
+                        <div class="metric-value" id="statDownloads">8</div>
+                        <div class="metric-label">Total Exports & Prints</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Drafts Gallery -->
+            <div class="section-headline">
+                <h3><i class='bx bx-history'></i> Recent Resume Drafts</h3>
+                <button class="action-pill-btn" onclick="AppNav.switchView('builder')">
+                    <i class='bx bx-plus'></i>
+                    <span>Create Another</span>
+                </button>
+            </div>
+
+            <div class="drafts-grid" id="draftsGridContainer">
+                <!-- Dynamically Populated by script.js -->
+            </div>
+        </section>
+
+        <!-- =================================================================
+             VIEW 2: 4-SESSION RESUME BUILDER & LIVE STUDIO
+             ================================================================= -->
+        <section id="view-builder" class="view-section">
+            <div class="builder-layout-split">
+                <!-- LEFT COLUMN: 4-SESSION WIZARD FORM -->
+                <div class="wizard-panel">
+                    <!-- Session Stepper -->
+                    <div class="stepper-nav">
+                        <div class="stepper-progress-fill" id="stepperProgressFill"></div>
+                        <button type="button" class="step-node active" data-step="1" onclick="Wizard.goToStep(1)">
+                            <div class="step-circle">1</div>
+                            <span class="step-label">Roles & Edu</span>
+                        </button>
+                        <button type="button" class="step-node" data-step="2" onclick="Wizard.goToStep(2)">
+                            <div class="step-circle">2</div>
+                            <span class="step-label">Skills & Links</span>
+                        </button>
+                        <button type="button" class="step-node" data-step="3" onclick="Wizard.goToStep(3)">
+                            <div class="step-circle">3</div>
+                            <span class="step-label">Experience</span>
+                        </button>
+                        <button type="button" class="step-node" data-step="4" onclick="Wizard.goToStep(4)">
+                            <div class="step-circle">4</div>
+                            <span class="step-label">Tailoring</span>
+                        </button>
+                    </div>
+
+                    <!-- STEP 1 PANE: TARGETED ROLES & EDUCATION -->
+                    <div id="stepPane1" class="session-step-pane active-step">
+                        <div class="step-pane-header">
+                            <h3>Session 1: Personal Info & Education</h3>
+                            <p>Targeted job roles, contact information, and educational credentials.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Targeted Job Title / Position <span class="required">*</span></label>
+                            <div class="input-icon-wrap">
+                                <i class='bx bx-briefcase-alt-2'></i>
+                                <input type="text" id="inputTargetRole" class="form-input" placeholder="e.g. Senior Full Stack Engineer" oninput="ResumeState.updateField('target_role', this.value)">
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label>Full Name <span class="required">*</span></label>
+                                <div class="input-icon-wrap">
+                                    <i class='bx bx-user'></i>
+                                    <input type="text" id="inputFullName" class="form-input" placeholder="e.g. Alex Rivera" oninput="ResumeState.updateField('full_name', this.value)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Professional Headline</label>
+                                <div class="input-icon-wrap">
+                                    <i class='bx bx-id-card'></i>
+                                    <input type="text" id="inputHeadline" class="form-input" placeholder="e.g. Senior Frontend & Cloud Architect" oninput="ResumeState.updateField('headline', this.value)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label>Email Address <span class="required">*</span></label>
+                                <div class="input-icon-wrap">
+                                    <i class='bx bx-envelope'></i>
+                                    <input type="email" id="inputEmail" class="form-input" placeholder="alex.rivera@example.com" oninput="ResumeState.updateField('email', this.value)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <div class="input-icon-wrap">
+                                    <i class='bx bx-phone'></i>
+                                    <input type="tel" id="inputPhone" class="form-input" placeholder="+1 (555) 234-5678" oninput="ResumeState.updateField('phone', this.value)">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Location / City, Country</label>
+                            <div class="input-icon-wrap">
+                                <i class='bx bx-map-pin'></i>
+                                <input type="text" id="inputLocation" class="form-input" placeholder="San Francisco, CA" oninput="ResumeState.updateField('location', this.value)">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Professional Summary / Bio</label>
+                            <textarea id="inputSummary" class="form-textarea" placeholder="Senior Frontend Engineer with 5+ years building high-performance web applications, modern micro-frontends, and scalable UI architectures..." oninput="ResumeState.updateField('summary', this.value)"></textarea>
+                        </div>
+
+                        <!-- Dynamic Education List -->
+                        <div class="form-group">
+                            <label style="display:flex;justify-content:space-between;align-items:center;">
+                                <span>Education History <span class="required">*</span></span>
+                            </label>
+                            <div id="educationListContainer" class="dynamic-list-container">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <button type="button" class="btn-add-dynamic" onclick="ResumeState.addEducation()">
+                                <i class='bx bx-plus-circle'></i>
+                                <span>Add Another Degree / College</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2 PANE: TECHNICAL SKILLS & EXTERNAL LINKS -->
+                    <div id="stepPane2" class="session-step-pane">
+                        <div class="step-pane-header">
+                            <h3>Session 2: Technical Skills & External Links</h3>
+                            <p>Organize technical competencies and verified professional portfolios.</p>
+                        </div>
+
+                        <!-- Technical Skills Input -->
+                        <div class="skills-category-box">
+                            <h4><i class='bx bx-code-block' style="color:var(--primary-light);"></i> Technical Skills & Competencies</h4>
+                            <div id="skillsChipsContainer" class="skill-chips-container">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <div class="chip-quick-add">
+                                <input type="text" id="newSkillInput" placeholder="Add skill (e.g. React, TypeScript, Docker, Tailwind CSS) and press Enter" onkeydown="if(event.key==='Enter'){event.preventDefault(); ResumeState.addSkill(this.value); this.value='';}">
+                                <button type="button" class="action-pill-btn primary" onclick="const el=document.getElementById('newSkillInput'); ResumeState.addSkill(el.value); el.value='';">Add</button>
+                            </div>
+                        </div>
+
+                        <!-- External Links -->
+                        <div class="form-group">
+                            <label>LinkedIn Profile URL</label>
+                            <div class="input-icon-wrap">
+                                <i class='bx bxl-linkedin'></i>
+                                <input type="url" id="linkLinkedin" class="form-input" placeholder="https://linkedin.com/in/alexrivera" oninput="ResumeState.updateLink('linkedin', this.value)">
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label>GitHub Profile URL</label>
+                                <div class="input-icon-wrap">
+                                    <i class='bx bxl-github'></i>
+                                    <input type="url" id="linkGithub" class="form-input" placeholder="https://github.com/alexrivera" oninput="ResumeState.updateLink('github', this.value)">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Portfolio / Website URL</label>
+                                <div class="input-icon-wrap">
+                                    <i class='bx bx-globe'></i>
+                                    <input type="url" id="linkPortfolio" class="form-input" placeholder="https://alexrivera.dev" oninput="ResumeState.updateLink('portfolio', this.value)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3 PANE: EXPERIENCE & CERTIFICATIONS -->
+                    <div id="stepPane3" class="session-step-pane">
+                        <div class="step-pane-header">
+                            <h3>Session 3: Experience & Certifications</h3>
+                            <p>Add career history, internships, key achievements, and certifications.</p>
+                        </div>
+
+                        <!-- Dynamic Experience List -->
+                        <div class="form-group">
+                            <label>Work Experience & Internships</label>
+                            <div id="experienceListContainer" class="dynamic-list-container">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <button type="button" class="btn-add-dynamic" onclick="ResumeState.addExperience()">
+                                <i class='bx bx-plus-circle'></i>
+                                <span>Add Work Experience</span>
+                            </button>
+                        </div>
+
+                        <!-- Dynamic Certifications List -->
+                        <div class="form-group" style="margin-top:24px;">
+                            <label>Certifications & Licenses</label>
+                            <div id="certsListContainer" class="dynamic-list-container">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <button type="button" class="btn-add-dynamic" onclick="ResumeState.addCertification()">
+                                <i class='bx bx-plus-circle'></i>
+                                <span>Add Certification</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4 PANE: TAILORING & TARGET COMPANIES -->
+                    <div id="stepPane4" class="session-step-pane">
+                        <div class="step-pane-header">
+                            <h3>Session 4: Advanced Tailoring & Target Companies</h3>
+                            <p>ATS keyword matching, target companies, and supplementary credentials.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Target Companies (for ATS keyword matching)</label>
+                            <div class="input-icon-wrap">
+                                <i class='bx bx-buildings'></i>
+                                <input type="text" id="inputTargetCompanies" class="form-input" placeholder="e.g. Google, Stripe, Microsoft, OpenAI" oninput="ResumeState.updateField('target_companies', this.value)">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Key Projects or Additional Honors</label>
+                            <textarea id="inputAdditionalCerts" class="form-textarea" placeholder="Built an open-source web optimization library with 2,400+ GitHub stars; Speaker at ReactConf 2025..." oninput="ResumeState.updateField('additional_certs', this.value)"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Job Description Paste (Instant ATS Keyword Alignment)</label>
+                            <textarea id="inputJobDesc" class="form-textarea" placeholder="Paste the job description here to analyze matching keywords in real time..." oninput="ATSScanner.analyzeFromBuilder(this.value)"></textarea>
+                            <div id="builderAtsFeedback" style="font-size:12px;margin-top:6px;color:var(--match-green);font-weight:600;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Wizard Bottom Navigation Controls -->
+                    <div class="wizard-footer-bar">
+                        <button type="button" class="btn-wizard-prev" id="btnWizardPrev" onclick="Wizard.prevStep()">
+                            <i class='bx bx-left-arrow-alt'></i>
+                            <span>Previous</span>
+                        </button>
+                        <button type="button" class="btn-wizard-save" onclick="ResumeState.saveDraft()">
+                            <i class='bx bx-save'></i>
+                            <span>Save Draft</span>
+                        </button>
+                        <button type="button" class="btn-wizard-next" id="btnWizardNext" onclick="Wizard.nextStep()">
+                            <span>Next Session</span>
+                            <i class='bx bx-right-arrow-alt'></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: LIVE RESUME STUDIO & SPLIT PREVIEW -->
+                <div class="studio-preview-panel">
+                    <!-- Studio Customizer Toolbar -->
+                    <div class="studio-toolbar">
+                        <!-- Template Selectors -->
+                        <div class="template-selector-group">
+                            <button type="button" class="template-btn active" data-template="template-corporate" onclick="ResumeRenderer.setTemplate('template-corporate', this)">Corporate</button>
+                            <button type="button" class="template-btn" data-template="template-tech" onclick="ResumeRenderer.setTemplate('template-tech', this)">Tech Indigo</button>
+                            <button type="button" class="template-btn" data-template="template-minimal" onclick="ResumeRenderer.setTemplate('template-minimal', this)">Minimalist</button>
+                        </div>
+
+                        <!-- Accent Color Swatches -->
+                        <div class="preview-controls-right">
+                            <div class="color-dots-group">
+                                <div class="color-dot active" data-color="indigo" title="Electric Indigo" onclick="ResumeRenderer.setColor('#4f46e5', this)"></div>
+                                <div class="color-dot" data-color="slate" title="Corporate Slate" onclick="ResumeRenderer.setColor('#1e293b', this)"></div>
+                                <div class="color-dot" data-color="emerald" title="Forest Emerald" onclick="ResumeRenderer.setColor('#059669', this)"></div>
+                                <div class="color-dot" data-color="ruby" title="Crimson Ruby" onclick="ResumeRenderer.setColor('#e11d48', this)"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Synchronous Resume Paper Sheet -->
+                    <div class="resume-paper-scroll">
+                        <div id="liveResumePaper" class="resume-paper template-corporate">
+                            <!-- Rendered Live via script.js -->
+                        </div>
+                    </div>
+
+                    <!-- Studio Bottom Actions -->
+                    <div class="studio-export-bar">
+                        <button type="button" class="btn-export-pdf" onclick="ResumeExporter.downloadPDF()">
+                            <i class='bx bxs-file-pdf'></i>
+                            <span>Download ATS PDF</span>
+                        </button>
+                        <button type="button" class="btn-export-aux" onclick="ResumeExporter.exportJSON()" title="Export JSON matching backend ResumeDraft schema">
+                            <i class='bx bx-code-curly'></i>
+                            <span>JSON</span>
+                        </button>
+                        <button type="button" class="btn-export-aux" onclick="ResumeExporter.copyPlainText()" title="Copy clean plain text for job boards">
+                            <i class='bx bx-copy'></i>
+                            <span>Copy Text</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             VIEW 3: TEMPLATES GALLERY
+             ================================================================= -->
+        <section id="view-templates" class="view-section">
+            <div class="section-headline">
+                <div>
+                    <h3><i class='bx bx-palette'></i> Recruiter-Approved Resume Templates</h3>
+                    <p style="font-size:13.5px;color:var(--text-secondary);">Tested against standard ATS parsers for 100% readability and optimal recruiter scoring.</p>
+                </div>
+            </div>
+
+            <div class="templates-gallery-grid">
+                <!-- Template 1: Executive Corporate -->
+                <div class="template-card-preview selected" onclick="ResumeRenderer.applyTemplateFromGallery('template-corporate')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content">
+                            <div class="mockup-line title"></div>
+                            <div class="mockup-line short"></div>
+                            <div style="height:1px;background:#cbd5e1;margin:4px 0;"></div>
+                            <div class="mockup-line"></div>
+                            <div class="mockup-line"></div>
+                            <div class="mockup-line short"></div>
+                        </div>
+                    </div>
+                    <h4>Executive Corporate</h4>
+                    <p style="font-size:12.5px;color:var(--text-muted);margin:4px 0 12px;">Classic, clean, and trusted format ideal for engineering, finance, management, and enterprise roles.</p>
+                    <button class="action-pill-btn primary" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+
+                <!-- Template 2: Modern Tech Indigo -->
+                <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-tech')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content" style="background:#f8fafc;">
+                            <div style="height:28px;background:linear-gradient(135deg,#312e81,#4f46e5);border-radius:3px;margin-bottom:6px;"></div>
+                            <div class="mockup-line"></div>
+                            <div class="mockup-line"></div>
+                            <div class="mockup-line short"></div>
+                        </div>
+                    </div>
+                    <h4>Modern Tech Indigo</h4>
+                    <p style="font-size:12.5px;color:var(--text-muted);margin:4px 0 12px;">Vibrant gradient header with pill tags, engineered specifically for software developers and tech innovators.</p>
+                    <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+
+                <!-- Template 3: Emerald Minimalist -->
+                <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-minimal')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content" style="border-left:3px solid #059669;">
+                            <div class="mockup-line title" style="background:#064e3b;"></div>
+                            <div class="mockup-line short"></div>
+                            <div class="mockup-line" style="margin-top:6px;"></div>
+                            <div class="mockup-line short"></div>
+                        </div>
+                    </div>
+                    <h4>Emerald Minimalist</h4>
+                    <p style="font-size:12.5px;color:var(--text-muted);margin:4px 0 12px;">Serif typography with emerald accents and generous whitespace, perfect for design and research roles.</p>
+                    <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             VIEW 4: ATS SCANNER & KEYWORD MATCHER
+             ================================================================= -->
+        <section id="view-scanner" class="view-section">
+            <div class="section-headline">
+                <div>
+                    <h3><i class='bx bx-scan'></i> Real-Time ATS Keyword Scanner</h3>
+                    <p style="font-size:13.5px;color:var(--text-secondary);">Paste a target job description to verify exact keyword matches with your current resume.</p>
+                </div>
+            </div>
+
+            <div class="scanner-grid">
+                <div class="scanner-box">
+                    <h4 style="font-size:15px;margin-bottom:12px;"><i class='bx bx-paste'></i> Target Job Description</h4>
+                    <textarea id="scannerJobInput" class="form-textarea" style="min-height:280px;" placeholder="Paste the complete job description or requirements section here..." oninput="ATSScanner.runFullScan(this.value)"></textarea>
+                    <div style="display:flex;gap:10px;margin-top:14px;">
+                        <button class="action-pill-btn primary" onclick="ATSScanner.runFullScan(document.getElementById('scannerJobInput').value)">
+                            <i class='bx bx-radar'></i>
+                            <span>Scan Keywords</span>
+                        </button>
+                        <button class="action-pill-btn" onclick="ATSScanner.loadSampleJobDesc()">
+                            <i class='bx bx-sample'></i>
+                            <span>Load Sample Job Post</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="scanner-box">
+                    <h4 style="font-size:15px;margin-bottom:12px;"><i class='bx bx-chart'></i> Scan Results & Match Analysis</h4>
+                    
+                    <div class="ats-score-display-card">
+                        <div class="ats-gauge-circle" id="scannerGaugeCircle" data-gauge-score="92"></div>
+                        <div>
+                            <h3 id="scannerScoreText" style="font-size:20px;font-weight:800;color:var(--match-green);">Excellent Match</h3>
+                            <p style="font-size:12.5px;color:var(--text-secondary);" id="scannerScoreSub">Your resume aligns well with key job requirements.</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:16px;">
+                        <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--match-green);">
+                            <i class='bx bx-check-circle'></i> Matched Keywords (<span id="matchedCount">0</span>)
+                        </div>
+                        <div id="matchedKeywordsContainer" style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--missing-red);">
+                            <i class='bx bx-x-circle'></i> Missing Suggested Keywords (<span id="missingCount">0</span>)
+                        </div>
+                        <div id="missingKeywordsContainer" style="display:flex;flex-wrap:wrap;gap:6px;">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 
+             VIEW 5: SAVED RESUMES & DOWNLOADS
+              -->
+        <section id="view-downloads" class="view-section">
+            <div class="section-headline">
+                <div>
+                    <h3><i class='bx bx-folder-open'></i> My Resumes & Export History</h3>
+                    <p style="font-size:13.5px;color:var(--text-secondary);">Manage and download your tailored resume drafts anytime.</p>
+                </div>
+                <button class="action-pill-btn primary" onclick="AppNav.switchView('builder'); Wizard.goToStep(1);">
+                    <i class='bx bx-plus'></i>
+                    <span>Create New Resume</span>
+                </button>
+            </div>
+
+            <div class="drafts-grid" id="allDownloadsGrid">
+                <!-- Dynamically Populated by script.js -->
+            </div>
+        </section>
+    </main>
+
+    <!-- App JavaScript Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
