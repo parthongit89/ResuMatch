@@ -16,6 +16,10 @@
             <i class='bx bx-briefcase-alt-2'></i>
             <span>Resu<span class="highlight">Match</span> Jobs</span>
         </div>
+        <div class="search-box-wrap" style="display:flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; padding:6px 12px; width:280px;">
+            <i class='bx bx-search' style="color:var(--text-muted); margin-right:8px;"></i>
+            <input type="text" id="jobSearchInput" placeholder="Search target role..." style="background:transparent; border:none; outline:none; color:#fff; font-size:13px; width:100%;">
+        </div>
         <div class="filter-pills" id="filterPills">
             <button class="pill active" data-cat="all">All Roles</button>
             <button class="pill" data-cat="frontend">Frontend</button>
@@ -33,7 +37,7 @@
         <div class="modal-card">
             <h3>🚀 Quick Apply with ATS Resume</h3>
             <p id="modalJobInfo" style="color:var(--text-muted); margin: 8px 0 16px;"></p>
-            <button class="btn btn-primary" onclick="JobsModule.submitApplication()">Confirm & Send Application</button>
+            <button class="btn btn-primary" id="confirmApplyBtn" onclick="JobsModule.submitApplication()">Confirm & Send Application</button>
             <button class="btn btn-outline" style="margin-top:8px;" onclick="JobsModule.closeModal()">Cancel</button>
         </div>
     </div>

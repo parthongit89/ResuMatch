@@ -42,63 +42,120 @@ const JobsModule = {
         }
     ],
 
-    init() {
-        this.renderJobs('all');
+    activeCategory: 'all',
+    searchQuery: '',
+
+    async init() {
         this.bindFilters();
+        this.bindSearch();
+        await this.fetchJobsFromBackend('all');
     },
 
     bindFilters() {
         const pills = document.querySelectorAll('.filter-pills .pill');
         pills.forEach(p => {
-            p.addEventListener('click', () => {
+            p.addEventListener('click', async () => {
                 pills.forEach(btn => btn.classList.remove('active'));
                 p.classList.add('active');
-                this.renderJobs(p.dataset.cat);
+                this.activeCategory = p.dataset.cat;
+                await this.fetchJobsFromBackend(this.activeCategory, this.searchQuery);
             });
         });
     },
 
-    // 
-    // UPGRADE HOOK: CONNECT SUPABASE / POSTGRES JOB DATABASE HERE
-    // 
-    async fetchJobsFromBackend() {
-        /*
-        const res = await fetch('/api/jobs');
-        this.jobsList = await res.json();
-        this.renderJobs('all');
-        */
+    bindSearch() {
+        const searchInput = document.getElementById('jobSearchInput');
+        if (searchInput) {
+            let debounceTimer;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(async () => {
+                    this.searchQuery = e.target.value.trim();
+                    await this.fetchJobsFromBackend(this.activeCategory, this.searchQuery);
+                }, 300);
+            });
+        }
     },
 
-    renderJobs(cat = 'all') {
+    /**
+     * FETCH LIVE JOBS FROM FLASK BACKEND API (/api/v1/jobs)
+     */
+    async fetchJobsFromBackend(category = 'all', query = '') {
+        const grid = document.getElementById('jobsGrid');
+        if (grid) {
+            grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-muted);">
+                <i class='bx bx-loader-alt bx-spin' style="font-size:32px; color: var(--brand);"></i>
+                <p style="margin-top:12px;">Fetching live job postings...</p>
+            </div>`;
+        }
+
+        try {
+            const params = new URLSearchParams();
+            if (category && category !== 'all') params.append('category', category);
+            if (query) params.append('query', query);
+
+            const res = await fetch(`/api/v1/jobs?${params.toString()}`);
+            if (res.ok) {
+                const payload = await res.json();
+                if (payload.success && Array.isArray(payload.data)) {
+                    this.jobsList = payload.data;
+                    this.renderJobs();
+                    return;
+                }
+            }
+        } catch (err) {
+            console.warn('[JobsModule] Backend API unreachable, rendering offline jobs dataset:', err);
+        }
+
+        // Fallback rendering
+        this.renderJobs();
+    },
+
+    renderJobs() {
         const grid = document.getElementById('jobsGrid');
         if (!grid) return;
 
-        const filtered = cat === 'all' ? this.jobsList : this.jobsList.filter(j => j.category === cat);
+        if (this.jobsList.length === 0) {
+            grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-muted);">
+                <i class='bx bx-search-alt' style="font-size:40px;"></i>
+                <p style="margin-top:12px;">No live jobs found matching your search criteria.</p>
+            </div>`;
+            return;
+        }
 
-        grid.innerHTML = filtered.map(job => `
+        grid.innerHTML = this.jobsList.map(job => `
             <div class="job-card">
                 <div class="card-head">
-                    <div class="logo-badge">${job.logo}</div>
+                    <div class="logo-badge">${job.logo || 'J'}</div>
                     <div>
                         <div class="title">${job.title}</div>
                         <div class="company">${job.company}</div>
                     </div>
                 </div>
-                <div class="loc-salary">${job.location} • <span style="color:var(--match);font-weight:600;">${job.salary}</span></div>
+                <div class="loc-salary">${job.location || 'Remote'} • <span style="color:var(--match);font-weight:600;">${job.salary || 'Competitive'}</span></div>
                 <p class="desc">${job.desc}</p>
                 <div class="tags">
-                    ${job.skills.map(s => `<span class="tag">${s}</span>`).join('')}
+                    ${(job.skills || []).map(s => `<span class="tag">${s}</span>`).join('')}
                 </div>
                 <div class="card-actions">
-                    <button class="btn btn-primary" onclick="JobsModule.openApplyModal('${job.title}', '${job.company}')">Quick Apply</button>
-                    <button class="btn btn-outline" onclick="alert('ATS Check: Matches ${job.skills.slice(0, 2).join(', ')}!')">Check Fit</button>
+                    <button class="btn btn-primary" onclick="JobsModule.openApplyModal('${job.title.replace(/'/g, "\\'")}', '${job.company.replace(/'/g, "\\'")}', '${job.url || '#'}')">Quick Apply</button>
+                    <button class="btn btn-outline" onclick="alert('ATS Keyword Match: Strong alignment for ${(job.skills || ['React', 'Python']).slice(0, 2).join(', ')}!')">Check Fit</button>
                 </div>
             </div>
         `).join('');
     },
 
-    openApplyModal(title, company) {
-        document.getElementById('modalJobInfo').textContent = `${title} at ${company}`;
+    openApplyModal(title, company, url = '#') {
+        document.getElementById('modalJobInfo').innerHTML = `<strong>${title}</strong> at <strong>${company}</strong>`;
+        const applyBtn = document.getElementById('confirmApplyBtn');
+        if (applyBtn) {
+            applyBtn.onclick = () => {
+                if (url && url !== '#') {
+                    window.open(url, '_blank');
+                }
+                this.submitApplication();
+            };
+        }
         document.getElementById('applyModal').style.display = 'flex';
     },
 
