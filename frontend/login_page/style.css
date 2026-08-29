@@ -18,8 +18,8 @@
     --missing-red: #ef4444;
     --missing-red-soft: rgba(239, 68, 68, 0.15);
     
-    --font-heading: 'Montserrat', sans-serif;
-    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Google Sans Flex', 'Montserrat', sans-serif;
+    --font-body: 'Google Sans Flex', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     --radius-sm: 8px;
     --radius-md: 12px;

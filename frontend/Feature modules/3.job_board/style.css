@@ -35,8 +35,8 @@
     --info-blue-soft: rgba(59, 130, 246, 0.12);
 
     /* Typography */
-    --font-heading: 'Montserrat', 'Plus Jakarta Sans', sans-serif;
-    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Google Sans Flex', 'Montserrat', 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'Google Sans Flex', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-serif: 'Merriweather', 'Lora', Georgia, serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 

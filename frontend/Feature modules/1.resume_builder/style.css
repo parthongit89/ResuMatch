@@ -15,6 +15,7 @@ MODULE 1: RESUME BUILDER STYLESHEET (SPLIT SCREEN & A4 PRINT ENGINE)
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --border: rgba(255, 255, 255, 0.08);
+    --font-sans: 'Google Sans Flex', 'Plus Jakarta Sans', 'Montserrat', sans-serif;
 }
 
 
@@ -23,12 +24,14 @@ MODULE 1: RESUME BUILDER STYLESHEET (SPLIT SCREEN & A4 PRINT ENGINE)
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: var(--font-sans);
 }
 
 body {
     background-color: var(--bg-dark);
     color: var(--text-main);
+    font-family: var(--font-sans);
+    font-variation-settings: "GRAD" 0, "ROND" 0, "wdth" 100;
     min-height: 100vh;
 }
 
