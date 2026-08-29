@@ -1,0 +1,332 @@
+/* ResuMatch - Standalone Designs Shared Stylesheet (style.css)
+   Based on Figma Design Node: 498-2
+*/
+
+:root {
+    --bg-dark-sidebar: #000814;
+    --bg-dark-header: #000814;
+    --accent-yellow: #FFC300;
+    --accent-yellow-hover: #e6b000;
+    --primary-blue: #1E3A8A;
+    --royal-indigo: #2563EB;
+    --success-green: #059669;
+    --bg-workspace: #0b1329;
+    --card-bg: #131f3d;
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.55);
+    --border-subtle: rgba(255, 255, 255, 0.2);
+    --font-sans: 'Google Sans Flex', 'Google Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-variation-settings: "GRAD" 0, "ROND" 0, "wdth" 100;
+    background-color: var(--bg-workspace);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+}
+
+/* -------------------------------------------------------------
+   1. FIXED SIDEBAR NAVIGATION (72px width, #000814)
+   ------------------------------------------------------------- */
+.sidebar {
+    width: 72px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--bg-dark-sidebar);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    z-index: 100;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    width: 100%;
+}
+
+.sidebar-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%);
+    color: #FFFFFF;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+}
+
+.nav-item {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-item.active {
+    color: var(--accent-yellow);
+    background-color: rgba(255, 195, 0, 0.12);
+}
+
+.nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 10px;
+    bottom: 10px;
+    width: 4px;
+    background-color: var(--accent-yellow);
+    border-radius: 0 4px 4px 0;
+}
+
+.nav-item .tooltip {
+    position: absolute;
+    left: 80px;
+    background: #1e293b;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform: translateX(-8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav-item:hover .tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.logout-btn {
+    color: #ef4444 !important;
+}
+
+.logout-btn:hover {
+    background-color: rgba(239, 68, 68, 0.12) !important;
+}
+
+/* -------------------------------------------------------------
+   2. FIXED TOP HEADER BAR (80px height, #000814)
+   ------------------------------------------------------------- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 72px;
+    right: 0;
+    height: 80px;
+    background-color: var(--bg-dark-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    z-index: 90;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-title-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.brand-text {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.brand-text span {
+    color: var(--accent-yellow);
+}
+
+.header-search {
+    position: relative;
+    width: 421px;
+    height: 40px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background-color: rgba(255, 255, 255, 0.03);
+    transition: border-color 0.2s ease;
+}
+
+.header-search:focus-within {
+    border-color: var(--accent-yellow);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.header-search i {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-right: 10px;
+}
+
+.header-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    width: 100%;
+}
+
+.header-search input::placeholder {
+    color: var(--text-muted);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-create-resume {
+    height: 43px;
+    padding: 0 24px;
+    background-color: var(--accent-yellow);
+    color: #000814;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255, 195, 0, 0.25);
+}
+
+.btn-create-resume:hover {
+    background-color: var(--accent-yellow-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(255, 195, 0, 0.35);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFC300, #2563EB);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    color: #000814;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* -------------------------------------------------------------
+   3. MAIN CONTENT CONTAINER
+   ------------------------------------------------------------- */
+.main-wrapper {
+    margin-top: 80px;
+    margin-left: 72px;
+    padding: 32px;
+    width: calc(100vw - 72px);
+    min-height: calc(100vh - 80px);
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Cards & Layouts */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.design-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.25s ease;
+}
+
+.design-card:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Standalone Page specific layouts */
+.full-page-wrapper {
+    margin-top: 0;
+    margin-left: 0;
+    width: 100vw;
+    min-height: 100vh;
+}

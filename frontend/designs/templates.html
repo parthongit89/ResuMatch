@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuMatch — Resume Templates</title>
+    <meta name="description" content="Choose from high-impact ATS-recommended resume templates and theme color palettes.">
+    
+    <!-- Google Fonts (Google Sans Flex, Plus Jakarta Sans, Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@300;400;500;600;700&family=Montserrat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Boxicons Icon Library -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .template-preview-box {
+            height: 380px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            color: #0f172a;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .template-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.25s ease;
+        }
+
+        .template-card:hover {
+            border-color: var(--accent-yellow);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        .template-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--accent-yellow);
+            color: #000814;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. FIXED LEFT SIDEBAR (72px, #000814) -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <a href="landing.html" class="sidebar-brand" title="ResuMatch Studio">
+                <i class='bx bx-check-shield'></i>
+            </a>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item" title="Dashboard">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="tooltip">Dashboard</span>
+                </a>
+                <a href="templates.html" class="nav-item active" title="Resume Templates">
+                    <i class='bx bx-layer'></i>
+                    <span class="tooltip">Templates</span>
+                </a>
+                <a href="search_jobs.html" class="nav-item" title="Search Jobs">
+                    <i class='bx bx-task'></i>
+                    <span class="tooltip">Search Jobs</span>
+                </a>
+                <a href="history.html" class="nav-item" title="History">
+                    <i class='bx bx-history'></i>
+                    <span class="tooltip">History</span>
+                </a>
+                <a href="notifications.html" class="nav-item" title="Notifications">
+                    <i class='bx bx-bell'></i>
+                    <span class="tooltip">Notifications</span>
+                </a>
+                <a href="subscriptions.html" class="nav-item" title="Subscriptions">
+                    <i class='bx bx-credit-card'></i>
+                    <span class="tooltip">Subscriptions</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="#" class="nav-item" title="Settings">
+                <i class='bx bx-cog'></i>
+                <span class="tooltip">Settings</span>
+            </a>
+            <a href="landing.html" class="nav-item logout-btn" title="Log Out">
+                <i class='bx bx-log-out'></i>
+                <span class="tooltip">Log Out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- 2. FIXED TOP HEADER BAR (80px, #000814) -->
+    <header class="header">
+        <div class="header-title-area">
+            <div class="brand-text">Resu<span>Match</span></div>
+        </div>
+
+        <div class="header-search">
+            <i class='bx bx-search'></i>
+            <input type="text" id="searchInput" placeholder="Search for Resume">
+        </div>
+
+        <div class="header-actions">
+            <a href="templates.html" class="btn-create-resume">
+                <i class='bx bx-plus'></i>
+                <span>Create new resume</span>
+            </a>
+
+            <div class="user-profile">
+                <div class="avatar">J</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. MAIN WORKSPACE CONTENT -->
+    <main class="main-wrapper" data-node-id="548:3194">
+        <!-- Figma Node 548:3201 - Resume's Templates Heading -->
+        <h1 class="page-title" data-node-id="548:3201">
+            <i class='bx bx-layer' style="color: var(--accent-yellow);"></i>
+            Resume’s Templates
+        </h1>
+
+        <!-- Templates Grid (Figma Nodes 548:3234, 548:3235, 548:3237, 548:3239) -->
+        <div class="cards-grid">
+            <!-- Palette 1: Executive Corporate -->
+            <div class="template-card" data-node-id="548:3234">
+                <div class="template-preview-box">
+                    <span class="template-badge">ATS Recommended</span>
+                    <div>
+                        <h2 style="font-size: 20px; font-weight: 800; color: #1e293b; border-bottom: 2px solid #1e293b; padding-bottom: 6px; margin-bottom: 8px;">EXECUTIVE CORPORATE</h2>
+                        <div style="font-size: 11px; color: #475569;">alex.rivera@example.com • San Francisco, CA</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 4px;">SUMMARY</div>
+                        <div style="height: 4px; background: #e2e8f0; border-radius: 2px; margin-bottom: 4px;"></div>
+                        <div style="height: 4px; width: 80%; background: #e2e8f0; border-radius: 2px;"></div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 4px;">EXPERIENCE</div>
+                        <div style="height: 4px; background: #cbd5e1; border-radius: 2px; margin-bottom: 4px;"></div>
+                        <div style="height: 4px; width: 90%; background: #cbd5e1; border-radius: 2px;"></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 700;">Executive Corporate</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">Classic, clean single & multi-page format for Tech & Management roles.</p>
+                </div>
+                <a href="home2.html" class="btn-create-resume" style="justify-content:center; width:100%; text-decoration:none;">Use Template</a>
+            </div>
+
+            <!-- Palette 2: Modern Tech Indigo -->
+            <div class="template-card" data-node-id="548:3235">
+                <div class="template-preview-box">
+                    <span class="template-badge" style="background: #4F46E5; color: #fff;">Popular</span>
+                    <div>
+                        <h2 style="font-size: 20px; font-weight: 800; color: #312E81; border-bottom: 2px solid #4F46E5; padding-bottom: 6px; margin-bottom: 8px;">MODERN TECH INDIGO</h2>
+                        <div style="font-size: 11px; color: #4F46E5;">alex.rivera@example.com • github.com/alex</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #312E81; margin-bottom: 4px;">CORE SKILLS</div>
+                        <div style="display:flex; gap:4px;">
+                            <span style="background:#e0e7ff; color:#3730a3; font-size:9px; padding:2px 6px; border-radius:4px;">React</span>
+                            <span style="background:#e0e7ff; color:#3730a3; font-size:9px; padding:2px 6px; border-radius:4px;">Node.js</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #312E81; margin-bottom: 4px;">PROJECTS</div>
+                        <div style="height: 4px; background: #c7d2fe; border-radius: 2px; margin-bottom: 4px;"></div>
+                        <div style="height: 4px; width: 85%; background: #c7d2fe; border-radius: 2px;"></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 700;">Modern Tech Indigo</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">Vibrant indigo accents highlighted for Full-Stack & Frontend Engineers.</p>
+                </div>
+                <a href="home2.html" class="btn-create-resume" style="justify-content:center; width:100%; text-decoration:none;">Use Template</a>
+            </div>
+
+            <!-- Palette 3: Emerald Minimalist -->
+            <div class="template-card" data-node-id="548:3239">
+                <div class="template-preview-box">
+                    <span class="template-badge" style="background: #059669; color: #fff;">Clean</span>
+                    <div>
+                        <h2 style="font-size: 20px; font-weight: 800; color: #064E3B; border-bottom: 2px solid #059669; padding-bottom: 6px; margin-bottom: 8px;">EMERALD MINIMALIST</h2>
+                        <div style="font-size: 11px; color: #059669;">alex.rivera@example.com • linkedin.com/in/alex</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #064E3B; margin-bottom: 4px;">ABOUT ME</div>
+                        <div style="height: 4px; background: #a7f3d0; border-radius: 2px; margin-bottom: 4px;"></div>
+                        <div style="height: 4px; width: 75%; background: #a7f3d0; border-radius: 2px;"></div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #064E3B; margin-bottom: 4px;">WORK HISTORY</div>
+                        <div style="height: 4px; background: #6ee7b7; border-radius: 2px; margin-bottom: 4px;"></div>
+                        <div style="height: 4px; width: 95%; background: #6ee7b7; border-radius: 2px;"></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-size: 16px; font-weight: 700;">Emerald Minimalist</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">Sleek emerald theme tailored for Data Scientists, AI Engineers & Analysts.</p>
+                </div>
+                <a href="home2.html" class="btn-create-resume" style="justify-content:center; width:100%; text-decoration:none;">Use Template</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
