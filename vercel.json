@@ -7,29 +7,19 @@
     }
   ],
   "routes": [
-    {
-      "src": "/",
-      "dest": "/frontend/homepage_sample/index.html"
-    },
-    {
-      "src": "/dashboard",
-      "dest": "/frontend/homepage_sample/index.html"
-    },
-    {
-      "src": "/builder",
-      "dest": "/frontend/homepage_sample/index.html"
-    },
-    {
-      "src": "/ats",
-      "dest": "/frontend/homepage_sample/index.html"
-    },
-    {
-      "src": "/login",
-      "dest": "/frontend/login_page/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/$1"
-    }
+    { "src": "/style.css", "dest": "/frontend/homepage_sample/style.css" },
+    { "src": "/script.js", "dest": "/frontend/homepage_sample/script.js" },
+    { "src": "/homepage/style.css", "dest": "/frontend/homepage_sample/style.css" },
+    { "src": "/homepage/script.js", "dest": "/frontend/homepage_sample/script.js" },
+    { "src": "/builder/style.css", "dest": "/frontend/Feature modules/1.resume_builder/style.css" },
+    { "src": "/builder/script.js", "dest": "/frontend/Feature modules/1.resume_builder/script.js" },
+    { "src": "/ats/style.css", "dest": "/frontend/Feature modules/2.ats-matcher/style.css" },
+    { "src": "/ats/script.js", "dest": "/frontend/Feature modules/2.ats-matcher/script.js" },
+    { "src": "/", "dest": "/frontend/homepage_sample/index.html" },
+    { "src": "/dashboard", "dest": "/frontend/homepage_sample/index.html" },
+    { "src": "/builder", "dest": "/frontend/homepage_sample/index.html" },
+    { "src": "/ats", "dest": "/frontend/homepage_sample/index.html" },
+    { "src": "/login", "dest": "/frontend/login_page/index.html" },
+    { "src": "/(.*)", "dest": "/frontend/$1" }
   ]
 }
