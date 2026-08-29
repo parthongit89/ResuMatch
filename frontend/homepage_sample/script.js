@@ -1064,19 +1064,33 @@ const ATSScanner = {
         select.innerHTML = ResumeState.savedDrafts.map((draft, idx) => `
             <option value="${idx}">${draft.full_name || 'Resume'} – ${draft.target_role || draft.headline || 'General Role'}</option>
         `).join('');
+
+        // Automatically load and scan the first saved resume on init
+        this.loadSavedResumeForScan(0);
     },
 
     loadSavedResumeForScan(idx) {
         const selectedIndex = parseInt(idx, 10);
         if (isNaN(selectedIndex) || !ResumeState.savedDrafts[selectedIndex]) return;
-        ResumeState.data = JSON.parse(JSON.stringify(ResumeState.savedDrafts[selectedIndex]));
+        const draft = ResumeState.savedDrafts[selectedIndex];
+        ResumeState.data = JSON.parse(JSON.stringify(draft));
         ResumeState.populateFormFields();
         ResumeRenderer.render();
-        Toast.show(`Loaded '${ResumeState.data.full_name || 'Resume'}' into active scanner!`, 'info', 2000);
+
+        // Auto-fetch target job description from saved resume metadata & role requirements
+        const fetchedJobDesc = draft.target_job_description || 
+            `Position: ${draft.target_role || 'Software Engineer'}\n` +
+            `Target Companies: ${draft.target_companies || 'Enterprise Tech'}\n` +
+            `Key Required Technical Skills: ${draft.technical_skills.join(', ')}.\n` +
+            `Job Requirements: We are seeking a highly skilled ${draft.target_role || 'engineer'} proficient in ${draft.technical_skills.slice(0, 5).join(', ')}. The ideal candidate will architect scalable systems, optimize REST APIs, implement modern CI/CD pipelines, and collaborate across technical teams to deliver high-impact software solutions.`;
+
         const jobInput = document.getElementById('scannerJobInput');
-        if (jobInput && jobInput.value.trim()) {
-            this.runFullScan(jobInput.value);
+        if (jobInput) {
+            jobInput.value = fetchedJobDesc;
         }
+
+        this.runFullScan(fetchedJobDesc);
+        Toast.show(`Auto-fetched target job requirements for "${draft.full_name || 'Resume'}"!`, 'success', 2500);
     }
 };
 
