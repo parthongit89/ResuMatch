@@ -687,11 +687,8 @@ const ResumeState = {
                     </div>
                 </div>
                 <div class="draft-actions-bar">
-                    <button type="button" class="draft-btn primary" onclick="ResumeState.loadDraft(${idx})">
-                        <i class='bx bx-edit-alt'></i> Edit
-                    </button>
-                    <button type="button" class="draft-btn" onclick="ResumeState.downloadDraftPDF(${idx})">
-                        <i class='bx bx-download'></i> PDF
+                    <button type="button" class="draft-btn primary" style="flex:1;" onclick="ResumeState.loadDraft(${idx})">
+                        <i class='bx bx-edit-alt'></i> Edit Resume
                     </button>
                     <button type="button" class="draft-btn icon-only" onclick="ResumeState.deleteDraft(${idx})" title="Delete Draft">
                         <i class='bx bx-trash'></i>
