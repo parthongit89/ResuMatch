@@ -256,39 +256,52 @@ button, input, select, textarea {
     align-items: center;
     gap: 6px;
     background: var(--bg-card-solid);
-    padding: 5px 8px;
+    padding: 6px 10px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .nav-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 7px;
-    padding: 8px 16px;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 18px;
     border-radius: var(--radius-pill);
     font-size: 13.5px;
     font-weight: 600;
     color: var(--text-secondary);
-    transition: all var(--trans-fast);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     border: none;
     background: transparent;
+    white-space: nowrap;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.nav-link span {
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .nav-link i {
-    font-size: 17px;
+    font-size: 18px;
+    flex-shrink: 0;
 }
 
 .nav-link:hover {
     color: var(--text-main);
     background: var(--primary-soft);
+    transform: translateY(-1px);
 }
 
 .nav-link.active {
     background: var(--accent-gradient);
     color: #ffffff;
-    box-shadow: 0 3px 12px rgba(79, 70, 229, 0.35);
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
 }
 
 /* Header Actions */
@@ -296,17 +309,21 @@ button, input, select, textarea {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .preset-dropdown-wrap {
     position: relative;
+    flex-shrink: 0;
 }
 
 .action-pill-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    padding: 8px 16px;
+    padding: 8px 18px;
     background: var(--bg-input);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-pill);
@@ -314,7 +331,9 @@ button, input, select, textarea {
     font-weight: 600;
     color: var(--text-main);
     cursor: pointer;
-    transition: all var(--trans-fast);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .action-pill-btn:hover {
