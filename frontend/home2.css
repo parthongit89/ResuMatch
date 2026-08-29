@@ -17,7 +17,7 @@
     --text-secondary: rgba(255, 255, 255, 0.7);
     --text-muted: rgba(255, 255, 255, 0.55);
     --border-subtle: rgba(255, 255, 255, 0.2);
-    --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Google Sans Flex', 'Google Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 * {
@@ -28,6 +28,7 @@
 
 body {
     font-family: var(--font-sans);
+    font-variation-settings: "GRAD" 0, "ROND" 0, "wdth" 100;
     background-color: var(--bg-workspace);
     color: var(--text-primary);
     min-height: 100vh;
