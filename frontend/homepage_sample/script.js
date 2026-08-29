@@ -1017,8 +1017,11 @@ const ATSScanner = {
    ========================================================================== */
 const ResumeExporter = {
     downloadPDF() {
-        Toast.show('Generating high-resolution ATS Print / PDF...', 'info', 2000);
-        window.print();
+        ResumeRenderer.render();
+        Toast.show('Preparing high-resolution vector ATS PDF...', 'info', 1800);
+        setTimeout(() => {
+            window.print();
+        }, 150);
     },
 
     exportJSON() {
