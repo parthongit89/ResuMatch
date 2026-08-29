@@ -1793,6 +1793,450 @@ button, input, select, textarea {
     padding-left: 18px;
 }
 
+/* TEMPLATE 4: EXECUTIVE CHARCOAL */
+.resume-paper.template-charcoal {
+    font-family: 'Inter', sans-serif;
+    color: #0f172a;
+    border-top: 6px solid var(--theme-color, #1e293b);
+}
+
+.template-charcoal .res-header {
+    text-align: left;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+}
+
+.template-charcoal .res-name {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--theme-color, #1e293b);
+    letter-spacing: -0.3px;
+}
+
+.template-charcoal .res-headline {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.template-charcoal .res-contacts {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 11px;
+    color: #64748b;
+}
+
+.template-charcoal .res-section-title {
+    font-size: 12.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--theme-color, #1e293b);
+    background: #f8fafc;
+    padding: 4px 8px;
+    border-left: 3px solid var(--theme-color, #1e293b);
+    margin-bottom: 10px;
+}
+
+.template-charcoal .res-item-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.template-charcoal .res-item-sub {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 11.5px;
+}
+
+.template-charcoal .res-bullets {
+    padding-left: 16px;
+}
+
+/* TEMPLATE 5: CREATIVE VIOLET */
+.resume-paper.template-violet {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #1e1b4b;
+}
+
+.template-violet .res-header {
+    background: linear-gradient(135deg, #581c87, #7c3aed);
+    color: #ffffff;
+    margin: -40px -40px 20px -40px;
+    padding: 32px 40px;
+    border-radius: 4px 4px 0 0;
+}
+
+.template-violet .res-name {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.template-violet .res-headline {
+    font-size: 14px;
+    color: #f3e8ff;
+}
+
+.template-violet .res-contacts {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    font-size: 11.5px;
+    color: #e9d5ff;
+}
+
+.template-violet .res-contacts a {
+    color: #ffffff;
+}
+
+.template-violet .res-section-title {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #7c3aed;
+    border-bottom: 2px solid #f3e8ff;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+}
+
+.template-violet .res-item-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.template-violet .res-item-sub {
+    display: flex;
+    justify-content: space-between;
+    color: #6b21a8;
+    font-size: 11.5px;
+}
+
+.template-violet .res-bullets {
+    padding-left: 16px;
+}
+
+/* TEMPLATE 6: COMPACT DEVELOPER */
+.resume-paper.template-compact {
+    font-family: 'JetBrains Mono', 'Inter', monospace;
+    font-size: 11.5px;
+    color: #0f172a;
+}
+
+.template-compact .res-header {
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+}
+
+.template-compact .res-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.template-compact .res-headline {
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.template-compact .res-contacts {
+    display: flex;
+    gap: 10px;
+    font-size: 10.5px;
+    color: #475569;
+    margin-top: 4px;
+}
+
+.template-compact .res-section-title {
+    font-size: 11.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0f172a;
+    border-bottom: 1px solid #cbd5e1;
+    margin-bottom: 6px;
+    padding-bottom: 2px;
+}
+
+.template-compact .res-item-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 11px;
+}
+
+.template-compact .res-item-sub {
+    display: flex;
+    justify-content: space-between;
+    color: #475569;
+    font-size: 10.5px;
+}
+
+.template-compact .res-bullets {
+    padding-left: 14px;
+    margin: 2px 0;
+}
+
+/* TEMPLATE 7: MONOCHROME CLEAN */
+.resume-paper.template-monochrome {
+    font-family: 'Inter', sans-serif;
+    color: #000000;
+}
+
+.template-monochrome .res-header {
+    text-align: center;
+    border-bottom: 3px double #000000;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.template-monochrome .res-name {
+    font-size: 26px;
+    font-weight: 800;
+    color: #000000;
+    letter-spacing: 1px;
+}
+
+.template-monochrome .res-headline {
+    font-size: 13px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.template-monochrome .res-contacts {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 11px;
+    color: #000000;
+    margin-top: 6px;
+}
+
+.template-monochrome .res-section-title {
+    font-size: 12.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #000000;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 2px;
+    margin-bottom: 8px;
+}
+
+.template-monochrome .res-item-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.template-monochrome .res-item-sub {
+    display: flex;
+    justify-content: space-between;
+    color: #000000;
+    font-size: 11px;
+}
+
+.template-monochrome .res-bullets {
+    padding-left: 16px;
+}
+
+/* TEMPLATE 8: MODERN CORAL */
+.resume-paper.template-coral {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #1f2937;
+}
+
+.template-coral .res-header {
+    background: linear-gradient(135deg, #be123c, #f43f5e);
+    color: #ffffff;
+    margin: -40px -40px 20px -40px;
+    padding: 30px 40px;
+    border-radius: 4px 4px 0 0;
+}
+
+.template-coral .res-name {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.template-coral .res-headline {
+    font-size: 14px;
+    color: #ffe4e6;
+}
+
+.template-coral .res-contacts {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    font-size: 11.5px;
+    color: #fecdd3;
+}
+
+.template-coral .res-contacts a {
+    color: #ffffff;
+}
+
+.template-coral .res-section-title {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #e11d48;
+    border-bottom: 2px solid #ffe4e6;
+    padding-bottom: 3px;
+    margin-bottom: 8px;
+}
+
+.template-coral .res-item-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.template-coral .res-item-sub {
+    display: flex;
+    justify-content: space-between;
+    color: #9f1239;
+    font-size: 11.5px;
+}
+
+.template-coral .res-bullets {
+    padding-left: 16px;
+}
+
+/* TEMPLATE 9: ACADEMIC SCHOLAR */
+.resume-paper.template-academic {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 13px;
+    color: #111827;
+}
+
+.template-academic .res-header {
+    text-align: center;
+    border-bottom: 1px solid #111827;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+}
+
+.template-academic .res-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.template-academic .res-headline {
+    font-size: 13.5px;
+    font-style: italic;
+    color: #374151;
+}
+
+.template-academic .res-contacts {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    font-size: 11.5px;
+    color: #4b5563;
+    margin-top: 6px;
+}
+
+.template-academic .res-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #111827;
+    border-bottom: 1px solid #9ca3af;
+    padding-bottom: 2px;
+    margin-bottom: 8px;
+}
+
+.template-academic .res-item-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.template-academic .res-item-sub {
+    display: flex;
+    justify-content: space-between;
+    font-style: italic;
+    color: #4b5563;
+    font-size: 12px;
+}
+
+.template-academic .res-bullets {
+    padding-left: 18px;
+}
+
+/* TEMPLATE 10: CYBER TEAL STARTUP */
+.resume-paper.template-teal {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #0f172a;
+}
+
+.template-teal .res-header {
+    background: linear-gradient(135deg, #0369a1, #0ea5e9);
+    color: #ffffff;
+    margin: -40px -40px 20px -40px;
+    padding: 30px 40px;
+    border-radius: 4px 4px 0 0;
+}
+
+.template-teal .res-name {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.template-teal .res-headline {
+    font-size: 14px;
+    color: #e0f2fe;
+}
+
+.template-teal .res-contacts {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    font-size: 11.5px;
+    color: #bae6fd;
+}
+
+.template-teal .res-contacts a {
+    color: #ffffff;
+}
+
+.template-teal .res-section-title {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0284c7;
+    border-bottom: 2px solid #e0f2fe;
+    padding-bottom: 3px;
+    margin-bottom: 8px;
+}
+
+.template-teal .res-item-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.template-teal .res-item-sub {
+    display: flex;
+    justify-content: space-between;
+    color: #0369a1;
+    font-size: 11.5px;
+}
+
+.template-teal .res-bullets {
+    padding-left: 16px;
+}
+
 /* Studio Bottom Export Actions */
 .studio-export-bar {
     display: flex;

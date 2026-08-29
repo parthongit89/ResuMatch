@@ -659,14 +659,18 @@ const ResumeRenderer = {
     },
 
     setTemplate(templateClass, btn) {
-        ResumeState.data.selected_template = templateClass;
-        if (this.paper) {
-            this.paper.className = `resume-paper ${templateClass}`;
+        let tClass = templateClass;
+        if (!tClass.startsWith('template-')) {
+            tClass = `template-${tClass}`;
         }
-        document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
-        if (btn) btn.classList.add('active');
+        ResumeState.data.selected_template = tClass;
+        if (this.paper) {
+            this.paper.className = `resume-paper ${tClass}`;
+        }
+        const select = document.getElementById('liveTemplateSelect');
+        if (select) select.value = tClass;
         this.render();
-        Toast.show(`Template switched to ${templateClass.replace('template-', '')}`, 'info', 2000);
+        Toast.show(`Applied Free Template: ${tClass.replace('template-', '').toUpperCase()}`, 'info', 2000);
     },
 
     setColor(colorHex, dot) {

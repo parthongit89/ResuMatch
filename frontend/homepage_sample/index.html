@@ -530,11 +530,21 @@
                 <div class="studio-preview-panel">
                     <!-- Studio Customizer Toolbar -->
                     <div class="studio-toolbar">
-                        <!-- Template Selectors -->
-                        <div class="template-selector-group">
-                            <button type="button" class="template-btn active" data-template="template-corporate" onclick="ResumeRenderer.setTemplate('template-corporate', this)">Corporate</button>
-                            <button type="button" class="template-btn" data-template="template-tech" onclick="ResumeRenderer.setTemplate('template-tech', this)">Tech Indigo</button>
-                            <button type="button" class="template-btn" data-template="template-minimal" onclick="ResumeRenderer.setTemplate('template-minimal', this)">Minimalist</button>
+                        <!-- Template Selectors (10 FREE Templates) -->
+                        <div class="template-selector-group" style="display:flex;align-items:center;gap:6px;">
+                            <label style="font-size:12px;font-weight:700;color:var(--text-secondary);display:flex;align-items:center;gap:4px;"><i class='bx bx-palette'></i> Template:</label>
+                            <select id="liveTemplateSelect" onchange="ResumeRenderer.setTemplate(this.value)" style="background:var(--bg-input);color:var(--text-main);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);padding:5px 12px;font-size:12px;font-weight:600;outline:none;cursor:pointer;">
+                                <option value="template-corporate" selected>1. Executive Corporate (Free)</option>
+                                <option value="template-tech">2. Modern Tech Indigo (Free)</option>
+                                <option value="template-minimal">3. Emerald Minimalist (Free)</option>
+                                <option value="template-charcoal">4. Executive Charcoal (Free)</option>
+                                <option value="template-violet">5. Creative Violet (Free)</option>
+                                <option value="template-compact">6. Compact Developer (Free)</option>
+                                <option value="template-monochrome">7. Monochrome Clean (Free)</option>
+                                <option value="template-coral">8. Modern Coral (Free)</option>
+                                <option value="template-academic">9. Academic Scholar (Free)</option>
+                                <option value="template-teal">10. Cyber Teal Startup (Free)</option>
+                            </select>
                         </div>
 
                         <!-- Accent Color Swatches -->
@@ -585,7 +595,7 @@
                 </div>
             </div>
 
-            <div class="templates-gallery-grid">
+            <div class="templates-gallery-grid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:20px;">
                 <!-- Template 1: Executive Corporate -->
                 <div class="template-card-preview selected" onclick="ResumeRenderer.applyTemplateFromGallery('template-corporate')">
                     <div class="template-thumb-mockup">
@@ -595,11 +605,13 @@
                             <div style="height:1px;background:#cbd5e1;margin:4px 0;"></div>
                             <div class="mockup-line"></div>
                             <div class="mockup-line"></div>
-                            <div class="mockup-line short"></div>
                         </div>
                     </div>
-                    <h4>Executive Corporate</h4>
-                    <p style="font-size:12.5px;color:var(--text-muted);margin:4px 0 12px;">Classic, clean, and trusted format ideal for engineering, finance, management, and enterprise roles.</p>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Executive Corporate</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">Classic, clean, and trusted format ideal for engineering, finance, and enterprise roles.</p>
                     <button class="action-pill-btn primary" style="width:100%;justify-content:center;">Apply Template</button>
                 </div>
 
@@ -607,14 +619,16 @@
                 <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-tech')">
                     <div class="template-thumb-mockup">
                         <div class="template-thumb-content" style="background:#f8fafc;">
-                            <div style="height:28px;background:linear-gradient(135deg,#312e81,#4f46e5);border-radius:3px;margin-bottom:6px;"></div>
-                            <div class="mockup-line"></div>
+                            <div style="height:24px;background:linear-gradient(135deg,#312e81,#4f46e5);border-radius:3px;margin-bottom:6px;"></div>
                             <div class="mockup-line"></div>
                             <div class="mockup-line short"></div>
                         </div>
                     </div>
-                    <h4>Modern Tech Indigo</h4>
-                    <p style="font-size:12.5px;color:var(--text-muted);margin:4px 0 12px;">Vibrant gradient header with pill tags, engineered specifically for software developers and tech innovators.</p>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Modern Tech Indigo</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">Vibrant gradient header with skill tags, engineered specifically for software engineers.</p>
                     <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
                 </div>
 
@@ -625,11 +639,129 @@
                             <div class="mockup-line title" style="background:#064e3b;"></div>
                             <div class="mockup-line short"></div>
                             <div class="mockup-line" style="margin-top:6px;"></div>
-                            <div class="mockup-line short"></div>
                         </div>
                     </div>
-                    <h4>Emerald Minimalist</h4>
-                    <p style="font-size:12.5px;color:var(--text-muted);margin:4px 0 12px;">Serif typography with emerald accents and generous whitespace, perfect for design and research roles.</p>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Emerald Minimalist</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">Serif typography with emerald accents, perfect for design and research specialists.</p>
+                    <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+
+                <!-- Template 4: Executive Charcoal -->
+                <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-charcoal')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content" style="border-top:4px solid #1e293b;">
+                            <div class="mockup-line title" style="background:#1e293b;"></div>
+                            <div class="mockup-line short"></div>
+                            <div class="mockup-line"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Executive Charcoal</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">Dark slate header & subtle borders for senior leaders and managers.</p>
+                    <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+
+                <!-- Template 5: Creative Violet -->
+                <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-violet')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content">
+                            <div style="height:24px;background:linear-gradient(135deg,#581c87,#7c3aed);border-radius:3px;margin-bottom:6px;"></div>
+                            <div class="mockup-line"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Creative Violet</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">Electric purple header, great for product designers, marketing & creative roles.</p>
+                    <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+
+                <!-- Template 6: Compact Developer -->
+                <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-compact')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content" style="font-family:monospace;">
+                            <div class="mockup-line title" style="background:#0f172a;"></div>
+                            <div class="mockup-line short"></div>
+                            <div class="mockup-line"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Compact Developer</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">High-density 1-page layout optimized for software developers & DevOps.</p>
+                    <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+
+                <!-- Template 7: Monochrome Clean -->
+                <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-monochrome')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content" style="border-bottom:2px double #000;">
+                            <div class="mockup-line title" style="background:#000;"></div>
+                            <div class="mockup-line short"></div>
+                            <div class="mockup-line"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Monochrome Clean</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">High-contrast black & white layout, 100% universal ATS scanner guaranteed.</p>
+                    <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+
+                <!-- Template 8: Modern Coral -->
+                <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-coral')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content">
+                            <div style="height:24px;background:linear-gradient(135deg,#be123c,#f43f5e);border-radius:3px;margin-bottom:6px;"></div>
+                            <div class="mockup-line"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Modern Coral</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">Warm coral rose gradient header for modern professionals & consultants.</p>
+                    <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+
+                <!-- Template 9: Academic Scholar -->
+                <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-academic')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content" style="font-family:serif;">
+                            <div class="mockup-line title" style="background:#111827;"></div>
+                            <div class="mockup-line short"></div>
+                            <div class="mockup-line"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Academic Scholar</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">Traditional academic serif layout for researchers, professors, and scholars.</p>
+                    <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
+                </div>
+
+                <!-- Template 10: Cyber Teal Startup -->
+                <div class="template-card-preview" onclick="ResumeRenderer.applyTemplateFromGallery('template-teal')">
+                    <div class="template-thumb-mockup">
+                        <div class="template-thumb-content">
+                            <div style="height:24px;background:linear-gradient(135deg,#0369a1,#0ea5e9);border-radius:3px;margin-bottom:6px;"></div>
+                            <div class="mockup-line"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+                        <h4 style="font-size:15px;font-weight:700;">Cyber Teal Startup</h4>
+                        <span style="font-size:10px;font-weight:800;background:var(--match-green-soft);color:var(--match-green);padding:2px 8px;border-radius:10px;">FREE</span>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:4px 0 12px;">Cyber-teal header layout, project-first structure for tech founders & leads.</p>
                     <button class="action-pill-btn" style="width:100%;justify-content:center;">Apply Template</button>
                 </div>
             </div>
