@@ -92,15 +92,19 @@ def create_app(config_name=None):
     def serve_jobs_assets(filename):
         return send_from_directory(jobs_dir, filename)
 
-    # Serve Homepage Sample (/homepage)
+    # Serve Main Application Frontend & Dashboard (/dashboard, /homepage)
+    @app.route('/dashboard')
+    @app.route('/dashboard/')
+    @app.route('/dashboard/index.html')
     @app.route('/homepage')
     @app.route('/homepage/')
     @app.route('/homepage/index.html')
-    def serve_homepage_index():
+    def serve_dashboard_index():
         return send_from_directory(homepage_dir, 'index.html')
 
+    @app.route('/dashboard/<path:filename>')
     @app.route('/homepage/<path:filename>')
-    def serve_homepage_assets(filename):
+    def serve_dashboard_assets(filename):
         return send_from_directory(homepage_dir, filename)
 
     # Serve Brand Logo Assets (/assets/logo/<filename>)
@@ -109,19 +113,20 @@ def create_app(config_name=None):
     def serve_logo_assets(filename):
         return send_from_directory(logo_dir, filename)
 
-    # Serve Sample Dashboard (/dashboard, /home2.html)
-    @app.route('/dashboard')
-    @app.route('/dashboard/')
+    # Serve Legacy Draft Dashboard (/home2.html)
     @app.route('/home2.html')
-    def serve_dashboard_index():
+    def serve_home2_index():
         return send_from_directory(frontend_dir, 'home2.html')
 
-    # Serve Frontend Static Assets for Login Page & Root Frontend
+    # Serve Frontend Static Assets with Fallback to Homepage & Login
     @app.route('/<path:filename>')
     def serve_static_assets(filename):
         target_path = os.path.join(login_dir, filename)
         if os.path.exists(target_path):
             return send_from_directory(login_dir, filename)
+        homepage_path = os.path.join(homepage_dir, filename)
+        if os.path.exists(homepage_path):
+            return send_from_directory(homepage_dir, filename)
         root_path = os.path.join(frontend_dir, filename)
         if os.path.exists(root_path):
             return send_from_directory(frontend_dir, filename)
