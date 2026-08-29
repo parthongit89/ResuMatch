@@ -1,5 +1,5 @@
-/* ResuMatch - Standalone Designs Shared Stylesheet (style.css)
-   Based on Figma Design Node: 498-2
+/* ResuMatch - Exact Figma Standalone Designs Stylesheet (style.css)
+   Based on Figma Design Node: 498-2 (Resumatch Canvas)
 */
 
 :root {
@@ -10,13 +10,12 @@
     --primary-blue: #1E3A8A;
     --royal-indigo: #2563EB;
     --success-green: #059669;
-    --bg-workspace: #0b1329;
-    --card-bg: #131f3d;
-    --card-border: rgba(255, 255, 255, 0.08);
-    --text-primary: #FFFFFF;
-    --text-secondary: rgba(255, 255, 255, 0.7);
-    --text-muted: rgba(255, 255, 255, 0.55);
-    --border-subtle: rgba(255, 255, 255, 0.2);
+    --bg-workspace: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --card-border: rgba(0, 0, 0, 0.15);
+    --text-dark: #000000;
+    --text-muted: rgba(0, 0, 0, 0.55);
+    --border-subtle: rgba(0, 0, 0, 0.2);
     --font-sans: 'Google Sans Flex', 'Google Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -30,7 +29,7 @@ body {
     font-family: var(--font-sans);
     font-variation-settings: "GRAD" 0, "ROND" 0, "wdth" 100;
     background-color: var(--bg-workspace);
-    color: var(--text-primary);
+    color: var(--text-dark);
     min-height: 100vh;
     overflow-x: hidden;
     display: flex;
@@ -41,7 +40,8 @@ body {
    ------------------------------------------------------------- */
 .sidebar {
     width: 72px;
-    height: 100vh;
+    height: 1025px;
+    min-height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -50,16 +50,15 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 24px 0;
     z-index: 100;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .sidebar-top {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 28px;
+    gap: 32px;
     width: 100%;
 }
 
@@ -80,7 +79,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: 24px;
     width: 100%;
 }
 
@@ -92,7 +91,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 22px;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -100,13 +99,13 @@ body {
 }
 
 .nav-item:hover {
-    color: var(--text-primary);
-    background-color: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .nav-item.active {
     color: var(--accent-yellow);
-    background-color: rgba(255, 195, 0, 0.12);
+    background-color: rgba(255, 195, 0, 0.15);
 }
 
 .nav-item.active::before {
@@ -123,7 +122,7 @@ body {
 .nav-item .tooltip {
     position: absolute;
     left: 80px;
-    background: #1e293b;
+    background: #000814;
     color: #fff;
     padding: 6px 12px;
     border-radius: 6px;
@@ -159,21 +158,21 @@ body {
 }
 
 /* -------------------------------------------------------------
-   2. FIXED TOP HEADER BAR (80px height, #000814)
+   2. FIXED TOP HEADER BAR (Figma Nodes 548:3013 & 543:2968)
    ------------------------------------------------------------- */
 .header {
     position: fixed;
     top: 0;
     left: 72px;
     right: 0;
-    height: 80px;
-    background-color: var(--bg-dark-header);
+    height: 99px;
+    background-color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 32px;
+    padding: 0 40px;
     z-index: 90;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .header-title-area {
@@ -183,150 +182,148 @@ body {
 }
 
 .brand-text {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 800;
     letter-spacing: -0.5px;
+    color: #000814;
 }
 
 .brand-text span {
-    color: var(--accent-yellow);
+    color: var(--royal-indigo);
 }
 
 .header-search {
     position: relative;
-    width: 421px;
-    height: 40px;
+    width: 593px;
+    height: 61px;
     border: 1px solid var(--border-subtle);
     border-radius: 10px;
     display: flex;
     align-items: center;
-    padding: 0 16px;
-    background-color: rgba(255, 255, 255, 0.03);
-    transition: border-color 0.2s ease;
-}
-
-.header-search:focus-within {
-    border-color: var(--accent-yellow);
-    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.05);
 }
 
 .header-search i {
-    font-size: 18px;
-    color: var(--text-muted);
-    margin-right: 10px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.4);
+    margin-right: 12px;
 }
 
 .header-search input {
     background: transparent;
     border: none;
     outline: none;
-    color: var(--text-primary);
-    font-size: 13px;
+    color: #000000;
+    font-size: 15px;
     font-family: inherit;
+    font-weight: 300;
     width: 100%;
 }
 
 .header-search input::placeholder {
-    color: var(--text-muted);
+    color: rgba(0, 0, 0, 0.35);
 }
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 20px;
-}
-
-.btn-create-resume {
-    height: 43px;
-    padding: 0 24px;
-    background-color: var(--accent-yellow);
-    color: #000814;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    box-shadow: 0 4px 14px rgba(255, 195, 0, 0.25);
-}
-
-.btn-create-resume:hover {
-    background-color: var(--accent-yellow-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(255, 195, 0, 0.35);
-}
-
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding-left: 12px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #FFC300, #2563EB);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 15px;
-    color: #000814;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-/* -------------------------------------------------------------
-   3. MAIN CONTENT CONTAINER
-   ------------------------------------------------------------- */
-.main-wrapper {
-    margin-top: 80px;
-    margin-left: 72px;
-    padding: 32px;
-    width: calc(100vw - 72px);
-    min-height: calc(100vh - 80px);
-}
-
-.page-title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-/* Cards & Layouts */
-.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 24px;
 }
 
-.design-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
+.btn-create-resume {
+    height: 61px;
+    width: 243px;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.btn-create-resume:hover {
+    background-color: #000000;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-circle {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: #000814;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+/* -------------------------------------------------------------
+   3. MAIN WORKSPACE CONTENT
+   ------------------------------------------------------------- */
+.main-wrapper {
+    margin-top: 99px;
+    margin-left: 72px;
+    padding: 48px 56px;
+    width: calc(100vw - 72px);
+    min-height: calc(100vh - 99px);
+}
+
+.page-title {
+    font-size: 48px;
+    font-weight: 400;
+    color: #000000;
+    margin-bottom: 36px;
+    font-family: var(--font-sans);
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(366px, 1fr));
+    gap: 32px;
+}
+
+.figma-card {
+    position: relative;
+    width: 366px;
+    height: 247px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: #FFFFFF;
     padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: 0px 4px 10px 10px rgba(0, 0, 0, 0.05);
     transition: all 0.25s ease;
 }
 
-.design-card:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+.figma-card:hover {
+    border-color: #000000;
+    transform: translateY(-4px);
+    box-shadow: 0px 8px 20px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Standalone Page specific layouts */
-.full-page-wrapper {
-    margin-top: 0;
-    margin-left: 0;
-    width: 100vw;
-    min-height: 100vh;
+.figma-card-title {
+    font-size: 20px;
+    font-weight: 200;
+    color: #000000;
+    margin-bottom: 4px;
+}
+
+.figma-card-subtitle {
+    font-size: 13px;
+    font-weight: 200;
+    color: rgba(0, 0, 0, 0.6);
 }
