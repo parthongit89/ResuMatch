@@ -23,6 +23,23 @@
             <button class="pill" data-cat="ai">AI / Data</button>
         </div>
     </header>
+
+    <main class="jobs-layout">
+        <div class="jobs-grid" id="jobsGrid"></div>
+    </main>
+
+    <!-- Modal Dialog for Quick Apply -->
+    <div class="modal" id="applyModal">
+        <div class="modal-card">
+            <h3>🚀 Quick Apply with ATS Resume</h3>
+            <p id="modalJobInfo" style="color:var(--text-muted); margin: 8px 0 16px;"></p>
+            <button class="btn btn-primary" onclick="JobsModule.submitApplication()">Confirm & Send Application</button>
+            <button class="btn btn-outline" style="margin-top:8px;" onclick="JobsModule.closeModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
     
 </body>
 </html>
