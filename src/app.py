@@ -49,7 +49,6 @@ def create_app(config_name=None):
     app.register_blueprint(resume_bp, url_prefix='/api/v1')
     app.register_blueprint(ai_bp, url_prefix='/api/v1')
     app.register_blueprint(ats_bp, url_prefix='/api/v1')
-    app.register_blueprint(job_bp, url_prefix='/api/v1')
 
     # Serve Login / Sign Up Page at Root URL, /login, /index.html, and /login.html
     @app.route('/')
@@ -80,17 +79,6 @@ def create_app(config_name=None):
     @app.route('/ats/<path:filename>')
     def serve_ats_assets(filename):
         return send_from_directory(ats_dir, filename)
-
-    # Serve Job Board Feature Module (/jobs)
-    @app.route('/jobs')
-    @app.route('/jobs/')
-    @app.route('/jobs/index.html')
-    def serve_jobs_index():
-        return send_from_directory(jobs_dir, 'index.html')
-
-    @app.route('/jobs/<path:filename>')
-    def serve_jobs_assets(filename):
-        return send_from_directory(jobs_dir, filename)
 
     # Serve Main Application Frontend & Dashboard (/dashboard, /homepage)
     @app.route('/dashboard')
