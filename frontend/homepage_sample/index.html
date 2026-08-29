@@ -264,34 +264,34 @@
             </div>
 
             <div class="quick-actions-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 25px;">
-                <a href="/builder" class="quick-action-card" style="text-decoration: none; color: inherit; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; transition: all 0.25s ease; display: flex; align-items: flex-start; gap: 14px;">
+                <button type="button" onclick="AppNav.switchView('builder'); Wizard.goToStep(1);" class="quick-action-card" style="cursor: pointer; text-align: left; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; transition: all 0.25s ease; display: flex; align-items: flex-start; gap: 14px;">
                     <div style="background: rgba(79, 70, 229, 0.15); color: var(--primary-light); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;">
                         <i class='bx bx-edit-alt'></i>
                     </div>
                     <div>
-                        <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Resume Session Builder</h4>
+                        <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text-main);">Resume Session Builder</h4>
                         <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.4;">Guided 4-step wizard to build ATS-friendly resume sections with AI enhancements.</p>
                     </div>
-                </a>
+                </button>
 
-                <a href="/ats" class="quick-action-card" style="text-decoration: none; color: inherit; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; transition: all 0.25s ease; display: flex; align-items: flex-start; gap: 14px;">
+                <button type="button" onclick="AppNav.switchView('scanner');" class="quick-action-card" style="cursor: pointer; text-align: left; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; transition: all 0.25s ease; display: flex; align-items: flex-start; gap: 14px;">
                     <div style="background: rgba(16, 185, 129, 0.15); color: var(--match-green); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;">
                         <i class='bx bx-scan'></i>
                     </div>
                     <div>
-                        <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">ATS Job Scanner</h4>
+                        <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--text-main);">ATS Job Scanner</h4>
                         <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.4;">Upload target job posting and get instant keyword gap analysis and match score.</p>
                     </div>
-                </a>
+                </button>
             </div>
 
             <!-- Recent Drafts Gallery -->
             <div class="section-headline">
                 <h3><i class='bx bx-history'></i> Recent Resume Drafts</h3>
-                <a href="/builder" class="action-pill-btn" style="text-decoration: none;">
+                <button type="button" class="action-pill-btn" onclick="AppNav.switchView('builder'); Wizard.goToStep(1);">
                     <i class='bx bx-plus'></i>
                     <span>Create Another</span>
-                </a>
+                </button>
             </div>
 
             <div class="drafts-grid" id="draftsGridContainer">
