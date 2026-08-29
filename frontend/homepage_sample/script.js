@@ -223,6 +223,7 @@ const ResumeState = {
         ResumeRenderer.render();
         ATSScanner.updateScores();
         this.renderDraftsCards();
+        setTimeout(() => ATSScanner.populateSavedResumesDropdown(), 300);
     },
 
     loadSavedDrafts() {
@@ -243,6 +244,28 @@ const ResumeState = {
     persistDrafts() {
         localStorage.setItem('resumatch_drafts', JSON.stringify(this.savedDrafts));
         this.renderDraftsCards();
+        ATSScanner.populateSavedResumesDropdown();
+    },
+
+    saveCurrentToDrafts() {
+        const currentData = JSON.parse(JSON.stringify(this.data));
+        currentData.updated_at = new Date().toISOString();
+        
+        const existingIdx = this.savedDrafts.findIndex(d => d.full_name === currentData.full_name && d.target_role === currentData.target_role);
+        if (existingIdx >= 0) {
+            this.savedDrafts[existingIdx] = currentData;
+        } else {
+            this.savedDrafts.unshift(currentData);
+        }
+        
+        this.persistDrafts();
+        
+        // Save asynchronously to PostgreSQL / Neon DB
+        fetch('/api/v1/resumes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentData)
+        }).catch(err => console.log('PostgreSQL / Neon DB sync offline:', err));
     },
 
     populateFormFields() {
@@ -858,7 +881,8 @@ const Wizard = {
             this.goToStep(this.currentStep + 1);
             Toast.show(`Advanced to Session ${this.currentStep}`, 'info', 1800);
         } else {
-            Toast.show('All 4 Sessions completed! Review your live ATS resume.', 'success', 3500);
+            ResumeState.saveCurrentToDrafts();
+            Toast.show('All 4 Sessions completed! Resume saved to My Resumes, loaded into ATS Scanner, & synced to Database.', 'success', 4000);
         }
     },
 
@@ -959,6 +983,31 @@ const ATSScanner = {
         if (input) {
             input.value = sampleJD;
             this.runFullScan(sampleJD);
+        }
+    },
+
+    populateSavedResumesDropdown() {
+        const select = document.getElementById('atsSavedResumeSelect');
+        if (!select) return;
+        if (!ResumeState.savedDrafts || ResumeState.savedDrafts.length === 0) {
+            select.innerHTML = '<option value="0">Current Active Resume (Alex Rivera)</option>';
+            return;
+        }
+        select.innerHTML = ResumeState.savedDrafts.map((draft, idx) => `
+            <option value="${idx}">${draft.full_name || 'Resume'} – ${draft.target_role || draft.headline || 'General Role'}</option>
+        `).join('');
+    },
+
+    loadSavedResumeForScan(idx) {
+        const selectedIndex = parseInt(idx, 10);
+        if (isNaN(selectedIndex) || !ResumeState.savedDrafts[selectedIndex]) return;
+        ResumeState.data = JSON.parse(JSON.stringify(ResumeState.savedDrafts[selectedIndex]));
+        ResumeState.populateFormFields();
+        ResumeRenderer.render();
+        Toast.show(`Loaded '${ResumeState.data.full_name || 'Resume'}' into active scanner!`, 'info', 2000);
+        const jobInput = document.getElementById('scannerJobInput');
+        if (jobInput && jobInput.value.trim()) {
+            this.runFullScan(jobInput.value);
         }
     }
 };

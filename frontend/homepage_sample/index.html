@@ -780,8 +780,18 @@
 
             <div class="scanner-grid">
                 <div class="scanner-box">
-                    <h4 style="font-size:15px;margin-bottom:12px;"><i class='bx bx-paste'></i> Target Job Description</h4>
-                    <textarea id="scannerJobInput" class="form-textarea" style="min-height:280px;" placeholder="Paste the complete job description or requirements section here..." oninput="ATSScanner.runFullScan(this.value)"></textarea>
+                    <!-- Saved Resume Selector -->
+                    <div style="margin-bottom:14px;">
+                        <label style="font-size:12.5px;font-weight:700;color:var(--text-secondary);display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+                            <i class='bx bx-file'></i> Select Saved Resume to Scan:
+                        </label>
+                        <select id="atsSavedResumeSelect" onchange="ATSScanner.loadSavedResumeForScan(this.value)" style="width:100%;background:var(--bg-input);color:var(--text-main);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:9px 12px;font-size:13px;font-weight:600;outline:none;cursor:pointer;">
+                            <option value="0">Alex Rivera – Senior Full Stack Engineer (Active)</option>
+                        </select>
+                    </div>
+
+                    <h4 style="font-size:14.5px;margin-bottom:8px;"><i class='bx bx-paste'></i> Target Job Description</h4>
+                    <textarea id="scannerJobInput" class="form-textarea" style="min-height:220px;" placeholder="Paste the complete job description or requirements section here..." oninput="ATSScanner.runFullScan(this.value)"></textarea>
                     <div style="display:flex;gap:10px;margin-top:14px;">
                         <button class="action-pill-btn primary" onclick="ATSScanner.runFullScan(document.getElementById('scannerJobInput').value)">
                             <i class='bx bx-radar'></i>

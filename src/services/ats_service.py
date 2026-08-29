@@ -1,7 +1,9 @@
 import re
+import os
+import requests
 
 class ATSService:
-    """Service handling ATS Resume Match Scoring, Keyword Analysis, and Feedback Generation"""
+    """Service handling ATS Resume Match Scoring, Keyword Analysis, and Google Gemini AI Evaluation"""
 
     STOPWORDS = {
         'a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'with',
@@ -21,7 +23,7 @@ class ATSService:
 
     @staticmethod
     def evaluate_match(resume_text, job_description):
-        """Calculates ATS Match percentage and detailed feedback report"""
+        """Calculates ATS Match percentage, missing skills, and Google Gemini AI feedback report"""
         if not resume_text or not job_description:
             return False, "Resume text and job description are required", None
 
@@ -61,11 +63,32 @@ class ATSService:
         if not has_metrics:
             suggestions.append("Add quantitative results (e.g. 'Improved speed by 35%', 'Increased users by 10k').")
 
+        # Try Google Gemini AI for deep ATS analysis
+        gemini_key = os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY')
+        ai_recommendations = None
+        if gemini_key:
+            try:
+                ai_prompt = (
+                    f"You are a top technical recruiter. Perform an ATS scan comparing this resume to the job description:\n\n"
+                    f"RESUME:\n{resume_text[:2000]}\n\n"
+                    f"JOB DESCRIPTION:\n{job_description[:2000]}\n\n"
+                    f"Provide 3 concise, bulleted recruiter recommendations to boost candidate match score above 90%."
+                )
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
+                res = requests.post(url, json={"contents": [{"parts": [{"text": ai_prompt}]}]}, timeout=5)
+                if res.status_code == 200:
+                    candidates = res.json().get('candidates', [])
+                    if candidates:
+                        ai_recommendations = candidates[0].get('content', {}).get('parts', [])[0].get('text', '').strip()
+            except Exception as e:
+                print(f"[Gemini ATS Analysis Error]: {e}")
+
         return True, "ATS evaluation completed successfully", {
             "overall_score": min(overall_score, 100),
             "keyword_match_percent": keyword_match_percent,
             "matched_keywords": list(matched_words)[:15],
             "missing_keywords": list(missing_words)[:15],
             "action_verbs_found": resume_verbs_found,
-            "suggestions": suggestions if suggestions else ["Excellent match! Your resume aligns well with this job description."]
+            "suggestions": suggestions if suggestions else ["Excellent match! Your resume aligns well with this job description."],
+            "gemini_ai_feedback": ai_recommendations
         }
