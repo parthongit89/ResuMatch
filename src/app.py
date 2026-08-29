@@ -30,6 +30,8 @@ def create_app(config_name=None):
     builder_dir = os.path.join(project_root, 'frontend', 'Feature modules', '1.resume_builder')
     ats_dir = os.path.join(project_root, 'frontend', 'Feature modules', '2.ats-matcher')
     jobs_dir = os.path.join(project_root, 'frontend', 'Feature modules', '3.job_board')
+    homepage_dir = os.path.join(project_root, 'frontend', 'homepage_sample')
+    frontend_dir = os.path.join(project_root, 'frontend')
 
     # Initialize Flask with isolated static_url_path to avoid route collision
     app = Flask(__name__, static_folder=login_dir, static_url_path='/static')
@@ -90,12 +92,33 @@ def create_app(config_name=None):
     def serve_jobs_assets(filename):
         return send_from_directory(jobs_dir, filename)
 
-    # Serve Frontend Static Assets for Login Page
+    # Serve Homepage Sample (/homepage)
+    @app.route('/homepage')
+    @app.route('/homepage/')
+    @app.route('/homepage/index.html')
+    def serve_homepage_index():
+        return send_from_directory(homepage_dir, 'index.html')
+
+    @app.route('/homepage/<path:filename>')
+    def serve_homepage_assets(filename):
+        return send_from_directory(homepage_dir, filename)
+
+    # Serve Sample Dashboard (/dashboard, /home2.html)
+    @app.route('/dashboard')
+    @app.route('/dashboard/')
+    @app.route('/home2.html')
+    def serve_dashboard_index():
+        return send_from_directory(frontend_dir, 'home2.html')
+
+    # Serve Frontend Static Assets for Login Page & Root Frontend
     @app.route('/<path:filename>')
     def serve_static_assets(filename):
         target_path = os.path.join(login_dir, filename)
         if os.path.exists(target_path):
             return send_from_directory(login_dir, filename)
+        root_path = os.path.join(frontend_dir, filename)
+        if os.path.exists(root_path):
+            return send_from_directory(frontend_dir, filename)
         return jsonify({"success": False, "message": f"API Resource '{filename}' Not Found"}), 404
 
     # Global Error Handlers
