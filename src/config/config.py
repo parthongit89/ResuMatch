@@ -10,8 +10,15 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'resumatch_default_secret_key_2026')
 
     # Database Settings (Neon PostgreSQL / Local SQLite)
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///resumatch.db')
+    _db_url = os.getenv('DATABASE_URL', 'sqlite:///resumatch.db')
+    if _db_url.startswith("postgres://"):
+        _db_url = _db_url.replace("postgres://", "postgresql://", 1)
+    SQLALCHEMY_DATABASE_URI = _db_url
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,
+        "pool_recycle": 280
+    }
 
     # JWT Authentication Settings
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'resumatch_jwt_secret_2026')
