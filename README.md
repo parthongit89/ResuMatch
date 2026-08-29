@@ -15,8 +15,8 @@
 
 | Contributor | Project Role / Post | GitHub Profile | Responsibilities |
 |---|---|---|---|
+| **Harshal Sonavane** | **Frontend Developer & UI/UX Engineer** | [@Ghostofzenin08](https://github.com/Ghostofzenin08) | Landing Page, Authentication & OTP Modals, Dashboard, Multi-step Session Form Wizard, Live Preview Renderer |
 | **Parth Sonavane** | **Backend Developer & System Architect** | [@parthongit89](https://github.com/parthongit89) | Flask REST API, Database ORM (SQLAlchemy), OTP Email Verification (SendGrid), Firebase OAuth, 4-Session Engine & PDF Exporter |
-| **Harshal** | **Frontend Developer & UI/UX Engineer** | [@Ghostofzenin08](https://github.com/Ghostofzenin08) | Landing Page, Authentication & OTP Modals, Dashboard, Multi-step Session Form Wizard, Live Preview Renderer |
 
 ---
 
@@ -164,4 +164,4 @@ ResuMatch/
 ---
 
 ## License & Acknowledgments
-Designed & Developed by **Parth Sonavane** ([@parthongit89](https://github.com/parthongit89)) & **Harshal** ([@Ghostofzenin08](https://github.com/Ghostofzenin08)) for the Hackathon.
+Designed & Developed by **Harshal Sonavane** ([@Ghostofzenin08](https://github.com/Ghostofzenin08)) & **Parth Sonavane** ([@parthongit89](https://github.com/parthongit89)) for the Hackathon.
