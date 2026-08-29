@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ResuMatch — Job Board Module</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+    <header class="top-nav">
+        <div class="brand">
+            <i class='bx bx-briefcase-alt-2'></i>
+            <span>Resu<span class="highlight">Match</span> Jobs</span>
+        </div>
+        <div class="filter-pills" id="filterPills">
+            <button class="pill active" data-cat="all">All Roles</button>
+            <button class="pill" data-cat="frontend">Frontend</button>
+            <button class="pill" data-cat="backend">Backend</button>
+            <button class="pill" data-cat="ai">AI / Data</button>
+        </div>
+    </header>
     
 </body>
 </html>
