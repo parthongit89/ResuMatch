@@ -39,6 +39,8 @@ const BuilderModule = {
         document.getElementById('aiEnhanceBtn')?.addEventListener('click', () => this.aiEnhance());
     },
 
+    saveTimeout: null,
+
     bindInputs() {
         const fields = ['name', 'title', 'email', 'phone', 'location', 'links', 'summary', 'skillsLang', 'skillsTools'];
         fields.forEach(f => {
@@ -47,9 +49,33 @@ const BuilderModule = {
                 el.addEventListener('input', (e) => {
                     this.data[f] = e.target.value;
                     this.renderPreview();
+                    this.triggerAutoSave();
                 });
             }
         });
+    },
+
+    triggerAutoSave() {
+        if (this.saveTimeout) clearTimeout(this.saveTimeout);
+        this.saveTimeout = setTimeout(() => this.autoSaveSession(), 1000);
+    },
+
+    async autoSaveSession() {
+        try {
+            await fetch('/api/v1/resumes/draft-1/session/step-1', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    full_name: this.data.name,
+                    email: this.data.email,
+                    phone: this.data.phone,
+                    location: this.data.location,
+                    headline: this.data.title
+                })
+            });
+        } catch (e) {
+            // Local fallback session save
+        }
     },
 
     loadSample() {
