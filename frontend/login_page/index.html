@@ -195,6 +195,20 @@
         </div>
     </div>
 
+    <!-- VERIFICATION LOADER & DASHBOARD REDIRECT MODAL -->
+    <div id="verificationLoaderModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card" style="text-align: center; padding: 40px 32px;">
+            <div class="loader-spinner-wrap" style="margin-bottom: 20px;">
+                <i class='bx bx-check-shield bx-flashing' style="color: var(--match-green); font-size: 3.8rem;"></i>
+            </div>
+            <h2 id="loaderTitle" style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">Verification Successful!</h2>
+            <p id="loaderSubtitle" style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">Authenticating session credentials... Redirecting to dashboard.</p>
+            <div class="progress-bar-wrap" style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                <div id="loaderProgressBar" style="width: 0%; height: 100%; background: var(--accent-gradient); transition: width 1.2s ease;"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Firebase App & Auth SDK (Modular v10) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -233,9 +247,13 @@
 
                 const data = await response.json();
                 if (data.success) {
-                    Toast.show(`Welcome, ${user.displayName}! Signed in via Google.`, "success", 4000);
                     if (data.data && data.data.access_token) {
                         localStorage.setItem('resumatch_token', data.data.access_token);
+                    }
+                    if (typeof AuthDemo.triggerDashboardRedirect === 'function') {
+                        AuthDemo.triggerDashboardRedirect("Google Sign-In Verified", `Welcome back, ${user.displayName || user.email}! Redirecting to dashboard...`);
+                    } else {
+                        window.location.href = '/dashboard';
                     }
                 } else {
                     Toast.show(data.message || "Google login failed on backend", "error", 4000);

@@ -214,11 +214,11 @@ const AuthDemo = {
             const data = await response.json();
 
             if (data.success) {
-                Toast.show('OTP Verified Successfully! Access Granted.', 'success', 4000);
+                Toast.show('OTP Verified Successfully! Access Granted.', 'success', 3000);
                 if (data.data && data.data.access_token) {
                     localStorage.setItem('resumatch_token', data.data.access_token);
                 }
-                this.closeOTPModal();
+                this.triggerDashboardRedirect('Verification Successful!', 'Email identity confirmed. Launching dashboard workspace...');
             } else {
                 Toast.show(data.message || 'Invalid or expired OTP code', 'error', 4000);
             }
@@ -246,6 +246,30 @@ const AuthDemo = {
             }
         } catch (err) {
             Toast.show('Network error while resending OTP', 'error', 4000);
+        }
+    },
+
+    triggerDashboardRedirect(title = "Verification Successful!", subtitle = "Authenticating session credentials... Redirecting to dashboard.") {
+        this.closeOTPModal();
+        const loaderModal = document.getElementById('verificationLoaderModal');
+        const loaderTitle = document.getElementById('loaderTitle');
+        const loaderSubtitle = document.getElementById('loaderSubtitle');
+        const progressBar = document.getElementById('loaderProgressBar');
+
+        if (loaderTitle) loaderTitle.textContent = title;
+        if (loaderSubtitle) loaderSubtitle.textContent = subtitle;
+
+        if (loaderModal) {
+            loaderModal.classList.add('open');
+            setTimeout(() => {
+                if (progressBar) progressBar.style.width = '100%';
+            }, 100);
+
+            setTimeout(() => {
+                window.location.href = '/dashboard';
+            }, 1400);
+        } else {
+            window.location.href = '/dashboard';
         }
     },
 
