@@ -1,6 +1,7 @@
-# ResuMatch - Backend Deployment Guide (Render)
+# ResuMatch - Full-Stack Render Deployment & Production Live Guide
 
-This guide details deploying the Flask Backend service to **Render** and implementing the **Invisible Silent Background Warm-up Protocol (Solution 1)** to eliminate cold-start delays seamlessly.
+- **Live Production URL**: [https://resumatch-api-jkau.onrender.com](https://resumatch-api-jkau.onrender.com)
+- **Status**: ✅ **100% COMPLETED & LIVE**
 
 ---
 

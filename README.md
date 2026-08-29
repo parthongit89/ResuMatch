@@ -5,6 +5,12 @@
 
 ---
 
+## 🌐 Live Production Deployment
+- **Live App URL**: [https://resumatch-api-jkau.onrender.com](https://resumatch-api-jkau.onrender.com)
+- **Status**: ✅ **100% COMPLETED & LIVE ON RENDER**
+
+---
+
 ## 👥 Project Team & Contributors
 
 | Contributor | Project Role / Post | GitHub Profile | Responsibilities |
