@@ -630,7 +630,7 @@ const ResumeState = {
                     <button type="button" class="draft-btn primary" onclick="ResumeState.loadDraft(${idx})">
                         <i class='bx bx-edit-alt'></i> Edit
                     </button>
-                    <button type="button" class="draft-btn" onclick="ResumeExporter.downloadPDF()">
+                    <button type="button" class="draft-btn" onclick="ResumeState.downloadDraftPDF(${idx})">
                         <i class='bx bx-download'></i> PDF
                     </button>
                     <button type="button" class="draft-btn icon-only" onclick="ResumeState.deleteDraft(${idx})" title="Delete Draft">
@@ -655,6 +655,17 @@ const ResumeState = {
             AppNav.switchView('builder');
             Toast.show(`Opened "${this.data.full_name}" resume draft`, 'success', 2500);
         }
+    },
+
+    downloadDraftPDF(idx) {
+        if (!this.savedDrafts[idx]) return;
+        this.data = JSON.parse(JSON.stringify(this.savedDrafts[idx]));
+        this.populateFormFields();
+        ResumeRenderer.render();
+        Toast.show(`Preparing PDF export for "${this.data.full_name}"...`, 'info', 1800);
+        setTimeout(() => {
+            ResumeExporter.downloadPDF();
+        }, 150);
     },
 
     deleteDraft(idx) {
