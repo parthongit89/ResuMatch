@@ -235,8 +235,68 @@ const ResumeState = {
                 this.savedDrafts = [];
             }
         }
-        if (this.savedDrafts.length === 0) {
-            this.savedDrafts = [JSON.parse(JSON.stringify(this.data))];
+        if (!this.savedDrafts || this.savedDrafts.length < 2) {
+            this.savedDrafts = [
+                JSON.parse(JSON.stringify(this.data)),
+                {
+                    id: 'draft-parth-sonavane',
+                    title: 'Parth Sonavane - Full Stack Developer',
+                    target_role: 'Full Stack Developer',
+                    full_name: 'Parth Sonavane',
+                    headline: 'Senior Full Stack & AI Systems Developer',
+                    email: 'parth.sonavane@example.com',
+                    phone: '+91 98765 43210',
+                    location: 'Mumbai, India',
+                    summary: 'Innovative Full Stack Developer specializing in building high-throughput web architectures, automated ATS resume scanners, Flask REST APIs, and responsive UI/UX systems. Passionate about AI-driven career tools.',
+                    education_data: [
+                        {
+                            id: 1,
+                            degree: 'B.Tech in Computer Engineering',
+                            institution: 'Mumbai Institute of Technology',
+                            year: '2020 - 2024',
+                            gpa: '9.2 / 10.0',
+                            location: 'Mumbai, India'
+                        }
+                    ],
+                    technical_skills: ['Python', 'Flask', 'React.js', 'PostgreSQL', 'SQLAlchemy', 'Firebase OAuth', 'Docker', 'RESTful APIs', 'Tailwind CSS', 'JavaScript', 'Git', 'OpenAI API'],
+                    external_links: {
+                        linkedin: 'https://linkedin.com/in/parthsonavane',
+                        github: 'https://github.com/parthongit89',
+                        portfolio: 'https://parthsonavane.dev'
+                    },
+                    experience_data: [
+                        {
+                            id: 1,
+                            role: 'Lead Full Stack Engineer',
+                            company: 'ResuMatch Platform',
+                            location: 'Remote',
+                            start_date: '2023',
+                            end_date: 'Present',
+                            is_current: true,
+                            bullets: [
+                                'Architected session-based 4-step resume builder platform supporting 10 recruiter-approved templates.',
+                                'Engineered PostgreSQL database pre-ping pool recycling to maintain zero connection dropouts.',
+                                'Integrated Google Gemini AI API for real-time ATS keyword matching and candidate scoring.'
+                            ]
+                        }
+                    ],
+                    certifications_data: [
+                        {
+                            id: 1,
+                            title: 'Meta Certified Full Stack Engineer',
+                            issuer: 'Meta',
+                            issue_date: '2024',
+                            url: 'https://meta.com/credentials'
+                        }
+                    ],
+                    target_companies: 'Google, Microsoft, Amazon, Swiggy, Razorpay',
+                    additional_certs: 'Published ResuMatch Open Source Platform; Winner of National AI Hackathon 2024.',
+                    selected_template: 'template-corporate',
+                    theme_color: '#4f46e5',
+                    font_family: 'Inter',
+                    updated_at: new Date().toISOString()
+                }
+            ];
             this.persistDrafts();
         }
     },
