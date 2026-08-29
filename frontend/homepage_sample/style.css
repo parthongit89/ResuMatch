@@ -1218,7 +1218,7 @@ button, input, select, textarea {
     padding-left: 42px;
 }
 
-.form-input:focus, .form-textarea:focus, .form-select:focus {
+.form-input:focus, .form-textarea:focus, .form-select:focus, .form-select-custom:focus {
     border-color: var(--border-focus);
     background: var(--bg-input-focus);
     box-shadow: 0 0 0 3px var(--primary-soft);
@@ -1228,6 +1228,43 @@ button, input, select, textarea {
     resize: vertical;
     min-height: 90px;
     line-height: 1.5;
+}
+
+/* Custom Select Dropdowns & Options Styling */
+select, .form-select, .form-select-custom {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    background-color: var(--bg-input) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-strong) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 8px 36px 8px 14px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    outline: none !important;
+    cursor: pointer !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%3Ca0aec0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 14px !important;
+    box-shadow: var(--shadow-sm) !important;
+    transition: all var(--trans-fast) !important;
+}
+
+select:hover, .form-select:hover, .form-select-custom:hover {
+    border-color: var(--primary-light) !important;
+    background-color: var(--bg-surface) !important;
+}
+
+/* Custom Styled Dropdown Options List (<option>) */
+select option, .form-select option, .form-select-custom option {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    padding: 12px 16px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.8 !important;
 }
 
 /* Dynamic Cards List (Education, Experience, Certs) */

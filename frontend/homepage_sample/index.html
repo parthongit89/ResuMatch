@@ -531,9 +531,9 @@
                     <!-- Studio Customizer Toolbar -->
                     <div class="studio-toolbar">
                         <!-- Template Selectors (10 FREE Templates) -->
-                        <div class="template-selector-group" style="display:flex;align-items:center;gap:6px;">
+                        <div class="template-selector-group" style="display:flex;align-items:center;gap:8px;">
                             <label style="font-size:12px;font-weight:700;color:var(--text-secondary);display:flex;align-items:center;gap:4px;"><i class='bx bx-palette'></i> Template:</label>
-                            <select id="liveTemplateSelect" onchange="ResumeRenderer.setTemplate(this.value)" style="background:var(--bg-input);color:var(--text-main);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);padding:5px 12px;font-size:12px;font-weight:600;outline:none;cursor:pointer;">
+                            <select id="liveTemplateSelect" class="form-select-custom" onchange="ResumeRenderer.setTemplate(this.value)">
                                 <option value="template-corporate" selected>1. Executive Corporate (Free)</option>
                                 <option value="template-tech">2. Modern Tech Indigo (Free)</option>
                                 <option value="template-minimal">3. Emerald Minimalist (Free)</option>
@@ -785,7 +785,7 @@
                         <label style="font-size:12.5px;font-weight:700;color:var(--text-secondary);display:flex;align-items:center;gap:6px;margin-bottom:6px;">
                             <i class='bx bx-file'></i> Select Saved Resume to Scan:
                         </label>
-                        <select id="atsSavedResumeSelect" onchange="ATSScanner.loadSavedResumeForScan(this.value)" style="width:100%;background:var(--bg-input);color:var(--text-main);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:9px 12px;font-size:13px;font-weight:600;outline:none;cursor:pointer;">
+                        <select id="atsSavedResumeSelect" class="form-select-custom" onchange="ATSScanner.loadSavedResumeForScan(this.value)" style="width:100%;">
                             <option value="0">Alex Rivera – Senior Full Stack Engineer (Active)</option>
                         </select>
                     </div>
