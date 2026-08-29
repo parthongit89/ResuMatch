@@ -113,11 +113,6 @@ def create_app(config_name=None):
     def serve_logo_assets(filename):
         return send_from_directory(logo_dir, filename)
 
-    # Serve Legacy Draft Dashboard (/home2.html)
-    @app.route('/home2.html')
-    def serve_home2_index():
-        return send_from_directory(frontend_dir, 'home2.html')
-
     # Serve Frontend Static Assets with Fallback to Homepage & Login
     @app.route('/<path:filename>')
     def serve_static_assets(filename):

@@ -42,18 +42,26 @@
                     <i class='bx bx-grid-alt'></i>
                     <span>Dashboard</span>
                 </button>
-                <a href="/builder" class="nav-link" data-view="builder">
+                <button class="nav-link" data-view="builder" onclick="AppNav.switchView('builder')">
                     <i class='bx bx-edit-alt'></i>
                     <span>Resume Builder</span>
-                </a>
-                <a href="/ats" class="nav-link" data-view="scanner">
+                </button>
+                <button class="nav-link" data-view="templates" onclick="AppNav.switchView('templates')">
+                    <i class='bx bx-layout'></i>
+                    <span>Templates</span>
+                </button>
+                <button class="nav-link" data-view="scanner" onclick="AppNav.switchView('scanner')">
                     <i class='bx bx-scan'></i>
                     <span>ATS Scanner</span>
-                </a>
+                </button>
                 <a href="/jobs" class="nav-link" data-view="jobs">
                     <i class='bx bx-briefcase'></i>
                     <span>Job Board</span>
                 </a>
+                <button class="nav-link" data-view="downloads" onclick="AppNav.switchView('downloads')">
+                    <i class='bx bx-download'></i>
+                    <span>My Resumes</span>
+                </button>
                 <a href="/login" class="nav-link" data-view="logout" style="color: var(--missing-red, #ef4444);">
                     <i class='bx bx-log-out'></i>
                     <span>Sign Out</span>
