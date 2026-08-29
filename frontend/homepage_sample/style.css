@@ -206,6 +206,7 @@ button, input, select, textarea {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    white-space: nowrap;
 }
 
 .brand-section {
@@ -213,6 +214,8 @@ button, input, select, textarea {
     align-items: center;
     gap: 14px;
     cursor: pointer;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .brand-logo-icon {
@@ -227,11 +230,14 @@ button, input, select, textarea {
     font-size: 24px;
     box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
     animation: float 4s ease-in-out infinite;
+    flex-shrink: 0;
 }
 
 .brand-meta {
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .brand-title {
@@ -240,6 +246,13 @@ button, input, select, textarea {
     font-weight: 800;
     letter-spacing: -0.5px;
     line-height: 1.1;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.brand-title .gradient-text {
+    display: inline;
+    white-space: nowrap;
 }
 
 .brand-tagline {
@@ -248,6 +261,7 @@ button, input, select, textarea {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.8px;
+    white-space: nowrap;
 }
 
 /* Nav Menu Links */
