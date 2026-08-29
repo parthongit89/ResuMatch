@@ -57,3 +57,61 @@ const JobsModule = {
             });
         });
     },
+
+    // 
+    // UPGRADE HOOK: CONNECT SUPABASE / POSTGRES JOB DATABASE HERE
+    // 
+    async fetchJobsFromBackend() {
+        /*
+        const res = await fetch('/api/jobs');
+        this.jobsList = await res.json();
+        this.renderJobs('all');
+        */
+    },
+
+    renderJobs(cat = 'all') {
+        const grid = document.getElementById('jobsGrid');
+        if (!grid) return;
+
+        const filtered = cat === 'all' ? this.jobsList : this.jobsList.filter(j => j.category === cat);
+
+        grid.innerHTML = filtered.map(job => `
+            <div class="job-card">
+                <div class="card-head">
+                    <div class="logo-badge">${job.logo}</div>
+                    <div>
+                        <div class="title">${job.title}</div>
+                        <div class="company">${job.company}</div>
+                    </div>
+                </div>
+                <div class="loc-salary">${job.location} • <span style="color:var(--match);font-weight:600;">${job.salary}</span></div>
+                <p class="desc">${job.desc}</p>
+                <div class="tags">
+                    ${job.skills.map(s => `<span class="tag">${s}</span>`).join('')}
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary" onclick="JobsModule.openApplyModal('${job.title}', '${job.company}')">Quick Apply</button>
+                    <button class="btn btn-outline" onclick="alert('ATS Check: Matches ${job.skills.slice(0, 2).join(', ')}!')">Check Fit</button>
+                </div>
+            </div>
+        `).join('');
+    },
+
+    openApplyModal(title, company) {
+        document.getElementById('modalJobInfo').textContent = `${title} at ${company}`;
+        document.getElementById('applyModal').style.display = 'flex';
+    },
+
+    closeModal() {
+        document.getElementById('applyModal').style.display = 'none';
+    },
+
+    submitApplication() {
+        alert('🎉 Application submitted with your ATS-optimized resume!');
+        this.closeModal();
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    JobsModule.init();
+});
