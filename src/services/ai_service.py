@@ -2,7 +2,7 @@ import os
 import requests
 
 class AIService:
-    """Service handling AI Text Enhancement for Summaries, Bullet Points, and Technical Skills"""
+    """Service handling AI Text Enhancement & Template Analysis using Google Gemini API & Fallback Engine"""
 
     ACTION_VERBS = [
         "Architected", "Engineered", "Optimized", "Spearheaded", "Accelerated",
@@ -17,24 +17,68 @@ class AIService:
 
         original_text = text.strip()
 
-        # Check if external AI key is configured
+        # 1. Try Google Gemini AI
+        gemini_enhanced = AIService.enhance_via_gemini(original_text, enhance_type, target_role)
+        if gemini_enhanced:
+            return True, "Enhanced using Google Gemini AI Engine", {
+                "original": original_text,
+                "enhanced": gemini_enhanced,
+                "type": enhance_type,
+                "provider": "Gemini AI"
+            }
+
+        # 2. Try OpenAI API if key exists
         openai_key = os.getenv('OPENAI_API_KEY')
         if openai_key:
             enhanced = AIService._enhance_via_openai(original_text, enhance_type, target_role, openai_key)
             if enhanced:
-                return True, "Text enhanced using AI service", {
+                return True, "Enhanced using OpenAI API", {
                     "original": original_text,
                     "enhanced": enhanced,
-                    "type": enhance_type
+                    "type": enhance_type,
+                    "provider": "OpenAI"
                 }
 
-        # Rule-based contextual AI enhancer fallback
+        # 3. Contextual Rule-based Engine Fallback
         enhanced_text = AIService._rule_based_enhancer(original_text, enhance_type, target_role)
-        return True, "Text enhanced successfully using AI optimization engine", {
+        return True, "Enhanced using ResuMatch AI Optimization Engine", {
             "original": original_text,
             "enhanced": enhanced_text,
-            "type": enhance_type
+            "type": enhance_type,
+            "provider": "ResuMatch Engine"
         }
+
+    @staticmethod
+    def enhance_via_gemini(text, enhance_type="summary", target_role=None):
+        """Invokes Google Gemini API to analyze and enhance resume text & templates"""
+        gemini_key = os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY')
+        if not gemini_key:
+            return None
+
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_key}"
+            prompt = (
+                f"You are an expert ATS recruiter and resume strategist. "
+                f"Enhance the following resume {enhance_type} for a targeted role as '{target_role or 'Software Developer'}'. "
+                f"Make it ATS-friendly, professional, impact-driven with strong action verbs, and concise:\n\n{text}"
+            )
+
+            payload = {
+                "contents": [{
+                    "parts": [{"text": prompt}]
+                }]
+            }
+            res = requests.post(url, json=payload, timeout=6)
+            if res.status_code == 200:
+                data = res.json()
+                candidates = data.get('candidates', [])
+                if candidates:
+                    parts = candidates[0].get('content', {}).get('parts', [])
+                    if parts:
+                        return parts[0].get('text', '').strip()
+        except Exception as e:
+            print(f"[Gemini API Error]: {e}")
+        return None
 
     @staticmethod
     def _rule_based_enhancer(text, enhance_type, target_role):
@@ -42,7 +86,6 @@ class AIService:
         role_label = target_role or "Software Engineer"
 
         if enhance_type == "summary":
-            # If text is already high quality, refine structure
             if "Results-driven" in text or "Specializing in" in text:
                 return text
 
@@ -57,7 +100,6 @@ class AIService:
             enhanced_lines = []
             for i, line in enumerate(lines):
                 verb = AIService.ACTION_VERBS[i % len(AIService.ACTION_VERBS)]
-                # If bullet already starts with an action verb, polish it
                 first_word = line.split()[0] if line.split() else ""
                 if first_word.capitalize() in AIService.ACTION_VERBS:
                     enhanced_lines.append(f"{line.rstrip('.')} resulting in a 35% improvement in system efficiency.")
