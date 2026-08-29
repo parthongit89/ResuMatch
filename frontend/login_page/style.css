@@ -258,8 +258,19 @@ form {
 }
 
 form h1 {
-    font-size: 26px;
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 700;
     margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.toggle-panel h1 {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
 }
 
 .social-icons {
@@ -353,10 +364,11 @@ form span {
 }
 
 .auth-submit-btn {
+    font-family: var(--font-heading);
     background: var(--accent-gradient);
     color: #fff;
     font-size: 14px;
-    padding: 12px 35px;
+    padding: 13px 38px;
     border: 1px solid transparent;
     border-radius: var(--radius-pill);
     font-weight: 700;
@@ -364,12 +376,12 @@ form span {
     text-transform: uppercase;
     margin-top: 10px;
     cursor: pointer;
-    transition: var(--transition-fast);
+    transition: all 0.25s ease;
 }
 
 .auth-submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
+    box-shadow: 0 8px 22px rgba(79, 70, 229, 0.45);
 }
 
 .overlay-btn {
