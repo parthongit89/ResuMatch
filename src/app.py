@@ -103,6 +103,12 @@ def create_app(config_name=None):
     def serve_homepage_assets(filename):
         return send_from_directory(homepage_dir, filename)
 
+    # Serve Brand Logo Assets (/assets/logo/<filename>)
+    logo_dir = os.path.join(project_root, 'frontend', 'assets', 'logo')
+    @app.route('/assets/logo/<path:filename>')
+    def serve_logo_assets(filename):
+        return send_from_directory(logo_dir, filename)
+
     # Serve Sample Dashboard (/dashboard, /home2.html)
     @app.route('/dashboard')
     @app.route('/dashboard/')

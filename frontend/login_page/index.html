@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resu_Match</title>
     <meta name="description" content="Interactive sliding authentication page with register and sign-in flows, social login simulation, and theme toggling.">
+    <link rel="icon" type="image/svg+xml" href="/assets/logo/logo-icon.svg">
 
     <!-- Google fonts (Google Sans Flex, Montserrat, Plus Jakarta Sans) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -212,7 +213,7 @@
     <!-- Firebase App & Auth SDK (Modular v10) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDY-7czOIOxsxMfYNsBmQVc_52uCpRKpbo",
@@ -225,12 +226,13 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
+        const googleProvider = new GoogleAuthProvider();
+        const githubProvider = new GithubAuthProvider();
 
         window.firebaseGoogleAuth = async function() {
             try {
                 Toast.show("Connecting to Google Auth...", "info", 2500);
-                const result = await signInWithPopup(auth, provider);
+                const result = await signInWithPopup(auth, googleProvider);
                 const user = result.user;
 
                 Toast.show(`Google Verified: ${user.email}`, "info", 2000);
@@ -261,6 +263,43 @@
             } catch (err) {
                 console.error("Google Auth Error:", err);
                 Toast.show("Google Sign-In cancelled or domain unauthorized", "error", 4000);
+            }
+        };
+
+        window.firebaseGithubAuth = async function() {
+            try {
+                Toast.show("Connecting to GitHub Auth...", "info", 2500);
+                const result = await signInWithPopup(auth, githubProvider);
+                const user = result.user;
+
+                Toast.show(`GitHub Verified: ${user.email || user.displayName}`, "info", 2000);
+
+                const response = await fetch(`${API_BASE_URL}/auth/google-login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: user.email || `${user.providerData[0]?.uid || 'github_user'}@github.user`,
+                        full_name: user.displayName || 'GitHub User',
+                        google_uid: user.uid
+                    })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    if (data.data && data.data.access_token) {
+                        localStorage.setItem('resumatch_token', data.data.access_token);
+                    }
+                    if (typeof AuthDemo.triggerDashboardRedirect === 'function') {
+                        AuthDemo.triggerDashboardRedirect("GitHub Sign-In Verified", `Welcome back, ${user.displayName || 'GitHub User'}! Redirecting to dashboard...`);
+                    } else {
+                        window.location.href = '/dashboard';
+                    }
+                } else {
+                    Toast.show(data.message || "GitHub login failed on backend", "error", 4000);
+                }
+            } catch (err) {
+                console.error("GitHub Auth Error:", err);
+                Toast.show("GitHub Sign-In cancelled or domain unauthorized", "error", 4000);
             }
         };
     </script>

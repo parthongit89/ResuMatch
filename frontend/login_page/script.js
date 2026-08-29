@@ -276,6 +276,8 @@ const AuthDemo = {
     socialAuth(provider) {
         if (provider === 'Google' && typeof window.firebaseGoogleAuth === 'function') {
             window.firebaseGoogleAuth();
+        } else if (provider === 'GitHub' && typeof window.firebaseGithubAuth === 'function') {
+            window.firebaseGithubAuth();
         } else {
             Toast.show(`${provider} OAuth Authentication requested.`, 'info', 2500);
         }
