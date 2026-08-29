@@ -34,6 +34,8 @@ class ResumeDraft(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def to_dict(self):
+        created_iso = self.created_at.isoformat() if self.created_at else datetime.utcnow().isoformat()
+        updated_iso = self.updated_at.isoformat() if self.updated_at else datetime.utcnow().isoformat()
         return {
             "id": self.id,
             "user_id": self.user_id,
@@ -56,5 +58,6 @@ class ResumeDraft(db.Model):
                 "target_companies": self.target_companies
             },
             "selected_template": self.selected_template,
-            "updated_at": self.updated_at.isoformat()
+            "created_at": created_iso,
+            "updated_at": updated_iso
         }

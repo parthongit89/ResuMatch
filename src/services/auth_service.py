@@ -35,7 +35,8 @@ class AuthService:
             full_name=full_name,
             email=email,
             password_hash=password_hash,
-            is_verified=False
+            is_verified=False,
+            created_at=datetime.utcnow()
         )
         try:
             db.session.add(new_user)

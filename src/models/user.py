@@ -17,12 +17,13 @@ class User(db.Model):
     resumes = db.relationship('ResumeDraft', backref='user', lazy=True, cascade="all, delete-orphan")
 
     def to_dict(self):
+        created_iso = self.created_at.isoformat() if self.created_at else datetime.utcnow().isoformat()
         return {
             "id": self.id,
             "full_name": self.full_name,
             "email": self.email,
             "is_verified": self.is_verified,
-            "created_at": self.created_at.isoformat()
+            "created_at": created_iso
         }
 
 class OTPSession(db.Model):
