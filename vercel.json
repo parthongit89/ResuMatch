@@ -1,1 +1,35 @@
-{"version": 2, "rewrites": [{"source": "/", "destination": "/frontend/homepage_sample/index.html"}, {"source": "/dashboard", "destination": "/frontend/homepage_sample/index.html"}, {"source": "/builder", "destination": "/frontend/homepage_sample/index.html"}, {"source": "/ats", "destination": "/frontend/homepage_sample/index.html"}, {"source": "/login", "destination": "/frontend/login_page/index.html"}]}
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/frontend/homepage_sample/index.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/frontend/homepage_sample/index.html"
+    },
+    {
+      "src": "/builder",
+      "dest": "/frontend/homepage_sample/index.html"
+    },
+    {
+      "src": "/ats",
+      "dest": "/frontend/homepage_sample/index.html"
+    },
+    {
+      "src": "/login",
+      "dest": "/frontend/login_page/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
+    }
+  ]
+}
